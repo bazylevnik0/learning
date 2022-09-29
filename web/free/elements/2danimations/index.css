@@ -1,0 +1,110 @@
+body {
+	background-color: white;
+	text-align: center;
+	font-family: 'Gloria Hallelujah', cursive;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 0.8fr 1.4fr 0.8fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "l1 mid r1"
+    "l2 mid r2";
+  width: 60%;
+  height: 80%;
+  position: absolute;
+  left: 20%;
+  top: 10%;
+}
+
+#mid { grid-area: mid; }
+
+#l1 { 
+	grid-area: l1; 
+	text-align: right;
+}
+
+#l1 p {
+  	animation-duration: 3s;
+  	animation-name: animl;
+	position: relative;
+}
+
+@keyframes animl {
+  from {
+    right: 25px;
+  }
+
+  to {
+    right: 0px;
+  }
+}
+
+#l2 { 
+	grid-area: l2; 
+	text-align: center;
+	animation-duration: 3s;
+  	animation-name: animd;
+}
+
+#r1 { 
+	grid-area: r1; 
+	text-align: left;
+}
+#r1 p {
+  	animation-duration: 3s;
+  	animation-name: animr;
+	position: relative;
+}
+
+@keyframes animr {
+  from {
+    left: 25px;
+  }
+
+  to {
+    left: 0px;
+  }
+}
+
+#r2 { 
+	grid-area: r2; 	
+	text-align: center;	
+	animation-duration: 3s;
+  	animation-name: animd;
+}
+
+@keyframes animd {
+  from {
+    margin-top: 100px;
+  }
+
+  to {
+    margin-top: 0px;
+  }
+}
+
+.grid {
+	text-align: center;
+	padding: 0px 20px;
+}
+
+.icon {
+	display: block;
+	width: 150px;
+	height: 150px;
+	margin: 25px auto;
+}
+
+#main {
+	width: 100%
+}	
+
+@media only screen and (max-width:1024px) { 
+	.container {
+		display: block;
+	}
+}

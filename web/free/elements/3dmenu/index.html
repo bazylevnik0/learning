@@ -1,0 +1,186 @@
+<html>
+<head>
+<link rel="stylesheet" href="index.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+
+<script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+<script src="https://cdn.babylonjs.com/loaders/babylon.glTFFileLoader.js"></script>
+
+</head>
+<body>
+<div id="container_pay">
+  <form id="container_pay_form">
+    <label for="name">Name:</label>
+    <input type="text" name="name"></input><br>
+    <label for="surname">Surname:</label>
+    <input type="text" name="surname"></input><br>
+    <label for="card">Card number:</label>
+    <input type="text" name="card"></input><br>
+  </form>
+<button id="btn_pay">PAY</button>
+<div id="code_r" class="code">r</div>
+<div id="code_g" class="code">g</div>
+<div id="code_b" class="code">b</div>
+</div>
+<div id="container_green" class="container"> 
+<div class="product_blur"></div>
+  <div id="container_row_0" class="row">
+    <button class="btn_green red">green</button>
+    <button class="btn_red red">red</button>
+    <button class="btn_sweet red">sweet</button>
+   </div>
+   <h1>green</h1>
+  
+  <div id="container_row_1" class="row">
+    <div id="container_row_1_col_1" class="col green">
+      <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Salad_platter.jpg/1200px-Salad_platter.jpg">
+      <h3>$9.99</h3>
+    </div>
+    <div id="container_row_1_col_2" class="col green">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Salad_platter.jpg/1200px-Salad_platter.jpg">
+      <h3>$9.99</h3>
+    </div>
+    <div id="container_row_1_col_3" class="col green">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Salad_platter.jpg/1200px-Salad_platter.jpg">
+      <h3>$9.99</h3>
+    </div>
+  </div>
+  <div id="container_row_2" class="row">
+    <div id="container_row_2_col_1" class="col green">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Salad_platter.jpg/1200px-Salad_platter.jpg">
+      <h3>$9.99</h3>
+    </div>
+    <div id="container_row_2_col_2" class="col green">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Salad_platter.jpg/1200px-Salad_platter.jpg">
+      <h3>$9.99</h3>
+    </div>
+    <div id="container_row_2_col_3" class="col green">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Salad_platter.jpg/1200px-Salad_platter.jpg">
+      <h3>$9.99</h3>
+    </div>
+  </div>
+<button class="btn_sale">sale</button>
+</div>  
+    
+    
+ <div id="container_red" class="container">
+<div class="product_blur"></div>
+  <div id="container_row_0" class="row">
+    <button class="btn_green green">green</button>
+    <button class="btn_red green">red</button>
+    <button class="btn_sweet green">sweet</button>
+   </div>
+   <h1>red</h1>
+  
+   <div id="container_row_1" class="row">
+    <div id="container_row_1_col_1" class="col red">
+      <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Beef_fillet_steak_with_mushrooms.jpg/1200px-Beef_fillet_steak_with_mushrooms.jpg">
+      <h3>$9.99</h3>
+    </div>
+    <div id="container_row_1_col_2" class="col red">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Beef_fillet_steak_with_mushrooms.jpg/1200px-Beef_fillet_steak_with_mushrooms.jpg">
+      <h3>$9.99</h3>
+    </div>
+    <div id="container_row_1_col_3" class="col red">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Beef_fillet_steak_with_mushrooms.jpg/1200px-Beef_fillet_steak_with_mushrooms.jpg">
+      <h3>$9.99</h3>
+    </div>
+  </div>
+  <div id="container_row_2" class="row">
+    <div id="container_row_2_col_1" class="col red">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Beef_fillet_steak_with_mushrooms.jpg/1200px-Beef_fillet_steak_with_mushrooms.jpg">
+      <h3>$9.99</h3>
+    </div>
+    <div id="container_row_2_col_2" class="col red">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Beef_fillet_steak_with_mushrooms.jpg/1200px-Beef_fillet_steak_with_mushrooms.jpg">
+      <h3>$9.99</h3>
+    </div>
+    <div id="container_row_2_col_3" class="col red">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Beef_fillet_steak_with_mushrooms.jpg/1200px-Beef_fillet_steak_with_mushrooms.jpg">
+      <h3>$9.99</h3>
+    </div>
+  </div>
+<button class="btn_sale">sale</button>
+</div>
+    
+    
+ <div id="container_sweet" class="container">
+<div class="product_blur">.</div>
+   <div id="container_row_0" class="row">
+    <button class="btn_green sweet">green</button>
+    <button class="btn_red sweet">red</button>
+    <button class="btn_sweet sweet">sweet</button>
+   </div>
+   <h1>sweet</h1>
+  
+  <div id="container_row_1" class="row">
+    <div id="container_row_1_col_1" class="col sweet">
+      <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Pound_layer_cake.jpg">
+      <h3>$9.99</h3>
+    </div>
+    <div id="container_row_1_col_2" class="col sweet">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Pound_layer_cake.jpg">
+      <h3>$9.99</h3>
+    </div>
+    <div id="container_row_1_col_3" class="col sweet">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Pound_layer_cake.jpg">
+      <h3>$9.99</h3>
+    </div>
+  </div>
+  <div id="container_row_2" class="row">
+    <div id="container_row_2_col_1" class="col sweet">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Pound_layer_cake.jpg">
+      <h3>$9.99</h3>
+    </div>
+    <div id="container_row_2_col_2" class="col sweet">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Pound_layer_cake.jpg">
+      <h3>$9.99</h3>
+    </div>
+    <div id="container_row_2_col_3" class="col sweet">
+    <h2>name</h2> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Pound_layer_cake.jpg">
+      <h3>$9.99</h3>
+    </div>
+  </div>
+   
+<button class="btn_sale">sale</button>
+</div>
+
+<canvas id="meal"></canvas>
+<div id="water_text">
+  <h2> name</h2>
+  <h3> $9.99</h2>
+</div>
+<canvas id="water"></canvas>
+
+<div id="water_blur"></div>
+
+<p id="modelsby">"BTS Meal" (https://skfb.ly/ooxSO) by Citrus is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</p><br>
+<p id="modelsby">"Water Bottle" (https://skfb.ly/DYOL) by Microsoft is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).</p><br>
+<p>and thanks for Wikipedia for pics</p>
+
+</body>
+<script src="index.js"></script>
+</html>
