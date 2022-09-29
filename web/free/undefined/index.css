@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+body {
+	margin: 0;
+	background-color : gray;
+	overflow : hidden;
+	background-image: url("src/back.gif");
+	font-family: 'VT323', monospace;
+	color: white;
+	font-size: 2rem;
+}
+
+body button {
+	font-family: 'VT323', monospace!important;
+	font-size: 4rem!important;
+	padding: 30px 40px;;
+	color: gray!important;
+}
+
+#canvas {
+	position: fixed;
+	width: 100%!important;
+	height: 100%!important;
+	overflow: hidden;
+	z-index: -1;
+}
+
+#menu {
+	background-color: white;
+}
+
+table{
+	width: 600px;
+	height: 250px;
+	background-color: yellow;
+	margin : auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	
+}
+td{
+	text-align: center;
+}
+img{
+	background-color: white;
+	width: 200px;
+	height: 200px;
+	border-width: 25px;
+	border-style: dotted;
+	border-color: black;
+}
+img:hover{
+	width: 210px;
+	height: 210px;
+}
+
+.screen {
+	z-index : -1;
+	background-color: transparent;
+	position: fixed;
+	width: 100%!important;
+	height: 100%!important;
+	text-align:center;
+
+}
+#menu {
+       z-index : 1;
+}
+
+#menu .box{
+	width: 300px;
+	height: 250px;
+	background-color: yellow;
+	margin : auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding-top: 50px;
+}
+
+#nav {
+	z-index: -1;
+}
+#nav_up {
+	z-index: inherit;
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	text-align: center;
+	color: white;
+	background-color : rgba(255, 255, 255, 0.25);
+}
+
+#nav_down {	
+	z-index: inherit;
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	text-align: center;
+	color: white;
+}
+
+#text{
+	z-index: 0;
+}
+.glitch_a{
+	text-align: left;
+	z-index: inherit;
+}
+.glitch_b{
+	text-align: right;
+	z-index: inherit;
+}
+
+
+#movie img{
+	width: 97%;
+	height: 94%;
+}
+
+#mobile {
+	display : none;
+	z-index : 2;
+	width: 100%;
+	height: 100%;
+}
+
+#mobile button {
+	padding: 50px;
+	position: absolute;
+	z-index: 2;
+}
+#mobile #left{
+	left: 10px;
+	bottom: 10px;
+}
+
+#mobile #right{
+	right: 10px;
+	bottom: 10px;
+}
+
+#secret {
+	widht: 10%;
+	height: 100%!important;
+	position: absolute;
+	right: 0;
+	overflow: hidden;
+	background-color : rgba(0, 0, 0, 0.25);
+}

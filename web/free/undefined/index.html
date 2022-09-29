@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			undefined
+		</title>
+		<link rel="stylesheet" href="index.css">
+	</head>
+	<body>
+		<div id="movie" class="screen"></div>
+		<canvas id="canvas"></canvas>
+		<div id="menu" class="screen">
+			<div class="box">
+				<button id="new">new<br>game</button>
+			</div>
+		</div>
+		<div id="select_car" class="screen">
+			<table>
+				<tr>
+					<td>
+						<img src="src/red.png" class="car" id="red">
+					</td>
+					<td>
+						<img src="src/blue.png" class="car" id="blue">
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="select_map" class="screen">
+			<table>
+				<tr>
+					<td>
+						<img src="src/n.png" class="map" id="nature">
+					</td>
+					<td>
+						<img src="src/ci.png" class="map" id="city">
+					</td>
+					<td>
+						<img src="src/cy.png" class="map" id="cyber">
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="nav">
+			<div id="nav_up">
+				<label>score:</score>
+				<p id="score"></p>
+			</div>	
+			<div id="nav_down">
+				<label>speed:</score>
+				<p id="speed"></p>
+			</div>	
+		</div>
+		<div id="text">
+			<div class="glitch_a" style="position:absolute;display:block;top:5%;left:10%;background-color:red">Sed ut perspiciatis, unde omnis iste natus error sit<br>voluptatem accusantium<br>doloremque laudantium</div>
+			<div class="glitch_a" style="position:absolute;display:block;bottom:10%;left:20%;background-color:green" >totam rem aperiam eaque ipsa, quae ab illo inventore<br>veritatis et quasi<br>architecto beatae</div>
+			<div class="glitch_a" style="position:absolute;display:block;top:15%;right:10%;background-color:yellow">uia voluptas sit, aspernatur aut odit aut fugit, sed quia <br>consequuntur magni dolores eos, qui ratione voluptatem <br>sequi nesciunt, neque porro quisquam est, <br>qui dolorem ipsum, quia dolor sit amet consectetur adipisci[ng] velit, sed quia non numquam <br>[do] eius modi tempora inci[di]dunt, ut labore et dolore magnam <br>aliquam quaerat voluptatem</div>
+			<div class="glitch_a" style="position:absolute;display:block;bottom:5%;right:10%;background-color:blue">Ut enim ad minima veniam, quis nostrum[d] exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? </div>
+			<div class="glitch_b" style="position:absolute;display:block;top:20%;left:20%;background-color:blue">D]Quis autem vel eum iure <br>reprehenderit, qui in ea voluptate<br> velit esse, quam nihil molestiae consequatur,<br> vel illum, qui dolorem eum fugiat, quo voluptas nulla pariatur? [33]<br> At vero eos et accusamus et iusto odio dignissimos ducimus,<br> qui blanditiis praesentium voluptatum </div>
+			<div class="glitch_b" style="position:absolute;display:block;bottom:20%;left:30%;background-color:yellow">eleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa,<br>qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio</div>
+			<div class="glitch_b" style="position:absolute;display:block;top:30%;right:20%;background-color:green">Nam libero tempore, cum soluta nobis est eligendi optio,<br> cumque nihil impedit, quo minus id,<br> quod maxime placeat, facere possimus,<br> omnis voluptas assumenda est,<br> omnis dolor repellendus.</div>
+			<div class="glitch_b" style="position:absolute;display:block;bottom:15%;right:20%;background-color:red">emporibus autem quibusdam et aut officiis debitis <br>aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae.<br> Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores <br>alias consequatur aut perferendis doloribus <br>asperiores <br>repellat.</div>
+		</div>
+		<div id="mobile">
+			<button id="left">L</button>
+			<button id="right">R</button>
+		</div>
+		<div id="secret">
+		</div>
+	</body>
+	<script src="index.js" type="module"></script>
+</html>
