@@ -24,17 +24,18 @@ int main() {
         char *found_redirection = strchr(line, '>');
         char *found_parallel = strchr(line, '&');
         if ( found_redirection || found_parallel ) {
-          printf("%s","special char founded: ");
           if ( found_redirection ) {
             char *name_of_program;
             name_of_program = strtok(line, separator);
             char *temp;
-            temp = strtok(line, separator);
+            temp = strtok(NULL, separator);
             char *name_of_file;
-            name_of_file = strtok(line, separator);
+            name_of_file = strtok(NULL, separator);
 
             char path[100] = "/usr/bin/";
             strcat(path, name_of_program);
+            argv_for_program[0] = name_of_program;
+            argv_for_program[1] = NULL;
             
             int pid = fork();
             if (pid == 0)
@@ -44,52 +45,50 @@ int main() {
               close(fd);  
               int check = execv(path , argv_for_program);
               printf("%d\n",check);
+              wait(0);
             }
-            wait(0);
           }
           if ( found_parallel ) {
-            printf("%s\n","parallel");
             char *name_of_program_1;
             name_of_program_1 = strtok(line, separator);
             char *temp;
-            temp = strtok(line, separator);
+            temp = strtok(NULL, separator);
             char *name_of_program_2;
-            name_of_program_2 = strtok(line, separator);
-
-
-
-
-
-
+            name_of_program_2 = strtok(NULL, separator);
 
             char path_1[100] = "/usr/bin/";
             strcat(path_1, name_of_program_1);
             char path_2[100] = "/usr/bin/";
             strcat(path_2, name_of_program_2);
             
+            argv_for_program[0] = name_of_program_1;
+            argv_for_program[1] = NULL;
             int pid_1 = fork();
-            int pid_2 = fork();
-            
             if (pid_1 == 0)
             {     
               int check = execv(path_1 , argv_for_program);
               printf("%d\n",check);
             }
+            argv_for_program[0] = name_of_program_2;
+            argv_for_program[1] = NULL;
+            int pid_2 = fork();
+            if (pid_2 == 0)
+            {     
+              int check = execv(path_2 , argv_for_program);
+              printf("%d\n",check);
+            }
+            wait(0);
             wait(0);
           }
-
-
-
-
         } else {
           char *name_of_program;
           name_of_program = strtok(line, separator);
           
           char *arg;
+            argv_for_program[1] = arg;
           size_t arg_size = 20;
           if (strcmp(name_of_program, "cd") == 0) {
             arg = strtok(NULL, separator);
-            argv_for_program[1] = arg;
             chdir(argv_for_program[1]);
           } else {
             argv_for_program[0] = name_of_program;
