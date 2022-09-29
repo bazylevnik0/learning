@@ -1,0 +1,13 @@
+I heard something about Web 3.0 but Wikipedia not have current answer for this termin.
+Maybe in this project it will be good thinking about it...
+
+For me next web is understanding web like a life organism like a system of person, app and sites - live.
+And maybe something about storing generating content for make unique session, maybe decentralisation
+
+- app - like a human, have bag, passport, phone, he/she can work, travel
+- maybe app is frontend
+
+//////////////////////////////////////////////////////////////////////
+
+- blocks like a server, storage
+- blockchain is a growing list of records(blocks), timestamps

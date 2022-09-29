@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <title>
+    </title>
+    <style>
+      div,h1,h2,p,input{
+        display : block;
+        color: gray;
+        margin: 2.5px;
+      }
+      canvas {
+        width: 200px;
+        height: 200px;
+        border: 2px solid black;
+      }
+      input {
+        margin: 5px;
+        color: #FF5959;
+      }
+      a {
+        color: green;
+      }
+      #id-p {
+        color: #FF5959;
+      }
+      #form-secret-input {
+        width: 3rem;
+        margin: auto;
+      }
+      #form-message-input{
+        color: #FF5959;
+      }
+ 
+      body {
+        /* background from https://bgjar.com/wave */
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1016%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(205%2c 222%2c 255%2c 1)'%3e%3c/rect%3e%3cpath d='M 0%2c452 C 96%2c403.2 288%2c241.6 480%2c208 C 672%2c174.4 768%2c298.4 960%2c284 C 1152%2c269.6 1344%2c165.6 1440%2c136L1440 560L0 560z' fill='rgba(103%2c 111%2c 163%2c 1)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1016'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+      }
+
+      #person-head ,#person-body {
+        background-color: #EEF2FF;
+        text-align: center;
+      }
+      #person-head{
+        width: 200px;
+        margin: auto;
+      }
+      #person-body{
+        color: #FF5959;
+        width: 95%;
+        margin: auto;
+      }
+      #page {
+        color: #FF5959;
+      }
+    </style>
+  </head>
+  <body>
+<div id="person-head">
+<h2>head</h2>
+<label>my id:</label>
+<p id="id-p"><%= id %></p>
+<form id="form">
+<h4>Connect to:</h4>
+<input id="form-adress-input" for="form" placeholder="ID"></input>
+<h4>Message:</h4>
+<input id="form-secret-input" for="form" placeholder="secret"></input>
+<textarea id="form-message-input" for="form"placeholder="text" rows="5"></textarea>
+<a href="" id="form-a" for="form" >Send</a>
+</form>
+</div>
+<div id="person-body">
+<h2>body</h3>
+<p id="page"><%= body %></p>
+</div>
+</body>
+<script>
+  let form_adress_input  = document.getElementById("form-adress-input");
+  let form_secret_input  = document.getElementById("form-secret-input");
+  let form_message_input = document.getElementById("form-message-input");
+  let form_a        = document.getElementById("form-a");  
+
+  form_adress_input.addEventListener( "change" , function (event) {   
+    form_a.href = "https://"+form_adress_input.value + "/msg/" + form_secret_input.value + form_message_input.value;
+  })
+  form_secret_input.addEventListener( "change" , function (event) {   
+    form_a.href = "https://"+form_adress_input.value + "/msg/" + form_secret_input.value + form_message_input.value;
+  })
+  form_message_input.addEventListener( "change" , function (event) {
+    form_a.href = "https://"+form_adress_input.value + "/msg/" + form_secret_input.value + form_message_input.value;
+  })
+</script>
+</html>

@@ -1,0 +1,17 @@
+Maybe: github + codesandbox + express
+<hr>
+Person(app) have information(history) and ID (storage in session)<br>
+Can travel: get other id and try connect (send get request)<br>
+If access they can open work channel and do something(fo example change both words)
+<hr>
+For make new human you must fork app sandbox and generate id <br>
+Person may have secret word - it is user input in app <br>
+App must show graphic view of action (simple) <br>
+When meet ither person we must see two words<br>
+<hr>
+We have "golden" person it is main app for cloninng<br>
+Fork -> Change(Customize) -> Travel -> Interact<br><br>
+
+Entry page: https://bazylevnik0.github.io/see-you-later-hackulator/ <br>
+Description & Instruction <br>
+Golden app: temp(https://codesandbox.io/s/golden-person-sj3ov) <br>
