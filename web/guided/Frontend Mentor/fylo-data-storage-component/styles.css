@@ -1,0 +1,355 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+@media only screen and (max-width:1075px)
+{
+  body
+  {
+    background: url(images/bg-mobile.png);
+    background-color: hsl(229, 57%, 11%);
+    background-repeat: no-repeat;
+    background-size: 150% 250%;
+    font-family: 'Raleway', sans-serif;
+    color: hsl(243, 100%, 93%);
+  }
+
+  .container
+  {
+    margin-top: 100px;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  .left
+  {
+    margin: auto;
+    border-radius: 10px;
+    border-top-right-radius: 100px;
+    padding: 35px;
+    background-color: hsl(228, 56%, 26%);
+    width: 190px;
+    height: 130px;
+  }
+
+  .right
+  {
+    margin: auto;
+    margin-top: 15px;
+    width: 190px;
+    height: 80px;
+    border-radius: 10px;
+    padding: 35px;
+    background-color: hsl(228, 56%, 26%);
+  }
+
+  .right_
+  {
+    margin: auto;
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+    width: 175px;
+    height: 60px;
+    position: relative;
+    top: 35px;
+  }
+
+  .icons-div
+  {
+    background-color: hsl(229, 57%, 11%);
+    padding: 11px;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    display: inline-block;
+    border-radius: 10px;
+  }
+
+  #icons-document-div
+  {
+    position: relative;
+    top: 4px;
+  }
+
+  #icons-upload-div
+  {
+    position: relative;
+    bottom: 4px;
+  }
+
+  #icons-folder-img
+  {
+    position: relative;
+    top: 3.5px;
+    right: 0.5px;
+  }
+
+  #icons-upload-img
+  {
+    position: relative;
+    top: 7px;
+    right: 0.5px;
+  }
+
+  .progressbar {
+    width: 100%;
+    margin:auto;
+  	height: 12px;
+  	position: relative;
+  	background-color: hsl(229, 57%, 11%);
+  	padding: 3px;
+    border-radius: 15px;
+  }
+
+  .progressbar .bar {
+    width: 75%;
+    border-radius: 15px;
+    display: block;
+    height: 100%;
+    background: linear-gradient(to left, hsl(335, 100%, 65%) ,hsl(6, 100%, 80%));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .circle
+  {
+    position: relative;
+    left: 69%;
+    bottom: 11px;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 100%;
+    color: white;
+  }
+
+  p
+  {
+    margin: 0;
+    font-size: 0.7em;
+  }
+
+  #start-p
+  {
+    font-size: 0.75em;
+    font-weight: 700;
+  }
+
+  #finish-p
+  {
+    font-size: 0.75em;
+    font-weight: 700;
+    position: relative;
+    left: 75%;
+    bottom: 13px;
+  }
+
+  .bold
+  {
+    font-weight: 700;
+  }
+
+  .right_-h
+  {
+    position: relative;
+    left: 17px;
+    display: inline;
+    font-size: 2.5em;
+    top: 5px;
+  }
+
+  .right_-p
+  {
+    bottom: 2px;
+    position: relative;
+    left: 27px;
+    display: inline;
+    font-size: 0.8em;
+    font-weight: 700;
+  }
+
+}
+
+@media only screen and (min-width:1075px)
+{
+  body
+  {
+    background: url(images/bg-desktop.png);
+    background-repeat: no-repeat;
+    background-size: 110% 57%;
+    background-position: 0% 120%;
+    background-color: hsl(229, 57%, 11%);
+    font-family: 'Raleway', sans-serif;
+    color: hsl(243, 100%, 93%);
+  }
+  .box
+  {
+    display: inline-block;
+  }
+
+  .container
+  {
+    width: 1075px;
+    height: 200px;
+    position: relative;
+    margin: 400px auto;
+  }
+
+  .left
+  {
+    border-radius: 10px;
+    border-top-right-radius: 100px;
+    padding: 35px;
+    background-color: hsl(228, 56%, 26%);
+    width: 305px;
+    height: 130px;
+  }
+
+  .right
+  {
+    margin-left: 25px;
+    width: 480px;
+    height: 80px;
+    vertical-align: bottom;
+    border-radius: 10px;
+    padding: 35px;
+    background-color: hsl(228, 56%, 26%);
+  }
+
+  .right_
+  {
+    position: absolute;
+    top: 0px;
+    left: 745px;
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+    width: 175px;
+    height: 75px;
+  }
+
+ /*-----------------------------------------------------*/
+
+ .icons-div
+ {
+   background-color: hsl(229, 57%, 11%);
+   padding: 11px;
+   width: 25px;
+   height: 25px;
+   margin: 5px;
+   display: inline-block;
+   border-radius: 10px;
+ }
+
+ #icons-document-div
+ {
+   position: relative;
+   top: 4px;
+ }
+
+ #icons-upload-div
+ {
+   position: relative;
+   bottom: 4px;
+ }
+
+ #icons-folder-img
+ {
+   position: relative;
+   top: 3.5px;
+   right: 0.5px;
+ }
+
+ #icons-upload-img
+ {
+   position: relative;
+   top: 7px;
+   right: 0.5px;
+ }
+
+ .progressbar {
+   width: 100%;
+   margin:auto;
+ 	height: 12px;
+ 	position: relative;
+ 	background-color: hsl(229, 57%, 11%);
+ 	padding: 3px;
+   border-radius: 15px;
+ }
+
+ .progressbar .bar {
+   width: 75%;
+   border-radius: 15px;
+   display: block;
+   height: 100%;
+   background: linear-gradient(to left, hsl(335, 100%, 65%) ,hsl(6, 100%, 80%));
+   position: relative;
+   overflow: hidden;
+ }
+
+ .circle
+ {
+   position: relative;
+   left: 72%;
+   bottom: 11px;
+   width: 10px;
+   height: 10px;
+   background-color: white;
+   border-radius: 100%;
+   color: white;
+ }
+
+ p
+ {
+   margin: 0;
+   font-size: 0.9em;
+ }
+
+ #start-p
+ {
+   font-size: 0.75em;
+   font-weight: 700;
+ }
+
+ #finish-p
+ {
+   font-size: 0.75em;
+   font-weight: 700;
+   position: relative;
+   left: 90%;
+   bottom: 13px;
+ }
+
+ .bold
+ {
+   font-weight: 700;
+ }
+
+ .right_-h
+ {
+   position: relative;
+   top: 12px;
+   left: 17px;
+   display: inline;
+   font-size: 2.5em;
+ }
+
+ .right_-p
+ {
+   position: relative;
+   top: 7px;
+   left: 27px;
+   display: inline;
+   font-size: 0.8em;
+   font-weight: 700;
+ }
+
+ #triangle-topright {
+ 	width: 0;
+ 	height: 0;
+ 	border-top: 45px solid white;
+ 	border-left: 45px solid transparent;
+   position: relative;
+   left: 130px;
+   top: 7px;
+ }
+
+}

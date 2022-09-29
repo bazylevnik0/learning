@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap');
+
+@media only screen and (max-width:720px)
+{
+  .grid-container
+  {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    width: 325px;
+    height: 750px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+                        "top"
+                        "left"
+                        "right";
+  }
+
+  .top
+  {
+    padding-top: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    grid-area: top;
+    height: 250px;
+  }
+
+  .left
+  {
+    padding-top: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    grid-area: left;
+  }
+
+  .right
+  {
+    padding-top: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    grid-area: right;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+  }
+
+  h3
+  {
+    margin-top: 0px;
+  }
+
+  .btn
+  {
+    margin-top: 25px;
+    padding: 15px 115px 15px 115px;
+  }
+}
+
+@media only screen and (min-width:720px)
+{
+  .grid-container
+  {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    height: 500px;
+    width: 650px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+                        "top top"
+                        "left right";
+  }
+
+  .top
+  {
+    margin-top: 35px;
+    padding-top: 25px;
+    padding-left: 40px;
+    padding-right: 40px;
+    height: 190px;
+    grid-area: top;
+  }
+
+  .left
+  {
+    padding-top: 25px;
+    padding-left: 40px;
+    padding-right: 40px;
+    grid-area: left;
+    border-bottom-left-radius: 7px;
+  }
+
+  .right
+  {
+    padding-top: 25px;
+    padding-left: 40px;
+    padding-right: 40px;
+    grid-area: right;
+    border-bottom-right-radius: 7px;
+  }
+
+  .btn
+  {
+    padding: 15px 97.5px 15px 97.5px;
+  }
+}
+
+body
+{
+  font-family: 'Karla', sans-serif;
+  background-color: hsl(204, 43%, 93%);
+}
+
+h1
+{
+  font-weight: 700;
+  font-size: 24px;
+  color: hsl(179, 62%, 53%);
+}
+
+h2
+{
+  font-weight: 700;
+  font-size: 18px;
+  color: hsl(71, 73%, 54%);
+}
+h3
+{
+  font-weight: 700;
+  font-size: 18px;
+  color: white;
+}
+.grid-container
+{
+  border-radius: 7px;
+  box-shadow: 0 25px 20px rgba(0,0,0,0.1);
+}
+
+.top
+{
+  grid-area: top;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  background-color: white;
+}
+
+.left
+{
+  grid-area: left;
+  background-color: hsl(179, 62%, 43%);
+}
+
+.right
+{
+  grid-area: right;
+  background-color: hsl(179, 62%, 53%);
+}
+
+.top-p
+{
+  line-height: 1.5;
+  color: grey;
+  font-size: 15px;
+}
+.price-left
+{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: white;
+  font-weight: 700;
+  font-size: 32px;
+  display: inline-block;
+}
+
+.price-right
+{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 18px;
+  font-weight: 400;
+  color: hsl(179, 62%, 63%);
+  display: inline-block;
+  position: relative;
+  bottom: 5px;
+  left: 5px;
+}
+
+.price-bottom
+{
+  margin-top: 5px;
+  margin-bottom: 0px;
+  font-weight: 400;
+  font-size: 16px;
+  color: white;
+}
+.right-bottom-p
+{
+  font-weight: 400;
+  color: white;
+  font-size: 13px;
+  line-height: 0.5;
+}
+.btn {
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  background: hsl(71, 73%, 54%);
+  text-decoration: none;
+  position: relative;
+  top: 35px;
+  box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+}
+
+.btn:hover {
+  background: hsl(71, 73%, 34%);
+  text-decoration: none;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>Frontend Mentor | Fylo data storage component</title>
+
+</head>
+<body>
+
+  <div class="container">
+    <div class="box left">
+      <img src="images/logo.svg" alt="logo"><br><br>
+      <div class="icons-cont">
+        <div class="icons-div" id="icons-document-div">
+          <img src="images/icon-document.svg" alt="icon-document" class="icons-img" id="icons-document-img">
+        </div>
+        <div class="icons-div" id="icons-folder-div">
+          <img src="images/icon-folder.svg" alt="icon-folder" class="icons-img" id="icons-folder-img">
+        </div>
+        <div class="icons-div" id="icons-upload-div">
+          <img src="images/icon-upload.svg" alt="icon-upload" class="icons-img" id="icons-upload-img">
+        </div>
+      </div>
+    </div>
+    <div class="box right">
+      <p>You’ve used <span class="bold">815 GB</span> of your storage</p><br>
+      <div class="progressbar">
+        <span class="bar"></span>
+        <div class="circle"></span>
+      </div>
+      <p id="start-p">0 GB</p>
+      <p id="finish-p">1000 GB</p>
+    </div>
+    <div class="box right_">
+      <h1 class="right_-h">185</h1>
+      <p class="right_-p">GB LEFT</p>
+      <div id="triangle-topright"></div>
+    </div>
+  </div>
+
+</body>
+</html>

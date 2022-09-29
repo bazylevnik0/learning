@@ -1,0 +1,842 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+@media only screen and (max-width:769px)
+{
+  body img
+  {
+    width: 320px;
+  }
+
+  body
+  {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    text-align: center;
+  }
+
+  .logo
+  {
+    width: 80px;
+    float: left;
+    position: relative;
+    left: 25px;
+    top: 25px;
+  }
+
+  .nav
+  {
+    float: right;
+    position: relative;
+    top: 21px;
+  }
+
+  .nav a
+  {
+    margin-right: 22.5px;
+    color: black;
+    text-decoration: none;
+    font-size: 0.75rem;
+  }
+
+  /*-----------------------------body-1-----------------------------------------*/
+  .body-1
+  {
+    padding-top: 140px;
+    padding-bottom: 145px;
+    background-color: white;
+    background-image: url(images/bg-curve-mobile.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: bottom;
+  }
+
+  .body-1 img
+  {
+    width: 310px;
+  }
+
+  .body-1 h1
+  {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    width: 310px;
+    margin-top: 35px;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .body-1 p
+  {
+    font-size: 0.85rem;
+    width: 310px;
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .body-1-grid-2-input
+  {
+    display: block;
+    margin: 30px auto;
+    padding: 10px 55px;
+    font-size: 16px;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    background-color: #FFFFFF;
+    color: #000000;
+    border-style: solid;
+    border-radius: 2.5px;
+  }
+
+  .body-1-grid-2-input:focus
+  {
+    outline:none;
+  }
+
+  .body-1-grid-2-button
+  {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 14px;
+    background: #3498db;
+    margin-top: 12px;
+    padding: 14px 118px 14px 118px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  .body-1-grid-2-button:hover
+  {
+    background: #3cb0fd;
+    text-decoration: none;
+  }
+
+/*-----------------------------body-2-----------------------------------------*/
+.body-2
+{
+  background-color: hsl(240, 75%, 98%);
+  padding-bottom: 90px;
+}
+
+.body-2-grid-1 img
+{
+  margin-top: 37.5px;
+}
+
+.body-2-grid-2 h1
+{
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  width: 320px;
+  margin-top: 95px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.body-2-grid-2 p
+{
+  text-align: left;
+  width: 310px;
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.body-2-grid-2-p-1
+{
+  font-size: 0.85rem;
+}
+
+.body-2-grid-2-p-2
+{
+  position: relative;
+  bottom: 12.5px;
+  font-size: 0.85rem;
+}
+
+.body-2-grid-2 a
+{
+  color: hsl(170, 45%, 43%);
+  font-size: 0.8rem;
+  position: relative;
+  top: 10px;
+}
+
+.body-2-grid-2-div
+{
+  width: 290px;
+  height: 165px;
+  background-color: white;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+}
+
+#icon-quotes
+{
+  margin: 0;
+  width: 11px;
+  position: relative;
+  right: 105px;
+  top: 15px;
+}
+#avatar-testimonials
+{
+  float: left;
+  width: 25px;
+  border-radius: 100%;
+  margin-top: 17.5px;
+  margin-left: 30px;
+}
+
+.body-2-grid-2-div p
+{
+  margin: 20px 0 0 30px;
+  width: 240px;
+}
+
+.body-2-grid-2-div-p-1
+{
+  font-size: 0.7rem;
+}
+
+.body-2-grid-2-div-p-2
+{
+  font-weight: 700;
+  font-size: 0.6rem;
+  position: relative;
+  left: 10px;
+  bottom: 5px;
+}
+
+.body-2-grid-2-div-p-3
+{
+  font-size: 0.4rem;
+  position: relative;
+  left: 35px;
+  bottom: 25px;
+}
+
+/*-----------------------body-3-----------------------------------------------*/
+.body-3
+{
+  color: white;
+  background-color: hsl(238, 22%, 44%);
+  padding-top: 50px;
+  padding-bottom: 102.5px;
+}
+
+.body-3 h1
+{
+  margin: 0;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.1rem;
+}
+
+.body-3 p
+{
+  margin-top: 22.5px;
+  line-height: 1.5;
+  font-size: 0.9rem;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.body-3-grid-2-input
+{
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 10px;
+  display: block;
+  padding: 6px 20px;
+  font-size: 16px;
+  border-width: 1px;
+  border-color: #CCCCCC;
+  background-color: #FFFFFF;
+  color: #000000;
+  border-style: solid;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px rgba(66,66,66,.100);
+  text-shadow: -50px 0px 0px rgba(66,66,66,.100);
+}
+
+.body-3-grid-2-input:focus
+{
+  outline:none;
+}
+
+.body-3-grid-2-button
+{
+  position: relative;
+  top: 20px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 10px;
+  background: #3498db;
+  padding: 11px 74px 11px 74px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.body-3-grid-2-button:hover
+{
+  background: #3cb0fd;
+  text-decoration: none;
+}
+
+/*---------------------foot---------------------------------------------------*/
+.foot
+{
+  background-color: hsl(243, 87%, 12%);
+  color: white;
+  padding-bottom: 50px;
+}
+
+.foot img
+{
+  margin-top: 60px;
+  width: 175px;
+  position: relative;
+  right: 55px;
+}
+
+.foot a
+{
+  display: block;
+  color: white;
+  text-decoration: none;
+}
+
+.fa-phone
+{
+  position: relative;
+  right: 135px;
+  top: 32.5px;
+}
+
+.foot-div-1-p-phone
+{
+  position: relative;
+  right: 20px;
+}
+
+.fa-envelope
+{
+  position: relative;
+  right: 135px;
+}
+
+.foot-div-1-p-mail
+{
+  position: relative;
+  right: 40px;
+  bottom: 40px;
+}
+
+.foot-div-2
+{
+  line-height: 2.5;
+}
+
+#foot-div-2-a-about
+{
+  position: relative;
+  right: 115px;
+}
+
+
+#foot-div-2-a-jobs
+{
+  position: relative;
+  right: 130px;
+}
+#foot-div-2-a-press
+{
+  position: relative;
+  right: 127.5px;
+}
+
+#foot-div-2-a-blog
+{
+  position: relative;
+  right: 130px;
+}
+
+.foot-div-3
+{
+  line-height: 2.5;
+  margin-top: 25px;
+}
+
+#foot-div-2-a-contact
+{
+  position: relative;
+  right: 105px;
+}
+
+#foot-div-2-a-terms
+{
+  position: relative;
+  right: 120px;
+}
+
+#foot-div-2-a-privacy
+{
+  position: relative;
+  right: 116px;
+}
+
+.foot-div-4
+{
+  margin-top: 35px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.foot-div-4-icons
+{
+  width: 25px;
+  height: 25px;
+  border: 1.5px solid white;
+  border-radius: 100%;
+  margin-right: 15px;
+  display: inline-block;
+}
+
+.foot-div-4-icons i
+{
+  position: relative;
+}
+
+
+}
+
+@media only screen and (min-width:769px)
+{
+  body
+  {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+  }
+
+  .logo
+  {
+    position: absolute;
+    left: 5.5%;
+    top: 7.5%;
+  }
+
+  .nav
+  {
+    position: absolute;
+    right: 0px;
+    top: 9%;
+  }
+
+  .nav a
+  {
+    margin-right: 65px;
+    color: black;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+
+  /*-----------------------------body-1-----------------------------------------*/
+  .body-1
+  {
+    margin-top: 15%;
+    padding-bottom: 17.5%;
+    background-color: white;
+    background-image: url(images/bg-curve-desktop.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: bottom;
+  }
+
+  .body-1-grid
+  {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "body-1-grid-2 body-1-grid-1";
+  }
+
+  .body-1-grid-1
+  {
+    grid-area: body-1-grid-1;
+  }
+
+  .body-1-grid-1 img
+  {
+    width: 100%;
+    position: relative;
+    right: 90px;
+  }
+
+  .body-1-grid-2
+  {
+    grid-area: body-1-grid-2;
+    padding: 5.25% 10%;
+  }
+
+  .body-1-grid-2 h1
+  {
+    font-family: 'Raleway', sans-serif;
+    font-size: 2.5rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  .body-1-grid-2 p
+  {
+    margin-top: 2.25%;
+    font-size: 1.1rem;
+  }
+
+  .body-1-grid-2-input
+  {
+    padding: 14px 55px;
+    font-size: 16px;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    background-color: #FFFFFF;
+    color: #000000;
+    border-style: solid;
+    border-radius: 2.5px;
+  }
+
+  .body-1-grid-2-input:focus
+  {
+    outline:none;
+  }
+
+  .body-1-grid-2-button
+  {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 12px;
+    background: #3498db;
+    padding: 15px 64px 15px 64px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-left: 3%;
+  }
+
+  .body-1-grid-2-button:hover
+  {
+    background: #3cb0fd;
+    text-decoration: none;
+  }
+
+  /*------------------------------body-2----------------------------------------*/
+  .body-2
+  {
+    background-color: hsl(240, 75%, 98%);
+  }
+
+
+  .body-2-grid
+  {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+                        "body-2-grid-2 body-2-grid-1";
+  }
+
+  .body-2-grid-1
+  {
+    grid-area: body-2-grid-1;
+  }
+
+  .body-2-grid-1 img
+  {
+    width: 90%;
+    position: relative;
+    right: 6.5%;
+    top: 14.5%;
+  }
+
+  .body-2-grid-2
+  {
+    grid-area: body-2-grid-2;
+    margin: 4.75% 10%;
+  }
+
+  .body-2-grid-2 h1
+  {
+    font-family: 'Raleway', sans-serif;
+    font-size: 2.5rem;
+  }
+
+  .body-2-grid-2 p
+  {
+    padding-top: 1%;
+    width: 75%;
+  }
+
+  .body-2-grid-2-div
+  {
+    margin-top: 6%;
+    margin-bottom: 10%;
+    width: 300px;
+    height: 175px;
+    background-color: white;
+    padding: 0px 25px 40px 25px;
+    border-radius: 5px;
+  }
+  #icon-quotes
+  {
+    margin-top: 35px;
+  }
+  #avatar-testimonials
+  {
+    width: 10%;
+    border-radius: 100%;
+    float: left;
+  }
+
+  .body-2-grid-2-div p
+  {
+    width: 100%;
+  }
+
+  .body-2-grid-2-div-p-1
+  {
+    margin: 0 0 10px 0;
+    line-height: 1.9;
+    font-size: 0.8rem;
+  }
+
+  .body-2-grid-2-div-p-2
+  {
+    margin: 0;
+    font-weight: 700;
+    font-size: 0.7rem;
+    position: relative;
+    left: 15px;
+  }
+
+  .body-2-grid-2-div-p-3
+  {
+    margin: 0;
+    font-weight: 400;
+    font-size: 0.5rem;
+    position: relative;
+    left: 15px;
+  }
+  /*------------------------------body-3----------------------------------------*/
+  .body-3
+  {
+    color: white;
+    background-color: hsl(238, 22%, 44%);
+    padding-bottom: 5%;
+  }
+
+  .body-3-grid
+  {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "body-3-grid-1 body-3-grid-2";
+  }
+
+  .body-3-grid-1
+  {
+    margin: 12% 0 0 12%;
+    grid-area: body-3-grid-1;
+  }
+
+  .body-3-grid-1 h1
+  {
+    font-family: 'Raleway', sans-serif;
+    font-size: 2rem;
+  }
+
+  .body-3-grid-1 p
+  {
+    margin-top: 3%;
+    width: 80%;
+  }
+
+  .body-3-grid-2
+  {
+    margin: 16% 0 0 16%;
+    grid-area: body-3-grid-2;
+  }
+
+  .body-3-grid-2-input
+  {
+    display: block;
+    padding: 14px 137.5px;
+    font-size: 16px;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    background-color: #FFFFFF;
+    color: #000000;
+    border-style: solid;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px rgba(66,66,66,.100);
+    text-shadow: -50px 0px 0px rgba(66,66,66,.100);
+  }
+
+  .body-3-grid-2-input:focus
+  {
+    outline:none;
+  }
+
+  .body-3-grid-2-button
+  {
+    position: relative;
+    top: 29.5px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 14px;
+    background: #3498db;
+    padding: 14px 32px 14px 32px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  .body-3-grid-2-button:hover
+  {
+    background: #3cb0fd;
+    text-decoration: none;
+  }
+
+  /*--------------------------foot----------------------------------------------*/
+  .foot
+  {
+    background-color: hsl(243, 87%, 12%);
+    color: white;
+    padding: 8% 0 0 5.5%;
+
+  }
+
+  .foot img
+  {
+    display: block;
+  }
+
+  .foot a
+  {
+    display: block;
+    color: white;
+    text-decoration: none;
+  }
+
+  .foot-div-1
+  {
+    display: inline-block;
+    width: 24%;
+    margin-top: 1%;
+  }
+
+  .fa-phone
+  {
+    position: relative;
+    top: 12px;
+  }
+
+  .fa-envelope
+  {
+    position: relative;
+    bottom: 20px;
+  }
+
+  .foot-div-1-p-phone
+  {
+    position: relative;
+    left: 40px;
+    bottom: 25px;
+  }
+
+  .foot-div-1-p-mail
+  {
+    position: relative;
+    left: 40px;
+    bottom: 60px;
+  }
+
+
+  .foot-div-2
+  {
+    vertical-align: top;
+    display: inline-block;
+    width: 24%;
+    position: relative;
+    left: 8.25%;
+    margin-top: 1.4%;
+    line-height: 2.25;
+  }
+
+  .foot-div-3
+  {
+    vertical-align: top;
+    display: inline-block;
+    width: 24%;
+    position: relative;
+    left: 4%;
+    margin-top: 1.4%;
+    line-height: 2.25;
+  }
+
+  .foot-div-4
+  {
+    vertical-align: top;
+    display: inline-block;
+    width: 24%;
+    margin-top: 2.25%;
+  }
+
+  .foot-div-4-icons
+  {
+    width: 25px;
+    height: 25px;
+    border: 1.5px solid white;
+    border-radius: 100%;
+    margin-right: 15px;
+    display: inline-block;
+  }
+
+  .foot-div-4-icons i
+  {
+    position: relative;
+    left: 6px;
+  }
+
+}
+
+@media only screen and (min-width:769px )
+ {
+   .body-1-grid-2-input
+   {
+     display: block;
+     margin-bottom: 25px;
+   }
+}
+
+@media only screen and (min-width:1300px )
+ {
+
+     .body-1-grid-2-input
+     {
+       display: inline;
+      margin-bottom: 0px;
+     }
+}

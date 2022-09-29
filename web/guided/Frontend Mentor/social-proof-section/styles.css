@@ -1,0 +1,344 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@400;500;700&display=swap');
+@media only screen and (max-width:720px) {
+  body
+  {
+    font-family: 'Spartan', sans-serif;
+    text-align: center;
+    background-image: url(images/bg-pattern-top-mobile.svg), url(images/bg-pattern-bottom-mobile.svg);
+    background-position: 0% 0% ,0% 100%;
+    background-size: 100% , 100%;
+    background-repeat: no-repeat, no-repeat;
+  }
+
+  p
+  {
+    line-height: 2;
+  }
+
+  .container
+  {
+    width: 90%;
+    margin: 25px auto;
+  }
+
+  .grid-container {
+  width: 90%;
+  margin: 25px 5% 25px 5%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "top-left"
+    "top-right"
+    "bottom-one"
+    "bottom-two"
+    "bottom-three";
+  }
+
+  .top-left
+  {
+    grid-area: top-left;
+  }
+
+  .top-right
+  {
+    grid-area: top-left;
+  }
+
+  .bottom-one
+  {
+    margin-top: 15%;
+    grid-area: bottom-one;
+  }
+
+  .bottom-two
+  {
+    margin-top: 7.5%;
+    grid-area: bottom-two;
+  }
+
+  .bottom-three
+  {
+    grid-area: bottom-three;
+  }
+
+  .card1
+  {
+    background-color: hsl(300, 43%, 22%);
+    background-image: url(images/bg-pattern-card.svg);
+    width: 85%;
+    padding: 7.5%;
+    border-radius: 7px;
+  }
+
+  .card2
+  {
+    background-color: hsl(300, 43%, 22%);
+    background-image: url(images/bg-pattern-card.svg);
+    width: 85%;
+    padding: 7.5%;
+    border-radius: 7px;
+  }
+
+  .card3
+  {
+    background-color: hsl(300, 43%, 22%);
+    background-image: url(images/bg-pattern-card.svg);
+    width: 85%;
+    padding: 7.5%;
+    border-radius: 7px;
+  }
+
+  .slash1
+  {
+    background-color: hsl(300, 24%, 96%);
+    width: 100%;
+    height: 75px;
+    border-radius: 7px;
+  }
+
+  .slash2
+  {
+    background-color: hsl(300, 24%, 96%);
+    width: 100%;
+    height: 75px;
+    border-radius: 7px;
+  }
+
+  .slash3
+  {
+    background-color: hsl(300, 24%, 96%);
+    width: 100%;
+    height: 75px;
+    border-radius: 7px;
+  }
+
+  .text-star
+  {
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin: 1.5%;
+    color: hsl(300, 43%, 22%);
+  }
+
+  .slash-container
+  {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "slash-left"
+      "slash-right";
+  }
+
+.slash-left
+  {
+    padding-top: 3.5%;
+    grid-area: slash-left;
+  }
+
+.slash-right
+  {
+    margin: 0;
+    bottom: 7%;
+    position: relative;
+    bottom: 7.5%;
+    grid-area: slash-right;
+  }
+
+}
+@media only screen and (min-width:720px) {
+  body
+  {
+    font-family: 'Spartan', sans-serif;
+    background-image: url(images/bg-pattern-top-desktop.svg), url(images/bg-pattern-bottom-desktop.svg);
+    background-position: 0% 0% ,100% -10%;
+    background-repeat: no-repeat, no-repeat;
+  }
+  .grid-container {
+   position: absolute;
+   width: 75%;
+   height: 85%;
+   margin: 7.5% 12.5% 7.5% 12.5%;
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+   grid-template-rows: 1fr 1fr;
+   gap: 0px 0px;
+   grid-template-areas:
+     "top-left top-left top-left top-right top-right top-right"
+     "bottom-one bottom-one bottom-two bottom-two bottom-three bottom-three";
+   }
+
+   .top-left
+   {
+     margin-left: 12.5px;
+     grid-area: top-left;
+     padding-right: 30%;
+   }
+
+   .top-right
+   {
+     padding-top: 15px;
+     grid-area: top-right;
+   }
+
+   .card1
+   {
+     margin: 2.5%;
+     padding: 10%;
+     background-color: hsl(300, 43%, 22%);
+     background-image: url(images/bg-pattern-card.svg);
+     width: 75%;
+     border-radius: 7px;
+   }
+
+   .card2
+   {
+     margin: 2.5%;
+     margin-top: 7.5%;
+     padding: 10%;
+     background-color: hsl(300, 43%, 22%);
+     background-image: url(images/bg-pattern-card.svg);
+     width: 75%;
+     border-radius: 7px;
+   }
+
+   .card3
+   {
+     margin: 2.5%;
+     margin-top: 12.5%;
+     padding: 10%;
+     background-color: hsl(300, 43%, 22%);
+     background-image: url(images/bg-pattern-card.svg);
+     width: 75%;
+     border-radius: 7px;
+   }
+
+   .slash1
+   {
+     background-color: hsl(300, 24%, 96%);
+     width: 75%;
+     height: 50px;
+     border-radius: 7px;
+   }
+
+   .slash2
+   {
+     background-color: hsl(300, 24%, 96%);
+     width: 75%;
+     height: 50px;
+     border-radius: 7px;
+     margin-left: 10%;
+   }
+
+   .slash3
+   {
+     background-color: hsl(300, 24%, 96%);
+     width: 75%;
+     height: 50px;
+     border-radius: 7px;
+     margin-left: 20%;
+   }
+
+   .slash-div
+   {
+     padding-top: 3.5%;
+     width: 100%;
+   }
+
+   .text-star
+   {
+     display: inline;
+     font-size: 0.75rem;
+     font-weight: 700;
+     color: hsl(300, 43%, 22%);
+   }
+
+   .slash-container
+   {
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+     grid-template-rows: 1fr;
+     gap: 0px 0px;
+     grid-template-areas:
+     "slash-left slash-right";
+   }
+   .slash-left
+   {
+     padding-left: 20%;
+     grid-area: slash-left;
+   }
+.slash-right { grid-area: slash-right; }
+}
+
+body
+{
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+h1
+{
+  margin: 0;
+  font-size: 3rem;
+  letter-spacing: -2px;
+  font-weight: 700;
+  color: hsl(300, 43%, 22%);
+}
+
+h2
+{
+  color: hsl(0, 0%, 100%);
+  font-size: 0.75rem;
+}
+
+h3
+{
+  color: hsl(333, 80%, 67%);
+  font-weight: 400;
+  font-size: 0.75rem;
+}
+
+.p-dark
+{
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: hsl(303, 10%, 53%);
+}
+
+.p-light
+{
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: hsl(300, 24%, 96%);
+}
+
+.top-right
+{
+  grid-area: top-right;
+}
+
+.bottom-one
+{
+  grid-area: bottom-one;
+}
+
+.bottom-two
+{
+  grid-area: bottom-two;
+}
+
+.bottom-three
+{
+  grid-area: bottom-three;
+}
+
+.profile-img
+{
+  width: 60%;
+  border-radius: 100%;
+}

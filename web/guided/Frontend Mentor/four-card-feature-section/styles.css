@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap');
+
+@media only screen and (max-width:720px)
+{
+
+  .card-container
+  {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+                        "left"
+                        "top"
+                        "bottom"
+                        "right";
+  }
+
+  .left
+  {
+    grid-area: left;
+  }
+
+  .top
+  {
+    grid-area: top;
+  }
+
+  .bottom
+  {
+    grid-area: bottom;
+  }
+
+  .right
+  {
+    grid-area: right;
+  }
+
+  h1
+  {
+    font-size: 1.5rem;
+  }
+
+  h2
+  {
+    font-size: 1.5rem;
+  }
+
+  .p-more
+  {
+    width: 300px;
+    margin-bottom: 60px;
+  }
+}
+
+@media only screen and (min-width:720px)
+{
+
+  .card-container
+  {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+                        "left top right"
+                        "left bottom right";
+  }
+
+  .left
+  {
+    position: relative;
+    top: 35%;
+    left: 35%;
+    grid-area: left;
+  }
+
+  .top
+  {
+    position: relative;
+    top: 15%;
+    grid-area: top;
+  }
+
+  .bottom
+  {
+    position: relative;
+    top: 15%;
+    grid-area: bottom;
+  }
+
+  .right
+  {
+    position: relative;
+    top: 35%;
+    right: 35%;
+    grid-area: right;
+  }
+
+  h1
+  {
+    font-size: 2rem;
+  }
+
+  h2
+  {
+    font-size: 2rem;
+  }
+
+  .p-more
+  {
+    width: 450px;
+  }
+}
+
+body
+{
+  background-color: hsl(0, 0%, 98%);
+  font-family: 'Poppins', sans-serif;
+}
+
+h1
+{
+  font-weight: 600;
+  color: hsl(234, 12%, 34%);
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+}
+
+h2
+{
+  font-weight: 200;
+  color: hsl(234, 12%, 34%);
+  margin-top: 50px;
+  margin-bottom: 0px;
+}
+
+h3
+{
+  font-size: 1rem;
+  font-weight: 600;
+  color: hsl(234, 12%, 34%);
+}
+
+img
+{
+  width: 17.5%;
+  position: relative;
+  top: 5%;
+  left: 10%;
+}
+
+.p-less
+{
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: hsl(229, 6%, 66%);
+}
+
+.p-more
+{
+  font-size: 0.75rem;
+  color: hsl(229, 6%, 66%);
+}
+.card
+{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: white;
+  width: 50%;
+  height: 175px;
+  box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+}
+
+#card1
+{
+  border-radius: 5px;
+  border-top: 5px solid hsl(180, 62%, 55%);
+  background: url(images/icon-supervisor.svg);
+  background-repeat: no-repeat;
+  background-size: 15%;
+  background-position: 90% 80%;
+  background-color: white;
+}
+
+#card2
+{
+  border-radius: 5px;
+  border-top: 5px solid hsl(0, 78%, 62%);
+  background: url(images/icon-team-builder.svg);
+  background-repeat: no-repeat;
+  background-size: 15%;
+  background-position: 90% 80%;
+  background-color: white;
+}
+
+#card3
+{
+  border-radius: 5px;
+  border-top: 5px solid hsl(34, 97%, 64%);
+  background: url(images/icon-karma.svg);
+  background-repeat: no-repeat;
+  background-size: 15%;
+  background-position: 90% 80%;
+  background-color: white;
+}
+
+#card4
+{
+  border-radius: 5px;
+  border-top: 5px solid hsl(212, 86%, 64%);
+  background: url(images/icon-calculator.svg);
+  background-repeat: no-repeat;
+  background-size: 15%;
+  background-position: 90% 80%;
+  background-color: white;
+}
