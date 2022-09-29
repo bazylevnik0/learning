@@ -1,0 +1,70 @@
+<html>
+<head>
+<script type="module" src="app/app.js"></script>
+<style>
+    body
+    {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    iframe#player 
+    {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    video#video 
+    {
+	position: absolute;
+	z-index: -1;
+    }
+  </style>
+</head>
+<body>
+<div id="box">
+      <div id="player"></div>
+</div>
+<!--
+<video id="video" autoplay loop width="600" height="600">
+    <source src="src/textures/whitenoise.mp4" type="video/mp4">.
+</video>
+-->
+<script>
+      /*
+      //youtube player api
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+	  height: '1280',
+	  width: '720', 
+          videoId: 'v5EkE80rkUA',
+          events: {
+	    'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      var check_player = false
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+	  setTimeout( ()=>hidePlayer(event) , 12000)
+	  check_player = true;
+          done = true;
+        }
+      }
+
+      function hidePlayer(event) {
+      	document.getElementById("box").style.position = "absolute";
+	document.getElementById("box").style.zIndex = -1; 
+      }
+      */
+</script>
+</body>

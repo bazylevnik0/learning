@@ -1,0 +1,76 @@
+<html>
+<head>
+  <title>threejs - basic</title>
+  <style>
+    body
+    {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    iframe#player 
+    {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+<div id="box">
+      <div id="player"></div>
+</div>
+</body>
+<script>
+      //youtube player api
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          videoId: 'M7lc1UVf-VE',
+          events: {
+            'onReady': onPlayerReady,
+	    'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(hidePlayer, 1000);
+          done = true;
+        }
+      }
+
+      function hidePlayer(event) {
+      	document.getElementById("box").style.position = "absolute";
+	document.getElementById("box").style.zIndex = -1; 
+      }
+</script>
+<script src="lib/three.js"></script>
+<script src="lib/three.module.js"></script>
+<script src="lib/OBJLoader.js"></script>
+<script src="lib/MTLLoader.js"></script>
+<script src="lib/postprocessing/Pass.js"></script>
+<script src="lib/BloomPass.js"></script>
+<script src="lib/EffectComposer.js"></script>
+<script src="lib/RenderPass.js"></script>
+<script src="lib/shaders/CopyShader.js"></script>
+<script src="lib/postprocessing/ShaderPass.js"></script>
+<script src="lib/postprocessing/MaskPass.js"></script>
+<script src="lib/shaders/ConvolutionShader.js"></script>
+<script src="lib/postprocessing/FilmPass.js"></script>
+<script src="lib/shaders/FilmShader.js"></script>
+<script src="lib/postprocessing/UnrealBloomPass.js"></script>
+<script src="lib/shaders/LuminosityHighPassShader.js"></script>
+<script src="script.js"></script>
+</html>

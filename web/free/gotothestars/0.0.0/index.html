@@ -1,0 +1,397 @@
+<html>
+<head>
+  <title>threejs - basic</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    canvas {
+      background: black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="myCanvas"></canvas>
+  <script src="three.js"></script>
+  <script src="modules/three.module.js"></script>
+  <script src="modules/OBJLoader.js"></script>
+                                                  <!--должно быть только необходимое-->
+  <script src="libs/postprocessing/Pass.js"></script>
+  <script src="libs/BloomPass.js"></script>
+  <script src="libs/EffectComposer.js"></script>
+  <script src="libs/RenderPass.js"></script>
+  <script src="libs/shaders/CopyShader.js"></script>
+  <script src="libs/postprocessing/ShaderPass.js"></script>
+  <script src="libs/postprocessing/MaskPass.js"></script>
+  <script src="libs/shaders/ConvolutionShader.js"></script>
+                                                  <!--должно быть только необходимое-->
+
+  <script src="libs/postprocessing/FilmPass.js"></script>
+  <script src="libs/shaders/FilmShader.js"></script>
+
+  <!--<script src="libs/postprocessing/FilmPass.js"></script>-->
+  <!--<script src="libs/shaders/FilmShader.js"></script>-->
+
+  <script>
+    //var renderer = new THREE.WebGLRenderer({canvas: document.getElementById('myCanvas'),antialias: true});
+    var renderer = new THREE.WebGLRenderer({canvas: document.getElementById('myCanvas'),antialias: true});
+
+    renderer.setClearColor(0x000000);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    var canvas = document.getElementById("myCanvas");
+
+    //load--------------------------------------------------------------------------------------------------------------------------------
+    //objects
+    //camera
+    var camera = new THREE.PerspectiveCamera(35, window.innerWidth/window.innerHeight, 0.1, 3000);
+
+    //scene
+    var scene = new THREE.Scene();
+    var scene_light = new THREE.Scene();
+
+    //light
+    const color = 0xffffff;
+    const intensity = 1;
+    const light = new THREE.DirectionalLight(color, intensity);
+    light.position.set(0, 10, 0);
+    light.target.position.set(0, 0, -25);
+    scene.children[0] = light;
+    scene.children[1] = light.target;
+
+    const light_inside = new THREE.AmbientLight(0x404040);
+    scene_light.children[0] = light_inside;
+
+    //create THREE objects
+    //plane
+    const widthPlane = 100;
+    const heightPlane = 100;
+    const geometryPlane = new THREE.PlaneBufferGeometry(widthPlane, heightPlane);
+    var materialPlane = new THREE.MeshPhongMaterial({color: 0xffff00});
+    var meshPlane = new THREE.Mesh(geometryPlane, materialPlane);
+    meshPlane.rotation.x = -1.5;
+    meshPlane.position.set(0, 0, -20);
+    scene.children[2] = meshPlane;
+
+    //load .obj objects
+    const loader = new OBJLoader();
+    //round
+    //out
+    loader.load('objects/obj-round-out.obj', (obj) => {
+      scene.children[3] = obj;
+      scene.children[3].children[0].material = new THREE.MeshPhongMaterial({color: 0xffffff});
+    });
+
+    //in
+    loader.load('objects/obj-round-in.obj', (obj) => {
+      scene.children[4] = obj;
+      scene.children[4].children[0].material = new THREE.MeshLambertMaterial({color: 0xffffff });
+    });
+    //square
+    //out
+    loader.load('objects/obj-square-out.obj', (obj) => {
+      scene.children[5] = obj;
+      scene.children[5].children[0].material = new THREE.MeshPhongMaterial({color: 0xffffff});
+    });
+    //in
+    loader.load('objects/obj-square-in.obj', (obj) => {
+      scene.children[6] = obj;
+      scene.children[6].children[0].material = new THREE.MeshLambertMaterial({color: 0xffffff });
+    });
+    //triangle
+    //out
+    loader.load('objects/obj-triangle-out.obj', (obj) => {
+      scene.children[7] = obj;
+      scene.children[7].children[0].material = new THREE.MeshPhongMaterial({color: 0xffffff});
+    });
+    //in
+    loader.load('objects/obj-triangle-in.obj', (obj) => {
+      scene.children[8] = obj;
+      scene.children[8].children[0].material = new THREE.MeshLambertMaterial({color: 0xffffff });
+    });
+
+    //light objects
+    //round
+    loader.load('objects/obj-round-in.obj', (obj) => {
+      scene_light.children[1] = obj;
+      scene_light.children[1].children[0].material = new THREE.MeshPhongMaterial({color: 0xffffff});
+    });
+
+    //square
+    loader.load('objects/obj-square-in.obj', (obj) => {
+      scene_light.children[2] = obj;
+      scene_light.children[2].children[0].material = new THREE.MeshPhongMaterial({color: 0xffffff});
+    });
+
+    //triangle
+    loader.load('objects/obj-triangle-in.obj', (obj) => {
+      scene_light.children[3] = obj;
+      scene_light.children[3].children[0].material = new THREE.MeshPhongMaterial({color: 0xffffff});
+    });
+
+
+    //check .obj objects loading
+    window.addEventListener("load", function() {
+      let time = window.setInterval(check_load, 1000);
+      function check_load () {
+        console.log("loading...");
+                          //вот это так нелепо
+        if (scene.children[8] !== undefined) {
+          console.log("loaded.");
+          clearInterval(time);
+          set_start_position();
+          requestAnimationFrame(render);
+        }
+      }
+    });
+
+    //set start position
+    function set_start_position() {
+      console.log("set_start_position()");
+      //round
+      //out
+      scene.children[3].position.set(-1.68,0,-4);
+      scene.children[3].rotation.set(4.75,0,1);
+      scene.children[3].shape = "round";
+      //in
+      scene.children[4].position.set(0,1.75,-4);
+      scene.children[4].rotation.set(-1.5,0,0);
+      scene.children[4].shape = "round";
+
+      //square
+      //out
+      scene.children[5].position.set(0,0,-5);
+      scene.children[5].rotation.set(4.75,0,0);
+      scene.children[5].shape = "square";
+      //in
+      scene.children[6].position.set(0,1.75,-4);
+      scene.children[6].rotation.set(-1.5,0,0);
+      scene.children[6].shape = "square";
+
+      //triangle
+      //out
+      scene.children[7].position.set(1.68,0,-4);
+      scene.children[7].rotation.set(4.75,0,-1);
+      scene.children[7].shape = "triangle";
+      //in
+      scene.children[8].position.set(0,1.75,-4);
+      scene.children[8].rotation.set(-1.5,0,0);
+      scene.children[8].shape = "triangle";
+
+      //light objects
+      //round
+      scene_light.children[1].scale.x = 1.25;
+      scene_light.children[1].scale.y = 1.25;
+      scene_light.children[1].scale.z = 1.25;
+      scene_light.children[1].position.set(0,1.75,-4);
+      scene_light.children[1].children[0].material.transparent = true;
+      scene_light.children[1].children[0].material.opacity = 0.5;
+      scene_light.children[1].rotation.set(-1.5,0,0);
+      //sqiare
+      scene_light.children[2].scale.x = 1.25;
+      scene_light.children[2].scale.y = 1.25;
+      scene_light.children[2].scale.z = 1.25;
+      scene_light.children[2].position.set(0,1.75,-4);
+      scene_light.children[2].children[0].material.transparent = true;
+      scene_light.children[2].children[0].material.opacity = 0.5;
+      scene_light.children[2].rotation.set(-1.5,0,0);
+      //triangle
+      scene_light.children[3].scale.x = 1.25;
+      scene_light.children[3].scale.y = 1.25;
+      scene_light.children[3].scale.z = 1.25;
+      scene_light.children[3].position.set(0,1.75,-4);
+      scene_light.children[3].children[0].material.transparent = true;
+      scene_light.children[3].children[0].material.opacity = 0.5;
+      scene_light.children[3].rotation.set(-1.5,0,0);
+
+      start_game();
+    }
+
+
+
+    //game----------------------------------------------------------------------------------------------------------------------------------
+    var number_shape_random,
+        number_shape_light_random;
+        //метка1
+    function start_game() {
+      console.log("start_game()")
+                                                        //вот здесь мне не нрвится как ты считаешь
+      //get random shape number for a game: 4 or 6 or 8
+      number_shape_random = (Math.ceil(Math.random() * 3) * 2) + 2;
+      //convert to numbers of shape light
+      if (number_shape_random === 4) number_shape_light_random = 1;
+      if (number_shape_random === 6) number_shape_light_random = 2;
+      if (number_shape_random === 8) number_shape_light_random = 3;
+
+      //all shape visible = false
+      scene.children[4].visible = false;
+      scene.children[6].visible = false;
+      scene.children[8].visible = false;
+      scene_light.children[1].visible = false;
+      scene_light.children[2].visible = false;
+      scene_light.children[3].visible = false;
+
+      //player shape visible = true
+      scene.children[number_shape_random].visible = true;
+      scene_light.children[number_shape_light_random].visible = true;
+
+      //set colors for out shapes
+      set_color(undefined, scene.children[3]);
+      set_color(undefined, scene.children[5]);
+      set_color(undefined, scene.children[7]);
+      set_color(undefined,scene.children[number_shape_random]);
+      if (scene.children[number_shape_random].color === "red") set_color("red", scene_light.children[number_shape_light_random]);
+      else if (scene.children[number_shape_random].color === "green") set_color("green", scene_light.children[number_shape_light_random]);
+      else if (scene.children[number_shape_random].color === "blue") set_color("blue", scene_light.children[number_shape_light_random]);
+}
+    function make_choice(number) {
+      if ((scene.children[number_shape_random].shape == scene.children[number].shape)&&
+          (scene.children[number_shape_random].color == scene.children[number].color)) {
+        console.log("+");
+        //restart loop game
+        start_game();
+        //rotate camera to up
+        temp_camera_move = 0.01;
+        temp_camera_check = "up";
+      } else {
+        console.log("-");
+      }
+    }
+
+    //common functions
+    function set_color(color, obj) {
+      if (color === undefined) {
+        let array_colors = ["red", "green", "blue"];
+        color = array_colors[Math.round(Math.random()*2)];
+      }
+      if (color === "red") {
+        obj.children[0].material.color.r = 255;
+        obj.children[0].material.color.g = 0.5;
+        obj.children[0].material.color.b = 0.5;
+        obj.color = "red";
+      }
+      if (color === "green") {
+        obj.children[0].material.color.r = 0.5;
+        obj.children[0].material.color.g = 255;
+        obj.children[0].material.color.b = 0.5;
+        obj.color = "green";
+      }
+      if (color === "blue") {
+        obj.children[0].material.color.r = 0.5;
+        obj.children[0].material.color.g = 0.5;
+        obj.children[0].material.color.b = 255;
+        obj.color = "blue";
+      }
+    }
+    function change_shape_player_color() {
+      if (scene.children[number_shape_random].color === "red") {
+        set_color("green", scene.children[number_shape_random]);
+        set_color("green", scene_light.children[number_shape_light_random]); //метка1
+        scene.children[number_shape_random].color = "green";
+        scene_light.children[number_shape_light_random].color = "green";
+      } else if (scene.children[number_shape_random].color === "green") {
+        set_color("blue", scene.children[number_shape_random]);
+        set_color("blue", scene_light.children[number_shape_light_random]); //метка1
+        scene.children[number_shape_random].color = "blue";
+        scene_light.children[number_shape_light_random].color = "blue";
+      } else if (scene.children[number_shape_random].color === "blue") {
+        set_color("red", scene.children[number_shape_random]);
+        set_color("red", scene_light.children[number_shape_light_random]); //метка1
+        scene.children[number_shape_random].color = "red";
+        scene_light.children[number_shape_light_random].color = "red";
+      }
+    }
+
+
+    //control--------------------------------------------------------------------------------------------------------------------------------
+    var temp_camera_move = 0,
+        temp_camera_check;
+    canvas.addEventListener('mousedown', event => {
+      //get x y
+      let x = event.offsetX;
+      let y = event.offsetY;
+
+      //camera
+      if (y > 266) {
+        temp_camera_move = -0.01;
+        temp_camera_check = "down";
+      } else {
+        temp_camera_move = 0.01;
+        temp_camera_check = "up";
+      }
+
+      //shape rotating & color
+      if (camera.rotation.x >= 0.175) {
+        if(x <= 500) scene.children[number_shape_random].rotation.z -= 0.1;
+        if(x >= 1000) scene.children[number_shape_random].rotation.z += 0.1;
+        if ((x > 500)&&(x < 1000)&&(y < 266)) change_shape_player_color();
+      }
+
+      //choice
+      if (camera.rotation.x <= -0.075) {
+        if (x <= 500) make_choice(3);
+        if ((x > 500)&&(x < 1000)) make_choice(5);
+        if (x >= 1000) make_choice(7);
+      }
+    });
+
+    //postprocessing-------------------------------------------------------------------------------------------------------------------------
+    const composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene_light, camera));
+
+    const bloomPass = new BloomPass(
+      1,    // strength
+      25,   // kernel size
+      25,    // sigma ?
+      56,  // blur render target resolution
+    );
+    //bloomPass.renderToScreen = true;
+    composer.addPass(bloomPass);
+
+
+    const filmPass = new FilmPass(
+      0,   // noise intensity
+      0,  // scanline intensity
+      648,    // scanline count
+      false,  // grayscale
+    );
+    filmPass.renderToScreen = true;
+    composer.addPass(filmPass);
+
+
+
+    //animation
+    var crazy = 1;
+    function render() {
+      //control
+      //camera up & down
+      camera.rotation.x += temp_camera_move;
+      if ((temp_camera_check === "up") && (camera.rotation.x >= 0.25)) temp_camera_move = 0;
+      if ((temp_camera_check === "down") && (camera.rotation.x <= -0.15)) temp_camera_move = 0;
+
+
+      //renderer.clear();
+                                                      //смех и слезы
+      if (crazy == 1) { renderer.render(scene, camera); crazy = 0; }
+      else { composer.render(); crazy = 1; }
+
+      /*
+      renderer.render(composer.render(scene_light, camera));
+      renderer.autoClear = false;
+      renderer.render(scene, camera);
+      renderer.autoClear = true;
+      */
+      //renderer.render(scene_light, camera);
+      //renderer.autoClear = true;
+
+
+      requestAnimationFrame(render);
+    }
+    //renderer.render(scene, camera);
+    //composer.render();
+
+  </script>
+</body>
+</html>
