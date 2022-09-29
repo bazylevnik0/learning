@@ -1,0 +1,75 @@
+    char *search = argv[2];
+    int   search_length = 0;
+    for (int i = 0; search[i]!='\0'; i++){
+        search_length = i;
+    }
+    search_length += 1;
+
+    FILE * fp;
+    fp = fopen(argv[1], "r");
+       
+    char c;
+    while (c != EOF) {
+        c = fgetc(fp);
+        if (c == search[0]) {
+            int check = 1;
+            for ( int i = 0; i < search_length; i++ ){
+                c = fgetc(fp);
+                if ( c != search[i] ) {
+                    check = 0;
+                }
+            }
+        }
+        printf("%c", c);
+    }
+
+    fclose(fp);
+
+    -----------------------------------------------------------
+    char *search = argv[2];
+
+    FILE * fp;
+    fp = fopen(argv[1], "r");
+
+    char c;
+    char *temp = "";  
+    while (c != EOF) {
+        while( c != '\n' ) {
+            c = fgetc(fp);
+            temp += c;
+        }
+
+        char *result;
+        result = strstr(temp,search);
+
+        if ( search == result ) {
+            printf("%s",temp);
+        }
+
+        temp = "";      
+
+        --------------------------------------------------------
+        char *search = argv[2];
+
+    FILE * fp;
+    fp = fopen(argv[1], "r");
+
+    char c;
+    char *temp = "";  
+    while (c != EOF) {
+        while( c != '\n' && c != EOF ) {
+            c = fgetc(fp);
+            temp += c;
+        }
+
+        char *result;
+        result = strstr(temp,search);
+
+        if ( result ) {
+            printf("%s",temp);
+        }
+
+        temp = "";        
+    }
+
+    fclose(fp);
