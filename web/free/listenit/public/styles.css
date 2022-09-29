@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Shizuru&display=swap");
+h1 {
+  font-family: "Shizuru", cursive;
+  color: white;
+}
+
+body {
+  background: rgb(53, 88, 154);
+  background: linear-gradient(
+    90deg,
+    rgba(53, 88, 154, 1) 40%,
+    rgba(55, 6, 101, 1) 100%
+  );
+}
+#play,
+#stop,
+#help-button {
+  display: inline-block;
+  margin: 5px;
+  cursor: pointer;
+}
+#speed {
+  margin: 5px;
+  width: 3rem;
+  display: inline-block;
+}
+
+nav {
+  width: 16rem;
+  margin: auto;
+  border-bottom: 2px solid gray;
+}
+
+nav h1 {
+  float: right;
+  margin: 0;
+}
+
+.help-div {
+  color: white;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+#container {
+  margin: 10px;
+}
+.add {
+  cursor: pointer;
+  margin: 10px;
+  display: inline-block;
+  text-shadow: #ffffff 1px 0 10px;
+}
+.list {
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
+  border-bottom: 1px solid gray;
+  margin: 5px 0px;
+  height: 8rem;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background-color: rgb(241, 74, 22, 0.8);
+  border-radius: 5px;
+}
+.list-marker {
+  display: inline-block;
+  background-color: white;
+  color: black;
+}
+.card {
+  margin: 5px;
+  display: inline-block;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #fc9918;
+}
+
+.card input {
+  font-size: 2rem;
+  display: block;
+  height: 3rem;
+  width: 3rem;
+}
+
+.hiden {
+  display: none;
+}
