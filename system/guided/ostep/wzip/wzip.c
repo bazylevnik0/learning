@@ -35,4 +35,5 @@ int main( int argc, char *argv[] )
     }
     fwrite(buffer , 4 , sizeof(buffer) , stdout );
     fclose(fp);
+    return 0;
 }
