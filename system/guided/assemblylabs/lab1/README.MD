@@ -1,4 +1,5 @@
 X86_X64<br>
-NASM
+NASM<br>
+Ubuntu
 
 Write a programm "Hello, world!".
