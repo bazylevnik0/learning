@@ -12,9 +12,10 @@ _start:
     mov rdx, 100 ; count chars
     syscall
 
-    ;
-    ;mov rax, 0
-    ;call _loop_in
+    ; push to stack
+    mov rax, string
+    call _loop_in
+
 
     ; print string
     mov rax, 1  ; sys_write
@@ -29,8 +30,7 @@ _start:
     syscall
 
 _loop_in:
-   mov rbx, [string + rax]
-   cmp rbx, 0
+   cmp al, 0
    je _loopquit
    push rbx
    inc rax
