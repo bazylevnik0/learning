@@ -1,5 +1,6 @@
 section .bss
     string resb 100   ; store string
+    buffer resb 100   ; store string
 
 section .text
     global _start
@@ -11,28 +12,21 @@ _start:
     mov rsi, string
     mov rdx, 100 ; count chars
     syscall
-
-    ;mov rax, [string]
-    ;push rax
-    ;inc rax
-    ;push rax
-    ;inc rax
-  
-    ;mov rbx, string
-    ;pop rax
-    ;mov byte[rbx + 0],al
-    ;pop rax
-    ;mov byte[rbx + 1],al
-    
-    ; push to stack
-    mov rax, [string]
-    mov r9, 0
+   
+    ; send string to buffer
+    mov rsi, string
+    mov rdi, buffer
+    mov r9, 0         ; counter A
     call _loop_in
-
-    ; pop from stack
-    ;mov rbx, string
-    ;mov r10, 0
-    ;call _loop_out
+    ; get string from buffer in reverse order
+    mov rsi, string
+    mov rdi, buffer
+    mov r10, 0        ; counter B
+    call _loop_out
+    ;add new line char to string
+    inc r10
+    mov al, 10
+    mov [rsi + r10], al
 
     ; print string
     mov rax, 1  ; sys_write
@@ -49,18 +43,20 @@ _start:
 _loop_in:
     cmp al, 0
     je _loopquit
-    push rax
-    inc rax
+    mov al, [rsi]
+    mov [rdi] , al
+    inc rsi
+    inc rdi
     inc r9
     jmp _loop_in
 
 _loop_out:
+    mov al, [rdi + r9]
+    mov [rsi + r10], al
     cmp r9, 0
     je _loopquit
-    pop rax
-    mov byte[rbx + r10],al
-    dec r9
     inc r10
+    dec r9
     jmp _loop_out
 
 _loopquit:
