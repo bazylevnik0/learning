@@ -17,12 +17,12 @@ _start:
     mov rsi, string
     mov rdi, buffer
     mov r9, 0         ; counter A
-    call _loop_in
+    call loop_in
     ; get string from buffer in reverse order
     mov rsi, string
     mov rdi, buffer
     mov r10, 0        ; counter B
-    call _loop_out
+    call loop_out
     ;add new line char to string
     inc r10
     mov al, 10
@@ -40,24 +40,24 @@ _start:
     mov rdi, 0  ; error_code
     syscall
 
-_loop_in:
+loop_in:
     cmp al, 0
-    je _loopquit
+    je loopquit
     mov al, [rsi]
     mov [rdi] , al
     inc rsi
     inc rdi
     inc r9
-    jmp _loop_in
+    jmp loop_in
 
-_loop_out:
+loop_out:
     mov al, [rdi + r9]
     mov [rsi + r10], al
     cmp r9, 0
-    je _loopquit
+    je loopquit
     inc r10
     dec r9
-    jmp _loop_out
+    jmp loop_out
 
-_loopquit:
+loopquit:
     ret
