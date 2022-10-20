@@ -1,6 +1,5 @@
 extern scanf
 extern printf
-extern exit
 extern fflush
 
 section .bss               
