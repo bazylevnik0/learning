@@ -1,0 +1,1 @@
+Count the number of all lines in a file.
