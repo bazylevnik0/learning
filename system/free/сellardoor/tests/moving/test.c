@@ -32,6 +32,7 @@ int main(void)
     camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
     camera.fovy = 45.0f;                                // Camera field-of-view Y
     camera.projection = CAMERA_PERSPECTIVE;             // Camera mode type
+    float i = 0.0;
 
     // Loaf gltf model
     Model modelIn = LoadModel("../../src/model/in/in.glb");
@@ -52,7 +53,12 @@ int main(void)
         //----------------------------------------------------------------------------------
         UpdateCamera(&camera);
         //----------------------------------------------------------------------------------
-
+        if (i < 10 ) {
+            float temp = 10.0 - i;
+            camera.position = (Vector3){ temp, temp, temp };
+            i += 0.01;
+        }
+       
         // Draw
         //----------------------------------------------------------------------------------
         BeginDrawing();
@@ -75,7 +81,7 @@ int main(void)
     //--------------------------------------------------------------------------------------
     UnloadModel(modelIn);         // Unload model and meshes/material
     UnloadModel(modelOut);
-
+    
     CloseWindow();              // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
