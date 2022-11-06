@@ -25,7 +25,7 @@ int main(void)
     Vector3 positionEnemy3B = {  5.0f, -1.75f, 0.75f };              
     Vector3 positionEnemy4A = {  2.0f, -1.75f, 1.25f };      
     Vector3 positionEnemy4B = {  2.0f, -1.75f, 0.75f }; 
-    Vector3 positionBoss    = {  0.0f,  0.0f , 1.0f  };             
+    Vector3 positionBoss    = {  0.0f,  0.0f , 1.1f  };             
     // Set free camera mode
     SetCameraMode(camera, CAMERA_FREE); 
     // Set our game to run at 60 frames-per-second
@@ -62,8 +62,8 @@ int main(void)
             step1 = 1;
             float temp = 14.0 - t;
             camera.position = (Vector3){ temp, -0.33f, 1.0f };
-            if(hitA == 0){positionEnemy1A.y = -0.75f;}
-            if(hitB == 0){positionEnemy1B.y = -0.75f;}
+            if(hitA == 0){positionEnemy1A.y = -0.5f;}
+            if(hitB == 0){positionEnemy1B.y = -0.5f;}
         }
         if(step1 == 1)
         {
@@ -108,8 +108,8 @@ int main(void)
             step2 = 1;
             float temp = 14.0 - t;
             camera.position = (Vector3){ temp, -0.33f, 1.0f };
-            if(hitA == 0){positionEnemy2A.y = -0.75f;}
-            if(hitB == 0){positionEnemy2B.y = -0.75f;}
+            if(hitA == 0){positionEnemy2A.y = -0.5f;}
+            if(hitB == 0){positionEnemy2B.y = -0.5f;}
         }
         if(step2 == 1)
         {
@@ -154,8 +154,8 @@ int main(void)
             step3 = 1;
             float temp = 14.0 - t;
             camera.position = (Vector3){ temp, -0.33f, 1.0f };
-            if(hitA == 0){positionEnemy3A.y = -0.75f;}
-            if(hitB == 0){positionEnemy3B.y = -0.75f;}
+            if(hitA == 0){positionEnemy3A.y = -0.5f;}
+            if(hitB == 0){positionEnemy3B.y = -0.5f;}
         }
         if(step3 == 1)
         {
@@ -200,8 +200,8 @@ int main(void)
             step4 = 1;
             float temp = 14.0 - t;
             camera.position = (Vector3){ temp, -0.33f, 1.0f };
-            if(hitA == 0){positionEnemy4A.y = -0.75f;}
-            if(hitB == 0){positionEnemy4B.y = -0.75f;}
+            if(hitA == 0){positionEnemy4A.y = -0.5f;}
+            if(hitB == 0){positionEnemy4B.y = -0.5f;}
         }
         if(step4 == 1)
         {
@@ -246,11 +246,12 @@ int main(void)
             step5 = 1;
             float temp = 14.0 - t;
             camera.position = (Vector3){ temp, -0.33f, 1.0f };
-            camera.target   = (Vector3){ 0.0f, 1.0f , 1.0f };
+            camera.target   = (Vector3){ 0.0f, 0.00f , 1.0f };
+            camera.fovy = 75.0f;
         }
         if(step5 == 1)
         {
-            Vector3 targetSize = { 4.0f, 4.0f, 4.0f };
+            Vector3 targetSize = { 1.0f, 1.0f, 1.0f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
                ray = GetMouseRay(GetMousePosition(), camera);
@@ -261,13 +262,13 @@ int main(void)
                if (collisionC.hit)
                {
                     score += 1;
-                    if (score > 9) 
+                    if (score > 29) 
                     {
                         positionBoss.y = -9.99f;
                     }
                }
             }
-            if(score > 9)
+            if(score > 29)
             {
                 step5 = 2;
                 hitA = 0;
@@ -284,7 +285,13 @@ int main(void)
         { 
             float temp = 14.0 - t;
             camera.position = (Vector3){ temp, -0.33f, 1.0f };
-            t += 0.01;
+            t += 0.005;
+        }
+        if(t>15.0)
+        {
+            move = 0;
+            float temp = 14.0 - t;
+            camera.position = (Vector3){ temp, -0.33f, 1.0f };
         }
         //------
         //draw
@@ -294,15 +301,15 @@ int main(void)
             rlDisableBackfaceCulling();
                 DrawModel(modelMap, positionMap, 1.0f, WHITE);
             rlEnableBackfaceCulling();
-            DrawModel(modelEnemy, positionEnemy1A, 0.4f, WHITE);
-            DrawModel(modelEnemy, positionEnemy1B, 0.4f, WHITE);
-            DrawModel(modelEnemy, positionEnemy2A, 0.4f, WHITE);
-            DrawModel(modelEnemy, positionEnemy2B, 0.4f, WHITE);
-            DrawModel(modelEnemy, positionEnemy3A, 0.4f, WHITE);
-            DrawModel(modelEnemy, positionEnemy3B, 0.4f, WHITE);
-            DrawModel(modelEnemy, positionEnemy4A, 0.4f, WHITE);
-            DrawModel(modelEnemy, positionEnemy4B, 0.4f, WHITE);
-            DrawModel(modelBoss, positionBoss, 0.6f, WHITE);
+            DrawModel(modelEnemy, positionEnemy1A, 0.1f, WHITE);
+            DrawModel(modelEnemy, positionEnemy1B, 0.1f, WHITE);
+            DrawModel(modelEnemy, positionEnemy2A, 0.1f, WHITE);
+            DrawModel(modelEnemy, positionEnemy2B, 0.1f, WHITE);
+            DrawModel(modelEnemy, positionEnemy3A, 0.1f, WHITE);
+            DrawModel(modelEnemy, positionEnemy3B, 0.1f, WHITE);
+            DrawModel(modelEnemy, positionEnemy4A, 0.1f, WHITE);
+            DrawModel(modelEnemy, positionEnemy4B, 0.1f, WHITE);
+            DrawModel(modelBoss, positionBoss, 0.05f, WHITE);
             EndMode3D();
         EndDrawing();
         //----
