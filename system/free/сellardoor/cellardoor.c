@@ -2,8 +2,13 @@
 
 int main(void)
 {
-    //set
+    //set  
     InitWindow(800, 450, "cellar door");
+    int display = GetCurrentMonitor();
+    SetWindowSize(GetMonitorWidth(display), GetMonitorHeight(display));
+    SetWindowPosition(0,0);
+    // Initialize audio device
+    InitAudioDevice();      
     // Define the camera to look into our 3d world
     Camera camera = { 0 };
     camera.position = (Vector3){ 15.0f, -0.33f, 1.0f }; // Camera position
@@ -11,6 +16,10 @@ int main(void)
     camera.up       = (Vector3){  0.0f,  1.0f , 0.0f }; // Camera up vector (rotation towards target)
     camera.fovy = 25.0f;                                // Camera field-of-view Y
     camera.projection = CAMERA_PERSPECTIVE;             // Camera mode type
+    // Set free camera mode
+    SetCameraMode(camera, CAMERA_FREE); 
+    // Set our game to run at 60 frames-per-second
+    SetTargetFPS(25);                   
     // Loaf gltf models
     Model modelMap   = LoadModel("src/model/map/map.glb");
     Model modelEnemy = LoadModel("src/model/enemy/enemy.glb");
@@ -25,14 +34,14 @@ int main(void)
     Vector3 positionEnemy3B = {  5.0f, -1.75f, 0.75f };              
     Vector3 positionEnemy4A = {  2.0f, -1.75f, 1.25f };      
     Vector3 positionEnemy4B = {  2.0f, -1.75f, 0.75f }; 
-    Vector3 positionBoss    = {  0.0f,  0.0f , 1.1f  };             
-    // Set free camera mode
-    SetCameraMode(camera, CAMERA_FREE); 
-    // Set our game to run at 60 frames-per-second
-    SetTargetFPS(25);                   
+    Vector3 positionBoss    = {  0.0f, -9.99f , 1.1f  };
+    // Load splash texture
+    Texture2D splash_texture = LoadTexture("src/image/splash.png");        
+    // Load sound
+    Sound sound_ambient = LoadSound("src/sound/ambient.wav"); 
     //---
     //prepare
-    float t = 0.0;
+    float t   = 0.0;
     int step1 = 0;
     int step2 = 0;
     int step3 = 0;
@@ -49,9 +58,12 @@ int main(void)
     RayCollision collisionA = { 0 };
     RayCollision collisionB = { 0 };
     RayCollision collisionC = { 0 };
+    Vector2 position_cursor = { 0.0f, 0.0f };   
+    //play sound theme
+    PlaySound(sound_ambient);
     while (!WindowShouldClose())
     {
-        //update
+       //update
         UpdateCamera(&camera);
         //------
         //change
@@ -70,6 +82,12 @@ int main(void)
             Vector3 targetSize = { 0.4f, 0.4f, 0.4f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
+               //splash texture
+               position_cursor = GetMousePosition();
+               position_cursor.x -= 150.0f;
+               position_cursor.y -= 150.0f;
+
+               //collision engine
                ray = GetMouseRay(GetMousePosition(), camera);
                // Check collision between ray and box
                collisionA = GetRayCollisionBox(ray,
@@ -116,6 +134,11 @@ int main(void)
             Vector3 targetSize = { 0.4f, 0.4f, 0.4f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
+               //splash texture
+               position_cursor = GetMousePosition();
+               position_cursor.x -= 150.0f;
+               position_cursor.y -= 150.0f;
+
                ray = GetMouseRay(GetMousePosition(), camera);
                // Check collision between ray and box
                collisionA = GetRayCollisionBox(ray,
@@ -144,6 +167,7 @@ int main(void)
             if(step2 == 2)
             {
                 t += 0.2;
+             
                 move = 1;
             }
         }
@@ -162,6 +186,11 @@ int main(void)
             Vector3 targetSize = { 0.4f, 0.4f, 0.4f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
+               //splash texture
+               position_cursor = GetMousePosition();
+               position_cursor.x -= 150.0f;
+               position_cursor.y -= 150.0f;
+
                ray = GetMouseRay(GetMousePosition(), camera);
                // Check collision between ray and box
                collisionA = GetRayCollisionBox(ray,
@@ -208,6 +237,11 @@ int main(void)
             Vector3 targetSize = { 0.4f, 0.4f, 0.4f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
+               //splash texture
+               position_cursor = GetMousePosition();
+               position_cursor.x -= 150.0f;
+               position_cursor.y -= 150.0f;
+
                ray = GetMouseRay(GetMousePosition(), camera);
                // Check collision between ray and box
                collisionA = GetRayCollisionBox(ray,
@@ -245,6 +279,7 @@ int main(void)
             move = 0;
             step5 = 1;
             float temp = 14.0 - t;
+            if (score <= 29) { positionBoss.y = 0.0f; }      
             camera.position = (Vector3){ temp, -0.33f, 1.0f };
             camera.target   = (Vector3){ 0.0f, 0.00f , 1.0f };
             camera.fovy = 75.0f;
@@ -254,6 +289,11 @@ int main(void)
             Vector3 targetSize = { 1.0f, 1.0f, 1.0f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
+                //splash texture
+               position_cursor = GetMousePosition();
+               position_cursor.x -= 150.0f;
+               position_cursor.y -= 150.0f;
+
                ray = GetMouseRay(GetMousePosition(), camera);
                // Check collision between ray and box
                collisionC = GetRayCollisionBox(ray,
@@ -286,6 +326,8 @@ int main(void)
             float temp = 14.0 - t;
             camera.position = (Vector3){ temp, -0.33f, 1.0f };
             t += 0.005;
+            position_cursor.x = -300.0f;
+            position_cursor.y = -300.0f;
         }
         if(t>15.0)
         {
@@ -296,27 +338,30 @@ int main(void)
         //------
         //draw
         BeginDrawing();
-            ClearBackground(RAYWHITE);
+            ClearBackground(RAYWHITE); 
             BeginMode3D(camera);
-            rlDisableBackfaceCulling();
-                DrawModel(modelMap, positionMap, 1.0f, WHITE);
-            rlEnableBackfaceCulling();
-            DrawModel(modelEnemy, positionEnemy1A, 0.1f, WHITE);
-            DrawModel(modelEnemy, positionEnemy1B, 0.1f, WHITE);
-            DrawModel(modelEnemy, positionEnemy2A, 0.1f, WHITE);
-            DrawModel(modelEnemy, positionEnemy2B, 0.1f, WHITE);
-            DrawModel(modelEnemy, positionEnemy3A, 0.1f, WHITE);
-            DrawModel(modelEnemy, positionEnemy3B, 0.1f, WHITE);
-            DrawModel(modelEnemy, positionEnemy4A, 0.1f, WHITE);
-            DrawModel(modelEnemy, positionEnemy4B, 0.1f, WHITE);
-            DrawModel(modelBoss, positionBoss, 0.05f, WHITE);
+                rlDisableBackfaceCulling();
+                    DrawModel(modelMap, positionMap, 1.0f, WHITE);
+                rlEnableBackfaceCulling();
+                DrawModel(modelEnemy, positionEnemy1A, 0.1f, WHITE);
+                DrawModel(modelEnemy, positionEnemy1B, 0.1f, WHITE);
+                DrawModel(modelEnemy, positionEnemy2A, 0.1f, WHITE);
+                DrawModel(modelEnemy, positionEnemy2B, 0.1f, WHITE);
+                DrawModel(modelEnemy, positionEnemy3A, 0.1f, WHITE);
+                DrawModel(modelEnemy, positionEnemy3B, 0.1f, WHITE);
+                DrawModel(modelEnemy, positionEnemy4A, 0.1f, WHITE);
+                DrawModel(modelEnemy, positionEnemy4B, 0.1f, WHITE);
+                DrawModel(modelBoss, positionBoss, 0.05f, WHITE);
             EndMode3D();
+            DrawTexture(splash_texture, position_cursor.x, position_cursor.y, WHITE);
         EndDrawing();
         //----
     }
     //end
     UnloadModel(modelMap);
     UnloadModel(modelEnemy);
+    UnloadModel(modelBoss);
+    UnloadTexture(splash_texture);  
     CloseWindow();
     //---
     return 0;
