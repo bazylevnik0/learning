@@ -37,11 +37,14 @@ int main(void)
     Vector3 positionBoss    = {  0.0f, -9.99f , 1.1f  };
     // Load splash texture
     Texture2D splash_texture = LoadTexture("src/image/splash.png");        
+    Texture2D gun0_texture = LoadTexture("src/image/gun0.png");        
+    Texture2D gun1_texture = LoadTexture("src/image/gun1.png");        
     // Load sound
     Sound sound_ambient = LoadSound("src/sound/ambient.wav"); 
     //---
     //prepare
     float t   = 0.0;
+    int i = 0;
     int step1 = 0;
     int step2 = 0;
     int step3 = 0;
@@ -53,6 +56,8 @@ int main(void)
     int hitB  = 0;
     int hitC  = 0;
     int score = 0;
+    float gun1_texture_position_y = GetScreenHeight();
+    gun1_texture_position_y = GetScreenHeight() - 350.0;
     //-------
     Ray ray = { 0 };                    // Picking line ray
     RayCollision collisionA = { 0 };
@@ -67,6 +72,12 @@ int main(void)
         UpdateCamera(&camera);
         //------
         //change
+        if ( i < 25 ) {
+            gun1_texture_position_y = GetScreenHeight();
+            i++;
+        } else {
+            i = 0;
+        }
         //step1
         if(t > 1.0f && t < 1.02f)
         {
@@ -82,11 +93,8 @@ int main(void)
             Vector3 targetSize = { 0.4f, 0.4f, 0.4f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
+               gun1_texture_position_y = GetScreenHeight() - 350.0; 
                //splash texture
-               position_cursor = GetMousePosition();
-               position_cursor.x -= 150.0f;
-               position_cursor.y -= 150.0f;
-
                //collision engine
                ray = GetMouseRay(GetMousePosition(), camera);
                // Check collision between ray and box
@@ -97,6 +105,11 @@ int main(void)
                {
                     hitA = 1;
                     positionEnemy1A.y = -1.75f;
+
+                    //splash texture
+                    position_cursor = GetMousePosition();
+                    position_cursor.x -= 150.0f;
+                    position_cursor.y -= 150.0f;
                }
                collisionB = GetRayCollisionBox(ray,
                             (BoundingBox){(Vector3){ positionEnemy1B.x - targetSize.x/2, positionEnemy1B.y - targetSize.y/2, positionEnemy1B.z - targetSize.z/2 },
@@ -105,6 +118,11 @@ int main(void)
                {
                     hitB = 1;
                     positionEnemy1B.y = -1.75f;
+
+                    //splash texture
+                    position_cursor = GetMousePosition();
+                    position_cursor.x -= 150.0f;
+                    position_cursor.y -= 150.0f;
                }
             }
             if(hitA == 1 && hitB == 1)
@@ -134,11 +152,7 @@ int main(void)
             Vector3 targetSize = { 0.4f, 0.4f, 0.4f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
-               //splash texture
-               position_cursor = GetMousePosition();
-               position_cursor.x -= 150.0f;
-               position_cursor.y -= 150.0f;
-
+               gun1_texture_position_y = GetScreenHeight() - 350.0;  
                ray = GetMouseRay(GetMousePosition(), camera);
                // Check collision between ray and box
                collisionA = GetRayCollisionBox(ray,
@@ -148,6 +162,11 @@ int main(void)
                {
                     hitA = 1;
                     positionEnemy2A.y = -1.75f;
+
+                    //splash texture
+                    position_cursor = GetMousePosition();
+                    position_cursor.x -= 150.0f;
+                    position_cursor.y -= 150.0f;
                }
                collisionB = GetRayCollisionBox(ray,
                             (BoundingBox){(Vector3){ positionEnemy2B.x - targetSize.x/2, positionEnemy2B.y - targetSize.y/2, positionEnemy2B.z - targetSize.z/2 },
@@ -156,6 +175,11 @@ int main(void)
                {
                     hitB = 1;
                     positionEnemy2B.y = -1.75f;
+
+                    //splash texture
+                    position_cursor = GetMousePosition();
+                    position_cursor.x -= 150.0f;
+                    position_cursor.y -= 150.0f;
                }
             }
             if(hitA == 1 && hitB == 1)
@@ -186,11 +210,7 @@ int main(void)
             Vector3 targetSize = { 0.4f, 0.4f, 0.4f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
-               //splash texture
-               position_cursor = GetMousePosition();
-               position_cursor.x -= 150.0f;
-               position_cursor.y -= 150.0f;
-
+               gun1_texture_position_y = GetScreenHeight() - 350.0; 
                ray = GetMouseRay(GetMousePosition(), camera);
                // Check collision between ray and box
                collisionA = GetRayCollisionBox(ray,
@@ -200,6 +220,11 @@ int main(void)
                {
                     hitA = 1;
                     positionEnemy3A.y = -1.75f;
+
+                    //splash texture
+                    position_cursor = GetMousePosition();
+                    position_cursor.x -= 150.0f;
+                    position_cursor.y -= 150.0f;
                }
                collisionB = GetRayCollisionBox(ray,
                             (BoundingBox){(Vector3){ positionEnemy3B.x - targetSize.x/2, positionEnemy3B.y - targetSize.y/2, positionEnemy3B.z - targetSize.z/2 },
@@ -208,6 +233,11 @@ int main(void)
                {
                     hitB = 1;
                     positionEnemy3B.y = -1.75f;
+
+                    //splash texture
+                    position_cursor = GetMousePosition();
+                    position_cursor.x -= 150.0f;
+                    position_cursor.y -= 150.0f;
                }
             }
             if(hitA == 1 && hitB == 1)
@@ -237,11 +267,7 @@ int main(void)
             Vector3 targetSize = { 0.4f, 0.4f, 0.4f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
-               //splash texture
-               position_cursor = GetMousePosition();
-               position_cursor.x -= 150.0f;
-               position_cursor.y -= 150.0f;
-
+               gun1_texture_position_y = GetScreenHeight() - 350.0; 
                ray = GetMouseRay(GetMousePosition(), camera);
                // Check collision between ray and box
                collisionA = GetRayCollisionBox(ray,
@@ -251,6 +277,11 @@ int main(void)
                {
                     hitA = 1;
                     positionEnemy4A.y = -1.75f;
+
+                    //splash texture
+                    position_cursor = GetMousePosition();
+                    position_cursor.x -= 150.0f;
+                    position_cursor.y -= 150.0f;
                }
                collisionB = GetRayCollisionBox(ray,
                             (BoundingBox){(Vector3){ positionEnemy4B.x - targetSize.x/2, positionEnemy4B.y - targetSize.y/2, positionEnemy4B.z - targetSize.z/2 },
@@ -259,6 +290,11 @@ int main(void)
                {
                     hitB = 1;
                     positionEnemy4B.y = -1.75f;
+
+                    //splash texture
+                    position_cursor = GetMousePosition();
+                    position_cursor.x -= 150.0f;
+                    position_cursor.y -= 150.0f;
                }
             }
             if(hitA == 1 && hitB == 1)
@@ -289,11 +325,7 @@ int main(void)
             Vector3 targetSize = { 1.0f, 1.0f, 1.0f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
-                //splash texture
-               position_cursor = GetMousePosition();
-               position_cursor.x -= 150.0f;
-               position_cursor.y -= 150.0f;
-
+               gun1_texture_position_y = GetScreenHeight() - 350.0; 
                ray = GetMouseRay(GetMousePosition(), camera);
                // Check collision between ray and box
                collisionC = GetRayCollisionBox(ray,
@@ -306,6 +338,10 @@ int main(void)
                     {
                         positionBoss.y = -9.99f;
                     }
+                    //splash texture
+                    position_cursor = GetMousePosition();
+                    position_cursor.x -= 150.0f;
+                    position_cursor.y -= 150.0f;
                }
             }
             if(score > 29)
@@ -354,14 +390,20 @@ int main(void)
                 DrawModel(modelBoss, positionBoss, 0.05f, WHITE);
             EndMode3D();
             DrawTexture(splash_texture, position_cursor.x, position_cursor.y, WHITE);
-        EndDrawing();
+            if(!(step5 == 2)) {
+                DrawTexture(gun0_texture, GetScreenWidth()/2-150.0, GetScreenHeight()-350.0, WHITE);
+            }
+            DrawTexture(gun1_texture, GetScreenWidth()/2-150.0, gun1_texture_position_y, WHITE);
+            EndDrawing();
         //----
     }
     //end
     UnloadModel(modelMap);
     UnloadModel(modelEnemy);
     UnloadModel(modelBoss);
-    UnloadTexture(splash_texture);  
+    UnloadTexture(splash_texture);
+    UnloadTexture(gun0_texture);
+    UnloadTexture(gun1_texture);  
     CloseWindow();
     //---
     return 0;
