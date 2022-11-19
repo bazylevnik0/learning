@@ -40,7 +40,22 @@ int main(void)
     Texture2D gun0_texture = LoadTexture("src/image/gun0.png");        
     Texture2D gun1_texture = LoadTexture("src/image/gun1.png");        
     // Load sound
-    Sound sound_ambient = LoadSound("src/sound/ambient.wav"); 
+    Sound sound_music_level   = LoadSound("src/sound/music_level.wav"); 
+    Sound sound_music_boss    = LoadSound("src/sound/music_boss.wav"); 
+    Sound sound_bah           = LoadSound("src/sound/bah.wav");
+    Sound sound_boss_death    = LoadSound("src/sound/boss_death.wav");
+    Sound sound_krik1 = LoadSound("src/sound/krik1.wav");
+    Sound sound_krik2 = LoadSound("src/sound/krik2.wav");
+    Sound sound_krik3 = LoadSound("src/sound/krik3.wav");
+    Sound sound_krik4 = LoadSound("src/sound/krik4.wav");
+    // Set sound volume
+    SetSoundVolume(sound_music_level, 0.25f);  
+    SetSoundVolume(sound_music_boss , 0.25f);  
+    SetSoundVolume(sound_bah , 0.5f);  
+    SetSoundVolume(sound_krik1 , 1.0f);  
+    SetSoundVolume(sound_krik2 , 1.0f);  
+    SetSoundVolume(sound_krik3 , 1.0f);  
+    SetSoundVolume(sound_krik4 , 1.0f);  
     //---
     //prepare
     float t   = 0.0;
@@ -65,7 +80,7 @@ int main(void)
     RayCollision collisionC = { 0 };
     Vector2 position_cursor = { 0.0f, 0.0f };   
     //play sound theme
-    PlaySound(sound_ambient);
+    PlaySound(sound_music_level);
     while (!WindowShouldClose())
     {
        //update
@@ -81,6 +96,7 @@ int main(void)
         //step1
         if(t > 1.0f && t < 1.02f)
         {
+            if (step1 == 0) PlaySound(sound_krik1);
             move = 0;
             step1 = 1;
             float temp = 14.0 - t;
@@ -93,6 +109,7 @@ int main(void)
             Vector3 targetSize = { 0.4f, 0.4f, 0.4f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
+               PlaySound(sound_bah);
                gun1_texture_position_y = GetScreenHeight() - 350.0; 
                //splash texture
                //collision engine
@@ -140,6 +157,7 @@ int main(void)
         //step2
         if(t > 4.0f && t < 4.02f)
         {
+            if (step2 == 0) PlaySound(sound_krik2);
             move = 0;
             step2 = 1;
             float temp = 14.0 - t;
@@ -152,6 +170,7 @@ int main(void)
             Vector3 targetSize = { 0.4f, 0.4f, 0.4f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
+               PlaySound(sound_bah);
                gun1_texture_position_y = GetScreenHeight() - 350.0;  
                ray = GetMouseRay(GetMousePosition(), camera);
                // Check collision between ray and box
@@ -198,6 +217,7 @@ int main(void)
         //step3
         if(t > 7.0f && t < 7.02f)
         {
+            if (step3 == 0) PlaySound(sound_krik3);
             move = 0;
             step3 = 1;
             float temp = 14.0 - t;
@@ -210,6 +230,7 @@ int main(void)
             Vector3 targetSize = { 0.4f, 0.4f, 0.4f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
+               PlaySound(sound_bah);
                gun1_texture_position_y = GetScreenHeight() - 350.0; 
                ray = GetMouseRay(GetMousePosition(), camera);
                // Check collision between ray and box
@@ -255,6 +276,7 @@ int main(void)
         //step4
         if(t > 10.0f && t < 10.02f)
         {
+            if (step4 == 0) PlaySound(sound_krik4);
             move = 0;
             step4 = 1;
             float temp = 14.0 - t;
@@ -267,6 +289,7 @@ int main(void)
             Vector3 targetSize = { 0.4f, 0.4f, 0.4f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
+               PlaySound(sound_bah);
                gun1_texture_position_y = GetScreenHeight() - 350.0; 
                ray = GetMouseRay(GetMousePosition(), camera);
                // Check collision between ray and box
@@ -312,6 +335,15 @@ int main(void)
         //step5
         if(t > 13.0f && t < 13.02f)
         {
+            if (step5 == 0) 
+            {
+                StopSound(sound_music_level);
+                PlaySound(sound_krik1);
+                PlaySound(sound_krik2);
+                PlaySound(sound_krik3);
+                PlaySound(sound_krik4);
+                PlaySound(sound_music_boss);
+            }
             move = 0;
             step5 = 1;
             float temp = 14.0 - t;
@@ -325,6 +357,7 @@ int main(void)
             Vector3 targetSize = { 1.0f, 1.0f, 1.0f };
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
+               PlaySound(sound_bah);
                gun1_texture_position_y = GetScreenHeight() - 350.0; 
                ray = GetMouseRay(GetMousePosition(), camera);
                // Check collision between ray and box
@@ -334,7 +367,7 @@ int main(void)
                if (collisionC.hit)
                {
                     score += 1;
-                    if (score > 29) 
+                    if (score > 99) 
                     {
                         positionBoss.y = -9.99f;
                     }
@@ -344,11 +377,12 @@ int main(void)
                     position_cursor.y -= 150.0f;
                }
             }
-            if(score > 29)
+            if(score > 99)
             {
                 step5 = 2;
                 hitA = 0;
                 hitB = 0;
+                PlaySound(sound_boss_death);
             }
             if(step5 == 2)
             {
