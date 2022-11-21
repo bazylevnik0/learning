@@ -16,12 +16,12 @@ function init() {
   	cloudr1.src = './cloudr1+.png';
   	cloudr2.src = './cloudr2+.png';
   } else {
-  	line.src    = 'https://bazylevnik0.github.io/practice/web/2danimations/main/line.png';
-  	color.src   = 'https://bazylevnik0.github.io/practice/web/2danimations/main/color.png';
-  	cloudl1.src = 'https://bazylevnik0.github.io/practice/web/2danimations/main/cloudl1.png';
-  	cloudl2.src = 'https://bazylevnik0.github.io/practice/web/2danimations/main/cloudl2.png';
-  	cloudr1.src = 'https://bazylevnik0.github.io/practice/web/2danimations/main/cloudr1.png';
-  	cloudr2.src = 'https://bazylevnik0.github.io/practice/web/2danimations/main/cloudr2.png';
+  	line.src    = './line.png';
+  	color.src   = './color.png';
+  	cloudl1.src = './cloudl1.png';
+  	cloudl2.src = './cloudl2.png';
+  	cloudr1.src = './cloudr1.png';
+  	cloudr2.src = './cloudr2.png';
   }
   cloudr2.onload = function() {
 	ctx = document.getElementById('main').getContext('2d');
