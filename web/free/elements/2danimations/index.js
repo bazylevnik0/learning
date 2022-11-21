@@ -9,19 +9,19 @@ var cloudl2 = new Image();
 var cloudr2 = new Image();
 function init() {
   if (window.innerWidth > 2100) { 
-  	line.src    = './line+.png';
-  	color.src   = './color+.png';
-  	cloudl1.src = './cloudl1+.png';
-  	cloudl2.src = './cloudl2+.png';
-  	cloudr1.src = './cloudr1+.png';
-  	cloudr2.src = './cloudr2+.png';
+  	line.src    = './main/line+.png';
+  	color.src   = './main/color+.png';
+  	cloudl1.src = './main/cloudl1+.png';
+  	cloudl2.src = './main/cloudl2+.png';
+  	cloudr1.src = './main/cloudr1+.png';
+  	cloudr2.src = './main/cloudr2+.png';
   } else {
-  	line.src    = './line.png';
-  	color.src   = './color.png';
-  	cloudl1.src = './cloudl1.png';
-  	cloudl2.src = './cloudl2.png';
-  	cloudr1.src = './cloudr1.png';
-  	cloudr2.src = './cloudr2.png';
+  	line.src    = './main/line.png';
+  	color.src   = './main/color.png';
+  	cloudl1.src = './main/cloudl1.png';
+  	cloudl2.src = './main/cloudl2.png';
+  	cloudr1.src = './main/cloudr1.png';
+  	cloudr2.src = './main/cloudr2.png';
   }
   cloudr2.onload = function() {
 	ctx = document.getElementById('main').getContext('2d');
