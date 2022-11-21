@@ -36,7 +36,7 @@ scene.add( point_light_down );
 //load & set
 //coffee
 var coffee 
-loader_mtl_c.load( 'coffee.mtl' ,     function( material ) {
+loader_mtl_c.load( './coffee.mtl' ,     function( material ) {
                   material.preload();
                    loader_obj_c.setMaterials( material );
 						     loader_obj_c.load('./coffee.obj' , ( object ) => {
