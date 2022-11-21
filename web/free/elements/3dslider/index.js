@@ -54,7 +54,7 @@ var orange
 loader_mtl_o.load( './orange.mtl' ,     function( material ) {
                   material.preload();
                    loader_obj_o.setMaterials( material );
-						     loader_obj_o.load('.orange.obj' , ( object ) => {
+						     loader_obj_o.load('./orange.obj' , ( object ) => {
                       object.rotation.y = -2
                       object.rotation.x = 0.5
                       orange = object
@@ -67,10 +67,10 @@ loader_mtl_o.load( './orange.mtl' ,     function( material ) {
 
 //lemon
 var limon 
-loader_mtl_l.load( 'https://bazylevnik0.github.io/practice/web/3dslider/limon.mtl' ,     function( material ) {
+loader_mtl_l.load( './limon.mtl' ,     function( material ) {
                   material.preload();
                    loader_obj_l.setMaterials( material );
-						     loader_obj_l.load('https://bazylevnik0.github.io/practice/web/3dslider/limon.obj' , ( object ) => {
+						     loader_obj_l.load('./limon.obj' , ( object ) => {
                       object.rotation.y = -2
                       object.rotation.x = 0.5
                       limon = object
