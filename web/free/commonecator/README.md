@@ -35,7 +35,6 @@ Messages publishing in body.
  </ul>
 <hr>
 <i>App was bulit by bazylevnik0 with love for Richmond Avenal - because he is the only one who knows how it works.</i><br>
-<a data-flickr-embed="true" href="https://www.flickr.com/photos/190118078@N05/51791897758/in/dateposted-public/" title="aBAu6pbQUnzj68aFWXzcfdskvRDGPIDYE-sImqirbqY"><img src="https://live.staticflickr.com/65535/51791897758_93989b6477_w.jpg" width="400" height="220" alt="aBAu6pbQUnzj68aFWXzcfdskvRDGPIDYE-sImqirbqY"></a>
 <i><a href="https://www.youtube.com/watch?v=12LLJFSBnS4">https://www.youtube.com/watch?v=12LLJFSBnS4</a></i><br>
 <hr>
 Thanks Geeky-Sam01 for fix grammar
