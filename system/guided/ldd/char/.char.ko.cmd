@@ -1,0 +1,1 @@
+cmd_/home/test/char/char.ko := ld -r -m elf_x86_64 -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T scripts/module.lds -o /home/test/char/char.ko /home/test/char/char.o /home/test/char/char.mod.o;  true

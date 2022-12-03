@@ -1,0 +1,1 @@
+cmd_/home/test/skull/skull.ko := ld -r -m elf_x86_64 -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T scripts/module.lds -o /home/test/skull/skull.ko /home/test/skull/skull.o /home/test/skull/skull.mod.o;  true
