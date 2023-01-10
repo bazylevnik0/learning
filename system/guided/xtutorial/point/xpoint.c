@@ -65,7 +65,7 @@ main ()
     case XCB_EXPOSE: {
       /* We draw the points */
       xcb_poly_point (c, XCB_COORD_MODE_ORIGIN, win, foreground, 4, points);
-     /* We flush the request */
+      /* We flush the request */
       xcb_flush (c);
 
       break;
