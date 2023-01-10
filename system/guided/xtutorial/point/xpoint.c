@@ -13,7 +13,7 @@ main ()
   uint32_t             mask = 0;
   uint32_t             values[2];
 
-  /* geometric objects */
+  /* geometric object */
   xcb_point_t          points[] = {
     {10, 10},
     {10, 20},
