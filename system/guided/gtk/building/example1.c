@@ -13,16 +13,26 @@ activate (GtkApplication *app,
 {
   GtkWidget *window;
   GtkWidget *button;
+  GtkWidget *box;
 
   window = gtk_application_window_new (app);
   gtk_window_set_title (GTK_WINDOW (window), "Window");
   gtk_window_set_default_size (GTK_WINDOW (window), 200, 200);
 
-  button = gtk_button_new_with_label ("Hello World");
-  g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
-  gtk_window_set_child (GTK_WINDOW (window), button);
+  box = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
+  gtk_widget_set_halign (box, GTK_ALIGN_CENTER);
+  gtk_widget_set_valign (box, GTK_ALIGN_CENTER);
 
-  gtk_window_present (GTK_WINDOW (window));
+  gtk_window_set_child (GTK_WINDOW (window), box);
+
+  button = gtk_button_new_with_label ("Hello World");
+
+  g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
+  g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_window_destroy), window);
+
+  gtk_box_append (GTK_BOX (box), button);
+
+  gtk_widget_show (window);
 }
 
 int
@@ -31,7 +41,7 @@ main (int    argc,
 {
   GtkApplication *app;
   int status;
-                                                // G_APPLICATION_DEFAULT_FLAGS
+                                                //G_APPLICATION_DEFAULT_FLAGS
   app = gtk_application_new ("org.gtk.example", 0);
   g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
   status = g_application_run (G_APPLICATION (app), argc, argv);
@@ -39,4 +49,3 @@ main (int    argc,
 
   return status;
 }
-
