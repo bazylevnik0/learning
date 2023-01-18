@@ -1,0 +1,78 @@
+#include <gtk/gtk.h>
+#include <glib/gstdio.h>
+
+
+static void
+activate (GtkApplication *app)
+{
+  g_print ("please choose file: ./app [file]\n");  
+}
+     
+static void
+open (GtkApplication *app, 
+      GFile          **files,
+      int            n_files)
+{
+  if (n_files > 1) 
+  {
+    g_print ("please choose only one file and restart: ./app [file]\n");
+  }
+  else 
+  {
+    //get name
+    char *name;
+    name = g_file_get_parse_name(files[0]);
+    g_print ("%s\n",name);
+    //get text
+    char *contents;
+    gsize length;
+    g_file_load_contents (files[0], NULL, &contents, &length, NULL, NULL);
+    g_print ("%s\n",contents);
+    
+    /* Construct a GtkBuilder instance and load our UI description */
+    GtkBuilder *builder = gtk_builder_new ();
+    gtk_builder_add_from_file (builder, "builder.ui", NULL);
+
+    /* Connect signal handlers to the constructed widgets. */
+    GObject *window = gtk_builder_get_object (builder, "window");
+    gtk_window_set_application (GTK_WINDOW (window), app);
+
+   
+    /* Load title and text */
+    //name
+    gtk_window_set_title(GTK_WINDOW (window),name);
+    //text
+    GtkWidget *view;
+    view = gtk_text_view_new ();
+    gtk_window_set_child (GTK_WINDOW (window), view);
+    GtkTextBuffer *buffer;
+    buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
+    gtk_text_buffer_set_text (buffer, contents, length);
+
+    gtk_widget_show (GTK_WIDGET (window));
+
+    /* We do not need the builder and contents any more */
+    g_object_unref (builder); 
+    g_free (contents);
+  }
+}
+
+
+int
+main (int   argc,
+      char *argv[])
+{
+#ifdef GTK_SRCDIR
+  g_chdir (GTK_SRCDIR);
+#endif
+                                                                //G_APPLICATION_DEFAULT_FLAGS
+  GtkApplication *app = gtk_application_new ("org.gtk.example", G_APPLICATION_HANDLES_OPEN);
+  g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
+  g_signal_connect (app, "open", G_CALLBACK (open), NULL);
+                        
+  int status = g_application_run (G_APPLICATION (app), argc, argv);
+
+  g_object_unref (app);
+
+  return status;
+}
