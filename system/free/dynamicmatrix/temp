@@ -1,0 +1,89 @@
+tech stack: XCB
+concept: 
+you load input characteristics ( objects, position, color) - in console
+and after enter to view screen ( with grid and objects )
+and also handle arrow keys events - it is must "move" matrix to left/right/up/down
+
+matrix:
+[0]   x11   x21   x31   [0]
+y11   [0]   [0]   [0]   y12
+y21   [0]   [0]   [0]   y22
+y31   [0]   [0]   [0]   y32
+[0]   x12   x22   x32   [0]
+*in for example x11 we store calculated position(screen/size of grid) of grid point[x,y]
+*when is needed we can put object inside with [marker(1),x,y,type,size,color]
+**[x,y] real positions 
+
+app:
+-parse input 
+-initiliazation
+-loop:
+ *two phases:
+  1)handle hange matrix
+  2)draw
+
+------------------------------
+details:
+-parse input:
+ 
+ input:
+                     //x,y,t,s,c;
+    for example: ./dm "2,3,c,1,r;5,5,s,2,g;"
+    where:
+        x,y - relative position not real
+        t - type
+            c - circle
+            s - square
+        s - relative size not real
+        c - color
+            r - red
+            g - green
+            b - blue
+        , - between arguments in object
+        ; - end of object
+
+ parse:
+    split objects, maybe with "strtok" - find ";" to temp_objects array(char *)
+    convert temp_objects to objects(int)
+                                        t c = 1
+                                        t s = 2
+                                        c r = 1
+                                        c g = 2
+                                        c b = 3
+                                                also with "strtok" - find ","
+
+ initialization:
+    fill matrix(int *) with [0]
+    get size of screen
+    calculate and fill borders in matrix
+    calculte  and fill objects in matrix
+    prepare X context
+
+ loop:
+    -handle change matrix:
+        go through all and add k(koefficient of moving)
+        x :  
+            check if first element in out of screen then 
+                                                        if need
+                                                            copy last column to temp_column(int *)
+                                                            shift all matrix 
+            check if last element in out of screen then 
+                                                        if need
+                                                            copy last column to temp_column(int *)
+                                                            shift all matrix 
+        y :
+            check if first element in out of screen then 
+                                                        if need
+                                                            copy last row to temp_row(int *)
+                                                            shift all matrix 
+            check if last element in out of screen then 
+                                                        if need
+                                                            copy last row to temp_row(int *)
+                                                            shift all matrix 
+    -draw:
+        x:
+            go through up and connect up and down
+        y:            
+            go through left and connect left and right
+        objects:
+            go through all(exlude up and left) and draw objects(it's loop(iterator = size) of silhouettes for full shape)
