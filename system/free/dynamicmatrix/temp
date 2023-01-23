@@ -54,10 +54,10 @@ details:
 
  initialization:
     fill matrix(int *) with [0]
+    prepare X context
     get size of screen
     calculate and fill borders in matrix
     calculte  and fill objects in matrix
-    prepare X context
 
  loop:
     -handle change matrix:
