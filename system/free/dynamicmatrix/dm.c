@@ -58,14 +58,14 @@ main (int argc, char *argv[])
     token = strtok(temp_objects[i], ",");
     for (j=0 ; j<5 ; j++)
     {
-      if      (*token == '1') objects[i][j] = 1;
-      else if (*token == '2') objects[i][j] = 2;
-      else if (*token == '3') objects[i][j] = 3;
-      else if (*token == 'c') objects[i][j] = 1;
-      else if (*token == 's') objects[i][j] = 2;
-      else if (*token == 'r') objects[i][j] = 1;
-      else if (*token == 'g') objects[i][j] = 2;
-      else if (*token == 'b') objects[i][j] = 3;
+      if      (!strcmp(token,"1")) objects[i][j] = 1;
+      else if (!strcmp(token,"2")) objects[i][j] = 2;
+      else if (!strcmp(token,"3")) objects[i][j] = 3;
+      else if (!strcmp(token,"c")) objects[i][j] = 1;
+      else if (!strcmp(token,"s")) objects[i][j] = 2;
+      else if (!strcmp(token,"r")) objects[i][j] = 1;
+      else if (!strcmp(token,"g")) objects[i][j] = 2;
+      else if (!strcmp(token,"b")) objects[i][j] = 3;
       else objects[i][j] = atoi(token);
       token = strtok(NULL, ",");
     }  
