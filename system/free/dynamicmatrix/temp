@@ -1,3 +1,5 @@
+/*temp
+
 tech stack: XCB
 concept: 
 you load input characteristics ( objects, position, color) - in console
@@ -30,7 +32,7 @@ details:
                      //x,y,t,s,c;
     for example: ./dm "2,3,c,1,r;5,5,s,2,g;"
     where:
-        x,y - relative position not real
+        x,y - relative position not real | 0 <= x <= 15 ; 0 <= y <= 9
         t - type
             c - circle
             s - square
@@ -45,8 +47,8 @@ details:
  parse:
     split objects, maybe with "strtok" - find ";" to temp_objects array(char *)
     convert temp_objects to objects(int)
-                                        t c = 1
-                                        t s = 2
+                                        t c = 2
+                                        t s = 3
                                         c r = 1
                                         c g = 2
                                         c b = 3
@@ -54,12 +56,18 @@ details:
 
  initialization:
     fill matrix(int *) with [0]
-    prepare X context
-    get size of screen
-    calculate and fill borders in matrix
-    calculte  and fill objects in matrix
+    prepare X contex & (get size of screen, in screen)
+    calculate and fill borders in matrix [1,x,y]
+    calculte  and fill objects in matrix [2,x,y,c,s]
 
  loop:
+    -draw:
+        x:
+            go through up and connect up and down
+        y:            
+            go through left and connect left and right
+        objects:
+            go through all(exlude up and left) and draw objects(it's loop(iterator = size) of silhouettes for full shape)
     -handle change matrix:
         go through all and add k(koefficient of moving)
         x :  
@@ -80,10 +88,10 @@ details:
                                                         if need
                                                             copy last row to temp_row(int *)
                                                             shift all matrix 
-    -draw:
-        x:
-            go through up and connect up and down
-        y:            
-            go through left and connect left and right
-        objects:
-            go through all(exlude up and left) and draw objects(it's loop(iterator = size) of silhouettes for full shape)
+
+
+/*testing and fixing
+-not full screen
+-undefined line in square
+
+/*documentation and intro
