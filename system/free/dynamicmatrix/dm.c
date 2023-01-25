@@ -5,6 +5,7 @@
 
 //global variables(yep i know)
 int i,j,k,o; //iterators
+int sw,sh;//speed of movement
 
 int
 main (int argc, char *argv[])
@@ -93,6 +94,7 @@ main (int argc, char *argv[])
   xcb_gcontext_t       gcontext_red;
   xcb_gcontext_t       gcontext_green;
   xcb_gcontext_t       gcontext_blue;
+  xcb_gcontext_t       gcontext_black;
   xcb_generic_event_t *e;
   uint32_t             mask = 0;
   uint32_t             values[2];
@@ -101,6 +103,8 @@ main (int argc, char *argv[])
   c = xcb_connect (NULL, NULL);
   // Get the first screen
   screen = xcb_setup_roots_iterator (xcb_get_setup (c)).data;
+  sw = screen->width_in_pixels/16/10; //speed related to screen width
+  sh = screen->width_in_pixels/9/10;  //speed related to screen height
   // Create graphic contexts
   xcb_colormap_t           cmap;
   xcb_alloc_color_reply_t *rep;
@@ -133,13 +137,20 @@ main (int argc, char *argv[])
   values[0] = rep->pixel;
   values[1] = 0;
   xcb_create_gc (c, gcontext_blue, win, mask, values);
+  //blue
+  rep = xcb_alloc_color_reply (c, xcb_alloc_color (c, cmap, 0, 0, 0), NULL);
+  gcontext_black = xcb_generate_id (c);
+  mask = XCB_GC_FOREGROUND | XCB_GC_GRAPHICS_EXPOSURES;
+  values[0] = rep->pixel;
+  values[1] = 0;
+  xcb_create_gc (c, gcontext_black, win, mask, values);
 
   // Ask for our window's Id 
   win = xcb_generate_id(c);
   // Create the window
   mask = XCB_CW_BACK_PIXEL | XCB_CW_EVENT_MASK;
   values[0] = screen->black_pixel;
-  values[1] = XCB_EVENT_MASK_EXPOSURE;
+  values[1] = XCB_EVENT_MASK_EXPOSURE | XCB_EVENT_MASK_KEY_PRESS;
   xcb_create_window (c,                             // Connection          
                      XCB_COPY_FROM_PARENT,          // depth               
                      win,                           // window Id           
@@ -156,42 +167,14 @@ main (int argc, char *argv[])
   xcb_flush (c);
 
 
-  //calculate and fill borders in matrix
-  //horizontal
-  for (j=0 ; j<16 ; j++)
+  //calculate and fill matrix with (x,y)
+  for(j=0;j<9;j++)
   {
-    //up
-    //x
-    matrix[0][j][0] = screen->width_in_pixels/16*j;
-    //y
-    matrix[0][j][1] = screen->height_in_pixels/9*0;
-    //type
-    matrix[0][j][2] = 1;
-    //down
-    //x
-    matrix[8][j][0] = screen->width_in_pixels/16*j;
-    //y
-    matrix[8][j][1] = screen->height_in_pixels/9*8;
-    //type
-    matrix[8][j][2] = 1;
-  }
-  //vertical
-  for (i=0 ; i<9 ; i++)
-  {
-    //left
-    //x
-    matrix[i][0][0] = screen->width_in_pixels/16*0;
-    //y
-    matrix[i][0][1] = screen->height_in_pixels/9*i;
-    //type
-    matrix[i][0][2] = 1;
-    //right
-    //x
-    matrix[i][15][0] = screen->width_in_pixels/16*15;
-    //y
-    matrix[i][15][1] = screen->height_in_pixels/9*i;
-    //type
-    matrix[i][15][2] = 1;
+    for(i=0;i<16;i++)
+    {
+      matrix[j][i][0] = screen->width_in_pixels/16*i;
+      matrix[j][i][1] = screen->height_in_pixels/9*j; 
+    }
   }
 
   //calculate and fill objects in matrix
@@ -208,168 +191,261 @@ main (int argc, char *argv[])
     //     x              y              c               c
     matrix[objects[i][1]][objects[i][0]][4] = objects[i][4];
   }
-
-  //test printing
-  for (i=0 ; i<9 ; i++)
-  {
-    for (j=0 ; j<16 ; j++)
-    {
-       for (k=0 ; k<5 ; k++)
-       {
-         printf("%d",matrix[i][j][k]);
-       } 
-      printf(" ");
-    }
-    printf("\n");
-  }
-
-
   
   //loop
   while ((e = xcb_wait_for_event (c))) {
     //handle
-    switch (e->response_type & ~0x80) {
-    //draw  
-    case XCB_EXPOSE: {
-      //x lines
-      for(j=0;j < 16; j++)
-      {
-        xcb_point_t line_temp[] = {
-        //x              y
-        {matrix[0][j][0],matrix[0][j][1]}, // a
-        {matrix[8][j][0],matrix[8][j][1]}  // b
-        };
-        xcb_poly_line (c, XCB_COORD_MODE_ORIGIN, win, gcontext_white, 2, line_temp);
-      }
-      //y lines
-      for(i=0;i < 9; i++)
-      {
-        xcb_point_t line_temp[] = {
-        //x              y
-        {matrix[i][0][0] ,matrix[i][0][1]}, // a
-        {matrix[i][15][0],matrix[i][15][1]} // b
-        };
-        xcb_poly_line (c, XCB_COORD_MODE_ORIGIN, win, gcontext_white, 2, line_temp);
-      }
-      //objects
-      for( j=0; j < 9; j++)
-      {
-        for( i=0; i < 16; i++)
+    switch (e->response_type & ~0x80) 
+    {
+      //keyboard
+      case XCB_KEY_PRESS: {
+        xcb_key_press_event_t *ev = (xcb_key_press_event_t *)e;
+        
+        printf ("%ld pressed in window %ld\n",
+                ev->detail,ev->event);
+
+        //move
+        //left
+        if ( ev->detail == 113) 
         {
-          //check type
-          //ark
-          if(matrix[j][i][2] == 2)
+          for (j = 0; j < 9; j++)
           {
-            printf("%d%d ",i,j);
-            for (o = 0; o < matrix[j][i][3]; o += 1) //loop for fill shape
+            for (i = 0; i < 16; i++)
             {
-              xcb_arc_t  arc[] = {
-                //x             //fix center            y                              width  height  angle in Binary Angle format
-                {matrix[j][i][0]+matrix[j][i][3]/2-o/2, matrix[j][i][1]+matrix[j][i][3]/2-o/2, o,     o,      0, 360 << 6}
-              };
-              //check color
-              if (matrix[j][i][4] == 1)
-              {                        
-                xcb_poly_arc (c, win, gcontext_red,   1, arc);
-              }
-              if (matrix[j][i][4] == 2)
-              {
-                xcb_poly_arc (c, win, gcontext_green, 1, arc);
-              }
-              if (matrix[j][i][4] == 3)
-              {
-                xcb_poly_arc (c, win, gcontext_blue,  1, arc);
-              }
+              matrix[j][i][0] -= sw;
             }
           }
-          //square
-          if(matrix[j][i][2] == 3)
-          {
-            printf("%d%d ",i,j);
-            for (o = 0; o < matrix[j][i][3]; o += 1) //loop for fill shape
-            {
-              xcb_rectangle_t rectangle[] = {
-                //x               y                width  height
-                {matrix[j][i][0], matrix[j][i][1], o,     o},
-              };
-              //check color
-              if (matrix[j][i][4] == 1)
-              {                        
-                xcb_poly_rectangle (c, win, gcontext_red,   1, rectangle);
-              }
-              if (matrix[j][i][4] == 2)
-              {
-                xcb_poly_rectangle (c, win, gcontext_green, 1, rectangle);
-              }
-              if (matrix[j][i][4] == 3)
-              {
-                xcb_poly_rectangle (c, win, gcontext_blue,  1, rectangle);
-              }
-            }
-          }    
         }
+        //up
+        if ( ev->detail == 116) 
+        {
+          for (j = 0; j < 9; j++)
+          {
+            for (i = 0; i < 16; i++)
+            {
+              matrix[j][i][1] += sh;
+            }
+          }
+        }
+        //right
+        if ( ev->detail == 114) 
+        {
+          for (j = 0; j < 9; j++)
+          {
+            for (i = 0; i < 16; i++)
+            {
+              matrix[j][i][0] += sw;
+            }
+          }
+        }
+        //down
+        if ( ev->detail == 111) 
+        {
+          for (j = 0; j < 9; j++)
+          {
+            for (i = 0; i < 16; i++)
+            {
+              matrix[j][i][1] -= sh;
+            }
+          }
+        }  
+        //top
+        //handle right top border
+        //right  
+        if (matrix[0][15][0] >= screen->width_in_pixels/16*16)
+        {
+          //shift right
+          //1
+          //store last(15) in temp
+          int temp_array[9][5];
+          for (j = 0; j < 9; j++)
+          {
+            for (k = 0; k < 5; k++)
+            {
+              temp_array[j][k] = matrix[j][15][k];
+            }
+          }
+          //2
+          //move all in matrix to right - exclude first(0)
+          for (j = 0; j < 9; j++)
+          {
+            for (i = 15; i >= 1 ; i--)
+            {
+              for (k = 0; k < 5; k++)
+              {
+                matrix[j][i][k] = matrix[j][i-1][k]; 
+              } 
+              //fix last column         
+              matrix[j][i][0] = matrix[j][i-1][0]+sw*10; 
+            }  
+          }
+          //3
+          //from temp to first(0)
+          for(j = 0; j < 9; j++)
+          {
+            for (k = 0; k < 5; k++)
+            {
+              matrix[j][0][k] = temp_array[j][k];
+            }
+          }
+          //4
+          //recalculate matrix
+          for( j = 0; j < 9; j++)
+          {
+            for( i = 1; i < 16; i++)
+            {
+              matrix[j][i][0] -= screen->width_in_pixels/16;
+            }
+          }
+          for( j = 0; j < 9; j++)
+          {
+                             //width screen         
+            matrix[j][0][0] -= screen->width_in_pixels; 
+          }
+        }
+        //handle left top border
+        //right  
+        if (matrix[0][0][0] <= 0)
+        {
+          //shift left
+          //store first(0) in temp
+          int temp_array[9][5];
+          for (j = 0; j < 9; j++)
+          {
+            for (k = 0; k < 5; k++)
+            {
+              temp_array[j][k] = matrix[j][0][k];
+            }
+          }
+          //move all in matrix to left - exclude first(0)
+          for (j = 0; j < 9; j++)
+          {
+            for (i = 0; i <= 14 ; i++)
+            {
+              for (k = 0; k < 5; k++)
+              {
+                matrix[j][i][k] = matrix[j][i+1][k]; 
+              } 
+              //fix last column         
+              matrix[j][i][0] = matrix[j][i+1][0]-sw*10; 
+            }  
+          }
+          //from temp to last(15)
+          for(j = 0; j < 9; j++)
+          {
+            for (k = 0; k < 5; k++)
+            {
+              matrix[j][15][k] = temp_array[j][k];
+            }
+          }
+          //recalculate matrix
+          for( j = 0; j < 9; j++)
+          {
+            for( i = 0; i <= 14; i++)
+            {
+              matrix[j][i][0] += screen->width_in_pixels/16;
+            }
+          }
+          for( j = 0; j < 9; j++)
+          {
+                             //width screen         
+            matrix[j][15][0] += screen->width_in_pixels; 
+          }
+        }
+        //nobreak i mean if we press button then after change we continue to drawing
       }
+      //draw  
+      case XCB_EXPOSE: {
+        //clear screen
+        xcb_rectangle_t rectangle[] = {
+                  //x               y                width  height
+                  {0, 0, screen->width_in_pixels*2,     screen->height_in_pixels*2},
+                };
+                //check color
+                  xcb_poly_fill_rectangle (c, win, gcontext_black,   1, rectangle);
+           
+        //vertical lines
+        for(i=0;i < 16; i++)
+        {
+          xcb_point_t line_temp[] = {
+          //x              y
+          {matrix[0][i][0],matrix[0][i][1]}, // a
+          {matrix[8][i][0],matrix[8][i][1]}  // b
+          };
+          xcb_poly_line (c, XCB_COORD_MODE_ORIGIN, win, gcontext_white, 2, line_temp);
+        }
+        //horizontal lines
+        for(j=0;j < 9; j++)
+        {
+          xcb_point_t line_temp[] = {
+          //x              y
+          {matrix[j][0][0] ,matrix[j][0][1]}, // a
+          {matrix[j][15][0],matrix[j][15][1]} // b
+          };
+          xcb_poly_line (c, XCB_COORD_MODE_ORIGIN, win, gcontext_white, 2, line_temp);
+        }
+        //objects
+        for( j=0; j < 9; j++)
+        {
+          for( i=0; i < 16; i++)
+          {
+            //check type
+            //ark
+            if(matrix[j][i][2] == 2)
+            {
+              printf("%d%d ",i,j);
+                xcb_arc_t  arc[] = {
+                  //x             //fix center            y                                      width            height           angle in Binary Angle format
+                  {matrix[j][i][0]+matrix[j][i][3]/2-o/2, matrix[j][i][1]+matrix[j][i][3]/2-o/2, matrix[j][i][3], matrix[j][i][3], 0, 360 << 6}
+                };
+                //check color
+                if (matrix[j][i][4] == 1)
+                {                        
+                  xcb_poly_fill_arc (c, win, gcontext_red,   1, arc);
+                }
+                if (matrix[j][i][4] == 2)
+                {
+                  xcb_poly_fill_arc (c, win, gcontext_green, 1, arc);
+                }
+                if (matrix[j][i][4] == 3)
+                {
+                  xcb_poly_fill_arc (c, win, gcontext_blue,  1, arc);
+                }
+            }
+            //square
+            if(matrix[j][i][2] == 3)
+            {
+              printf("%d%d ",i,j);
+              //try change this loop to polyfill
+                xcb_rectangle_t rectangle[] = {
+                  //x               y                width            height
+                  {matrix[j][i][0], matrix[j][i][1], matrix[j][i][3], matrix[j][i][3]},
+                };
+                //check color
+                if (matrix[j][i][4] == 1)
+                {                        
+                  xcb_poly_fill_rectangle (c, win, gcontext_red,   1, rectangle);
+                }
+                if (matrix[j][i][4] == 2)
+                {
+                  xcb_poly_fill_rectangle (c, win, gcontext_green, 1, rectangle);
+                }
+                if (matrix[j][i][4] == 3)
+                {
+                  xcb_poly_fill_rectangle (c, win, gcontext_blue,  1, rectangle);
+                }
+            }    
+          }
+        }
 
-
-      //types/objects for geometric shapes 
-      /*
-      xcb_point_t line_temp[] = {
-      //x,y
-        {0,0}, // a
-        {100,100}  // b
-      };
-      */ 
-      /*
-      xcb_rectangle_t rectangle[] = {
-      //x  y  width height
-        {0, 0, 0,    0},
-      }; 
-      xcb_arc_t  arc[] = {
-      //x  y  width  height  angle in Binary Angle format
-        {0, 0, 0,     0,      0, 360 << 6}
-      };
-      */
-      /*
-      for (j=0 ; j<16 ; j++)
-      {
-
+        //flush
+        xcb_flush (c);
+        
+        break;
       }
-      */
-     
-      /*
-      //draw lines
-      xcb_poly_line (c, XCB_COORD_MODE_ORIGIN, win, gcontext_white, 2, lineA);
-      xcb_poly_line (c, XCB_COORD_MODE_ORIGIN, win, gcontext_white, 2, lineB);
-      xcb_poly_line (c, XCB_COORD_MODE_ORIGIN, win, gcontext_white, 2, lineC);
-      xcb_poly_line (c, XCB_COORD_MODE_ORIGIN, win, gcontext_white, 2, lineD);
-
-      //draw rectangle
-      xcb_poly_rectangle (c, win, gcontext_red, 1, rectangle);
-
-      //draw arc
-      xcb_poly_arc (c, win, gcontext_blue, 1, arc);
-      */
-
-
-
-      //flush
-      xcb_flush (c);
-
-      break;
-    }
-    //keyboard
-    case XCB_KEY_PRESS: {
-      xcb_key_press_event_t *ev = (xcb_key_press_event_t *)e;
       
-      printf ("%ld pressed in window %ld\n",
-              ev->detail,ev->event);
-      break;
     }
-    default: {
-      // Unknown event type, ignore it
-      break;
-    }
-    }
+    
     // Free the Generic Event
     free (e);
   }

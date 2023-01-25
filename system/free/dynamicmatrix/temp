@@ -21,7 +21,7 @@ app:
 -initiliazation
 -loop:
  *two phases:
-  1)handle hange matrix
+  1)handle change matrix
   2)draw
 
 ------------------------------
@@ -57,8 +57,8 @@ details:
  initialization:
     fill matrix(int *) with [0]
     prepare X contex & (get size of screen, in screen)
-    calculate and fill borders in matrix [1,x,y]
-    calculte  and fill objects in matrix [2,x,y,c,s]
+    calculate and fill all matrix [x,y]
+    calculte  and fill objects in matrix [x,y,t,c,s]
 
  loop:
     -draw:
@@ -70,6 +70,7 @@ details:
             go through all(exlude up and left) and draw objects(it's loop(iterator = size) of silhouettes for full shape)
     -handle change matrix:
         go through all and add k(koefficient of moving)
+        check borders and shift
         x :  
             check if first element in out of screen then 
                                                         if need
@@ -92,6 +93,5 @@ details:
 
 /*testing and fixing
 -not full screen
--undefined line in square
 
 /*documentation and intro
