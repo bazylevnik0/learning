@@ -485,7 +485,6 @@ main (int argc, char *argv[])
             //ark
             if(matrix[j][i][2] == 2)
             {
-              printf("%d%d ",i,j);
                 xcb_arc_t  arc[] = {
                   //x             //fix center            y                                      width            height           angle in Binary Angle format
                   {matrix[j][i][0]+matrix[j][i][3]/2-o/2, matrix[j][i][1]+matrix[j][i][3]/2-o/2, matrix[j][i][3], matrix[j][i][3], 0, 360 << 6}
@@ -507,7 +506,6 @@ main (int argc, char *argv[])
             //square
             if(matrix[j][i][2] == 3)
             {
-              printf("%d%d ",i,j);
               //try change this loop to polyfill
                 xcb_rectangle_t rectangle[] = {
                   //x               y                width            height
