@@ -201,9 +201,6 @@ main (int argc, char *argv[])
       case XCB_KEY_PRESS: {
         xcb_key_press_event_t *ev = (xcb_key_press_event_t *)e;
         
-        printf ("%ld pressed in window %ld\n",
-                ev->detail,ev->event);
-
         //move
         //left
         if ( ev->detail == 113) 
@@ -252,10 +249,9 @@ main (int argc, char *argv[])
         //top
         //handle right top border
         //right  
-        if (matrix[0][15][0] >= screen->width_in_pixels/16*16)
+        if (matrix[0][15][0] > screen->width_in_pixels/16*16)
         {
           //shift right
-          //1
           //store last(15) in temp
           int temp_array[9][5];
           for (j = 0; j < 9; j++)
@@ -265,7 +261,6 @@ main (int argc, char *argv[])
               temp_array[j][k] = matrix[j][15][k];
             }
           }
-          //2
           //move all in matrix to right - exclude first(0)
           for (j = 0; j < 9; j++)
           {
@@ -275,11 +270,10 @@ main (int argc, char *argv[])
               {
                 matrix[j][i][k] = matrix[j][i-1][k]; 
               } 
-              //fix last column         
+              //fix         
               matrix[j][i][0] = matrix[j][i-1][0]+sw*10; 
             }  
           }
-          //3
           //from temp to first(0)
           for(j = 0; j < 9; j++)
           {
@@ -288,7 +282,6 @@ main (int argc, char *argv[])
               matrix[j][0][k] = temp_array[j][k];
             }
           }
-          //4
           //recalculate matrix
           for( j = 0; j < 9; j++)
           {
@@ -303,9 +296,59 @@ main (int argc, char *argv[])
             matrix[j][0][0] -= screen->width_in_pixels; 
           }
         }
-        //handle left top border
-        //right  
-        if (matrix[0][0][0] <= 0)
+        //top 
+        if (matrix[0][15][1] < 0)
+        {
+          //shift top
+          //store first(0) in temp
+          int temp_array[16][5];
+          for (i = 0; i < 16; i++)
+          {
+            for (k = 0; k < 5; k++)
+            {
+              temp_array[i][k] = matrix[0][i][k];
+            }
+          }
+
+          //move all in matrix to top - exclude last(8)
+          for (j = 0; j <= 7; j++)
+          {
+            for (i = 0; i < 16 ; i++)
+            {
+              for (k = 0; k < 5; k++)
+              {
+                matrix[j][i][k] = matrix[j+1][i][k]; 
+              }
+              matrix[j][i][1] = matrix[j+1][i][1]-screen->height_in_pixels/9;  
+            }
+          }
+          //from temp to last(8)
+          for(i = 0; i < 16; i++)
+          {
+            for (k = 0; k < 5; k++)
+            {
+              matrix[8][i][k] = temp_array[i][k];
+            }
+          }
+          
+          //recalculate matrix
+          for( j = 0; j <= 7; j++)
+          {
+            for( i = 0; i < 16; i++)
+            {
+              matrix[j][i][1] += screen->height_in_pixels/9;
+            }
+          }
+          for( i = 0; i < 16; i++)
+          {
+                             //height screen         
+            matrix[8][i][1] += screen->height_in_pixels; 
+          }
+        }
+
+        //handle left bottom border
+        //left  
+        if (matrix[8][0][0] < 0)
         {
           //shift left
           //store first(0) in temp
@@ -326,7 +369,7 @@ main (int argc, char *argv[])
               {
                 matrix[j][i][k] = matrix[j][i+1][k]; 
               } 
-              //fix last column         
+              //fix          
               matrix[j][i][0] = matrix[j][i+1][0]-sw*10; 
             }  
           }
@@ -352,7 +395,56 @@ main (int argc, char *argv[])
             matrix[j][15][0] += screen->width_in_pixels; 
           }
         }
-        //nobreak i mean if we press button then after change we continue to drawing
+        //bottom
+        if (matrix[8][0][1] > screen->height_in_pixels)
+        {
+          //shift bottom
+          //store last(8) in temp
+          int temp_array[16][5];
+          for (i = 0; i < 16; i++)
+          {
+            for (k = 0; k < 5; k++)
+            {
+              temp_array[i][k] = matrix[8][i][k];
+            }
+          }
+
+          //move all in matrix to bottom - exclude first(0)
+          for (j = 8; j >= 1; j--)
+          {
+            for (i = 0; i < 16 ; i++)
+            {
+              for (k = 0; k < 5; k++)
+              {
+                matrix[j][i][k] = matrix[j-1][i][k]; 
+              }
+              matrix[j][i][1] = matrix[j-1][i][1]+screen->height_in_pixels/9;  
+            }
+          }
+          //from temp to first(0)
+          for(i = 0; i < 16; i++)
+          {
+            for (k = 0; k < 5; k++)
+            {
+              matrix[0][i][k] = temp_array[i][k];
+            }
+          }
+          
+          //recalculate matrix
+          for( j = 8; j >= 1; j--)
+          {
+            for( i = 0; i < 16; i++)
+            {
+              matrix[j][i][1] -= screen->height_in_pixels/9;
+            }
+          }
+          for( i = 0; i < 16; i++)
+          {
+                             //height screen         
+            matrix[0][i][1] -= screen->height_in_pixels; 
+          }
+        }
+               //nobreak i mean if we press button then after change we continue to drawing
       }
       //draw  
       case XCB_EXPOSE: {

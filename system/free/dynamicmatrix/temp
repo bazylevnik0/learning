@@ -91,7 +91,12 @@ details:
                                                             shift all matrix 
 
 
-/*testing and fixing
--not full screen
-
 /*documentation and intro
+-readme
+    conception
+    how to use
+    video of use (or animation)
+    install/compile:
+        -link to lib https://xcb.freedesktop.org/dist/
+        -link to build lib https://xcb.freedesktop.org/DevelopersGuide/
+        -compilation string
