@@ -1,9 +1,9 @@
 <b>Conception:</b>
 
-You can store colorfull geometic shapes to display and move them with arrow-keys.
-This app have two sides: frontend and backend:
- -frontend is X drawing with XCB lib
- -backend is dynamic matrix
+You can store colorfull geometic shapes to display and move them with arrow-keys.<br>
+This app have two sides: frontend and backend:<br>
+ -frontend is X drawing with XCB lib<br>
+ -backend is dynamic matrix<br>
 
 Information of objects stores in 16x9 matrix(3-dimensianal array, 2 dimensions as a cell position and 1 dimension for store information of this cell).
 In each cell stores real position(related to display), type and size; 
