@@ -14,20 +14,20 @@ Drawing - it is reading information from matrix and drawing with XCB functions.
 
 <b>How to use:</b>
 After building XCB lib and compiling app. Go to the folder and execute command in current format:<br>
-                     //x,y,t,s,c;<br>
-    for example: ./dm '2,3,c,1,r;5,5,s,2,g;'<br>
-    where:<br>
-        x,y - relative position not real | 0 <= x <= 15 ; 0 <= y <= 9<br>
-        t - type<br>
-            c - circle<br>
-            s - square<br>
-        s - relative size not real<br>
-        c - color<br>
-            r - red<br>
-            g - green<br>
-            b - blue<br>
-        , - between arguments in object<br>
-        ; - end of object<br>
+---------------------//x,y,t,s,c;<br>
+----for example: ./dm '2,3,c,1,r;5,5,s,2,g;'<br>
+----where:<br>
+--------x,y - relative position not real | 0 <= x <= 15 ; 0 <= y <= 9<br>
+--------t - type<br>
+------------c - circle<br>
+------------s - square<br>
+--------s - relative size not real<br>
+--------c - color<br>
+------------r - red<br>
+------------g - green<br>
+------------b - blue<br>
+--------, - between arguments in object<br>
+--------; - end of object<br>
 Maximum 10 objects.<br>
 
 Video presentation of example running: <a href="https://youtu.be/6PBQ6ptjNOY">https://youtu.be/6PBQ6ptjNOY</a><br>
