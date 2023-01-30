@@ -2,12 +2,27 @@
 #include <glib/gstdio.h>
 #include <gio/gio.h>
 
+float kx = 2.0;
+float ky = 2.0;
+float ks = 2.0;
+
+
 static void
-print_hello (GtkWidget *widget,
-             gpointer   data)
-{
-  g_print ("Hello World\n");
-}
+drawing1 (GtkWidget *widget,
+             gpointer   data);
+static void
+drawing2 (GtkWidget *widget,
+             gpointer   data);
+static void
+drawing3 (GtkWidget *widget,
+             gpointer   data);
+
+static void
+draw_function (GtkDrawingArea *area,
+               cairo_t        *cr,
+               int             width,
+               int             height,
+               gpointer        data);
 
 static void
 activate (GtkApplication *app,
@@ -28,6 +43,27 @@ activate (GtkApplication *app,
   GtkWidget *drawing_area = gtk_drawing_area_new ();
   gtk_widget_set_size_request (drawing_area, 900, 900);
   gtk_frame_set_child(GTK_FRAME(frameDraw),drawing_area);
+  // Set drawing function to drawing_area
+  gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (drawing_area), 100);
+  gtk_drawing_area_set_content_height (GTK_DRAWING_AREA (drawing_area), 100);
+  gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA (drawing_area),
+                                  draw_function,
+                                  NULL, NULL);
+
+  // Get buttons from GtkBuilder
+  GObject *button1 = gtk_builder_get_object(builder, "button1");
+  GObject *button2 = gtk_builder_get_object(builder, "button2");
+  // Set function to events
+  g_signal_connect (button1, "clicked", G_CALLBACK (drawing1), drawing_area);
+  g_signal_connect (button2, "clicked", G_CALLBACK (drawing2), drawing_area);
+
+  // Get range from GtkBuilder
+  GObject *scale = gtk_builder_get_object(builder, "scale");
+  GObject *adjustment = gtk_builder_get_object(builder, "adjustment");
+  // Set function to events
+  g_object_set_data(G_OBJECT(drawing_area), "adjustment", adjustment); //attach data to drawing_area
+  g_signal_connect (scale, "value-changed", G_CALLBACK (drawing3), drawing_area);
+  
   
   gtk_widget_show (GTK_WIDGET (window));
 
@@ -50,4 +86,57 @@ main (int   argc,
   g_object_unref (app);
 
   return status;
+}
+
+static void
+draw_function (GtkDrawingArea *area,
+               cairo_t        *cr,
+               int             width,
+               int             height,
+               gpointer        data)
+{
+  GdkRGBA color;
+  GtkStyleContext *context;
+
+  context = gtk_widget_get_style_context (GTK_WIDGET (area));
+
+  cairo_arc (cr,
+             width / 2.0 / kx, height / 2.0 / ky,
+             MIN (width, height) / 2.0 / ks,
+             0, 2 * G_PI);
+
+  gtk_style_context_get_color (context,
+                               &color);
+  gdk_cairo_set_source_rgba (cr, &color);
+
+  cairo_fill (cr);
+}
+
+static void
+drawing1 (GtkWidget *widget,
+             gpointer   data)
+{
+  kx = 4.0;
+  ky = 4.0;
+  gtk_widget_queue_draw(data);
+  g_print ("drawing1\n");
+}
+static void
+drawing2 (GtkWidget *widget,
+             gpointer   data)
+{
+  kx = 8.0;
+  ky = 8.0;
+  gtk_widget_queue_draw(data);
+  g_print ("drawing2\n");
+}
+static void
+drawing3 (GtkWidget *widget,
+             gpointer   data)
+{
+  GtkWidget *adjustment = g_object_get_data(G_OBJECT(data), "adjustment");
+  gdouble t = gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
+  ks += t/100;
+  gtk_widget_queue_draw(data);
+  g_print ("drawing3\n");
 }
