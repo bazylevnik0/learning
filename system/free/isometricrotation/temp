@@ -1,0 +1,32 @@
+App for vizualization isometric rotation of shapes(pseudo 3d). Written with GTK.
+
+conception:
+you can choose form: cube or sphere(icosahedrone)
+you can edit size(scale-up/scale-down)
+you can edit horizontal rotation(left/right)
+you can edit vertical rotation(up/down)
+
+structure of code:
+-global:
+--int array matrix[12][3] matrix_projection[12][2]
+--int koefficients:
+---ks - size
+---kw - width
+---kh - height
+-initialization control functions
+-activation function:
+--get builder(window,scales,buttons)
+--set draw frame(and attach draw function)
+--show window
+-main function:
+--context and attach activation
+-control functions:
+--draw function
+---make projection from matrix to matrix_projection
+---if cube then load cairo for cube
+---if sphere then load cairo for sphere
+--button sphere function
+--button cube function
+--scale size function
+--scale horizontal rotation function
+--scale vertical rotation function
