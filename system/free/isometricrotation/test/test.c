@@ -36,12 +36,12 @@ activate (GtkApplication *app,
   // Get window from GtkBuilder
   GObject *window = gtk_builder_get_object (builder, "window");
   gtk_window_set_application (GTK_WINDOW (window), app);
-
+  gtk_window_maximize(GTK_WINDOW(window)); 
+  
   // Get GtkFrameDraw from GtkBuilder
   GObject *frameDraw    = gtk_builder_get_object (builder, "GtkFrameDraw");
   // Create drawing_area and add to frameDraw
   GtkWidget *drawing_area = gtk_drawing_area_new ();
-  gtk_widget_set_size_request (drawing_area, 900, 900);
   gtk_frame_set_child(GTK_FRAME(frameDraw),drawing_area);
   // Set drawing function to drawing_area
   gtk_drawing_area_set_content_width (GTK_DRAWING_AREA (drawing_area), 100);
@@ -49,7 +49,9 @@ activate (GtkApplication *app,
   gtk_drawing_area_set_draw_func (GTK_DRAWING_AREA (drawing_area),
                                   draw_function,
                                   NULL, NULL);
-
+  gtk_widget_set_hexpand (drawing_area,TRUE); 
+  gtk_widget_set_vexpand (drawing_area,TRUE);  
+  
   // Get buttons from GtkBuilder
   GObject *button1 = gtk_builder_get_object(builder, "button1");
   GObject *button2 = gtk_builder_get_object(builder, "button2");
@@ -64,8 +66,24 @@ activate (GtkApplication *app,
   g_object_set_data(G_OBJECT(drawing_area), "adjustment", adjustment); //attach data to drawing_area
   g_signal_connect (scale, "value-changed", G_CALLBACK (drawing3), drawing_area);
   
-  
   gtk_widget_show (GTK_WIDGET (window));
+
+  // true method:
+  // Get information about monitor and request resize of window
+  /*
+  GdkSurface* surface = gtk_native_get_surface (GTK_NATIVE(window));
+  GdkDisplay* display = gdk_display_get_default ();
+  GdkMonitor* monitor = gdk_display_get_monitor_at_surface (display,surface);
+  int height = gdk_monitor_get_height_mm (monitor);
+  int width  = gdk_monitor_get_width_mm (monitor);
+  */
+  //int *width;
+  //int *height;
+  //gtk_window_get_default_size (GTK_WINDOW(window),width,height);
+  //g_print("%d %d",*width,*height);
+  //gtk_widget_set_size_request (GTK_WIDGET(window),width,height);
+
+
 
   // We do not need the builder any more
   g_object_unref (builder);
