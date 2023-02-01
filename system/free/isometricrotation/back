@@ -3,9 +3,17 @@
 #include <gio/gio.h>
 #include <math.h>
 
-int matrix [12][3];            // [x,y,z]
-int matrix_projection [12][2]; // [x,z]
-int f = 0;                     // form: 1 - icos; 2 - para; 
+int matrix [12][3];
+//form [x,y,z]
+//z y
+//x
+int matrix_projection [12][2];
+//form [y,z]
+
+float ks = 2.0; // coefficient size
+float kw = 2.0; // coefficient width
+float kh = 2.0; // coefficient height
+int f = 0;      // form: 1 - icos; 2 - para; 
 
 static void
 draw_function (GtkDrawingArea *area,
@@ -127,17 +135,17 @@ draw_function (GtkDrawingArea *area,
   //make projection: from matrix to matrix_projection
   for(int i = 0; i < 12; i++)
   {
-    matrix_projection[i][0] = matrix[i][0];
+    matrix_projection[i][0] = matrix[i][1];
     matrix_projection[i][1] = matrix[i][2];
     //fix coordinates for projection
     matrix_projection[i][0] += 50;
     matrix_projection[i][1] += 50;
     //rotate to isometric level(front to down,back to up)
-    if (matrix[i][1] > 0)
+    if (matrix[i][0] > 0)
     {
       matrix_projection[i][1] -= 10;
     }
-    if (matrix[i][1] < 0)
+    if (matrix[i][0] < 0)
     {
       matrix_projection[i][1] += 10;
     }
@@ -207,32 +215,32 @@ button_para_control (GtkWidget *widget,
   f = 2; // change form for draw_function
   //rebuild matrix:
   //0
-  matrix[0][0] =  25;
-  matrix[0][1] = -25;
+  matrix[0][0] = -25;
+  matrix[0][1] =  25;
   matrix[0][2] =  25;
   //1
   matrix[1][0] = -25;
   matrix[1][1] = -25;
   matrix[1][2] =  25;
   //2
-  matrix[2][0] = -25;
-  matrix[2][1] =  25;
+  matrix[2][0] =  25;
+  matrix[2][1] = -25;
   matrix[2][2] =  25;
   //3
   matrix[3][0] =  25;
   matrix[3][1] =  25;
   matrix[3][2] =  25;
   //4
-  matrix[4][0] =  25;
-  matrix[4][1] = -25;
+  matrix[4][0] = -25;
+  matrix[4][1] =  25;
   matrix[4][2] = -25;
   //5
   matrix[5][0] = -25;
   matrix[5][1] = -25;
   matrix[5][2] = -25;
   //6
-  matrix[6][0] = -25;
-  matrix[6][1] =  25;
+  matrix[6][0] =  25;
+  matrix[6][1] = -25;
   matrix[6][2] = -25;
   //7
   matrix[7][0] =  25;
@@ -265,36 +273,17 @@ scale_horizontal_control (GtkWidget *widget,
   float y1 = 0.0;
   for (int i = 0; i < 12; i++)
   {
-    //find original angle
+    //first we need find angle of point
     float angle;
-    x0 = (float)matrix[i][0];
-    y0 = (float)matrix[i][1];
-    angle = atanf(fabsf(y0)/fabsf(x0)); 
-    //to principal angle
-    if(x0 > 0 && y0 > 0)
-    {
-      angle = angle;
-    }
-    if(x0 < 0 && y0 > 0)
-    {
-      angle = M_PI - angle;
-    }
-    if(x0 < 0 && y0 < 0)
-    {
-      angle = M_PI + angle;
-    }
-    if(x0 > 0 && y0 < 0)
-    {
-      angle = M_PI*2 - angle;
-    }
-    
-    angle = angle + M_PI*10/180;
-    
-    x1 = r*cos(angle);
-    y1 = r*sin(angle);
+    x0 = matrix[i][0];
+    y0 = matrix[i][1];
+    angle = atan(x0/y0); //yep i know in my matrix x and y inverted, but too late to fix...
+    //then we must add t and count it through rsin rcos
+    angle += t/1000;
+    x1 = r*sin(angle); //yep i know in my matrix x and y inverted, but too late to fix...
+    y1 = r*cos(angle);
     matrix[i][0] = (int)x1;
     matrix[i][1] = (int)y1;
-    //must be 4 different angles but now only 2, i don't know why
   }
   //redraw
   gtk_widget_queue_draw(data);

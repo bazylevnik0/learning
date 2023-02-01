@@ -30,3 +30,6 @@ structure of code:
 --scale size function
 --scale horizontal rotation function
 --scale vertical rotation function
+
+
+gcc $(pkg-config --cflags gtk4) -o ir ir.c $(pkg-config --libs gtk4) -lm
