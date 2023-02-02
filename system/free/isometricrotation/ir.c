@@ -4,7 +4,7 @@
 #include <math.h>
 
 int matrix [12][3];                   // [x,y,z]
-int matrix_radius = sqrt(25*25+25*25);
+int matrix_icos_phi = (int)((25+sqrt(5))/2);
 int matrix_original[12][3];        
 float matrix_angle_original[12][2];   // 0 - horizontal, 1 - vertical 
 int matrix_projection [12][2];        // [x,z]
@@ -146,17 +146,71 @@ draw_function (GtkDrawingArea *area,
     }
   }
   //draw
-  if (f == 0)  // undefined form
-  {
-
-  }
   if (f == 1)  // icos form
-  {
-    
+  { 
+    //1
+    //3->8->0->3
+    cairo_move_to (cr, width-width/100*matrix_projection[3][0],  height/100*matrix_projection[3][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[8][0],  height/100*matrix_projection[8][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[0][0],  height/100*matrix_projection[0][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[3][0],  height/100*matrix_projection[3][1]); 
+    //3->9->0
+    cairo_move_to (cr, width-width/100*matrix_projection[3][0],  height/100*matrix_projection[3][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[9][0],  height/100*matrix_projection[9][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[0][0],  height/100*matrix_projection[0][1]);
+    //2
+    //2->11->1->2
+    cairo_move_to (cr, width-width/100*matrix_projection[2][0] ,  height/100*matrix_projection[2][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[11][0],  height/100*matrix_projection[11][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[1][0] ,  height/100*matrix_projection[1][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[2][0] ,  height/100*matrix_projection[2][1]);
+    //2->10->1
+    cairo_move_to (cr, width-width/100*matrix_projection[2][0] ,  height/100*matrix_projection[2][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[10][0],  height/100*matrix_projection[10][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[1][0] ,  height/100*matrix_projection[1][1]);
+    //3
+    //0->4->7->0
+    cairo_move_to (cr, width-width/100*matrix_projection[0][0],  height/100*matrix_projection[0][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[4][0],  height/100*matrix_projection[4][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[7][0],  height/100*matrix_projection[7][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[0][0],  height/100*matrix_projection[0][1]);
+    //4->1->7
+    cairo_move_to (cr, width-width/100*matrix_projection[4][0],  height/100*matrix_projection[4][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[1][0],  height/100*matrix_projection[1][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[7][0],  height/100*matrix_projection[7][1]);
+    //4
+    //3->5->6->3
+    cairo_move_to (cr, width-width/100*matrix_projection[3][0],  height/100*matrix_projection[3][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[5][0],  height/100*matrix_projection[5][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[6][0],  height/100*matrix_projection[6][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[3][0],  height/100*matrix_projection[3][1]);
+    //5->2->6
+    cairo_move_to (cr, width-width/100*matrix_projection[5][0],  height/100*matrix_projection[5][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[2][0],  height/100*matrix_projection[2][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[6][0],  height/100*matrix_projection[6][1]);
+    //5
+    //8->4->11->8
+    cairo_move_to (cr, width-width/100*matrix_projection[8][0] ,  height/100*matrix_projection[8][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[4][0] ,  height/100*matrix_projection[4][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[11][0],  height/100*matrix_projection[11][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[8][0] ,  height/100*matrix_projection[8][1]);
+    //8->5->11
+    cairo_move_to (cr, width-width/100*matrix_projection[8][0] ,  height/100*matrix_projection[8][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[5][0] ,  height/100*matrix_projection[5][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[11][0],  height/100*matrix_projection[11][1]);
+    //6
+    //9->7->10->9
+    cairo_move_to (cr, width-width/100*matrix_projection[9][0] ,  height/100*matrix_projection[9][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[7][0] ,  height/100*matrix_projection[7][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[10][0],  height/100*matrix_projection[10][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[9][0] ,  height/100*matrix_projection[9][1]);
+    //9->6->10
+    cairo_move_to (cr, width-width/100*matrix_projection[9][0] ,  height/100*matrix_projection[9][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[6][0] ,  height/100*matrix_projection[6][1]);
+    cairo_line_to (cr, width-width/100*matrix_projection[10][0],  height/100*matrix_projection[10][1]);  
   }
   if (f == 2)  // para form
   {
-    //plan of drawing
     //0->1->2->3->0;
     cairo_move_to (cr, width-width/100*matrix_projection[0][0],  height/100*matrix_projection[0][1]);
     cairo_line_to (cr, width-width/100*matrix_projection[1][0],  height/100*matrix_projection[1][1]);
@@ -179,10 +233,6 @@ draw_function (GtkDrawingArea *area,
     cairo_move_to (cr, width-width/100*matrix_projection[7][0],  height/100*matrix_projection[7][1]);
     cairo_line_to (cr, width-width/100*matrix_projection[3][0],  height/100*matrix_projection[3][1]);
   }
-  /*
-  cairo_move_to (cr, width-width/100*0,  height/100*0);
-  cairo_line_to (cr, width-width/100*10, height/100*10);
-  */
   cairo_set_line_width (cr, width/100);
   cairo_stroke (cr);
 
@@ -199,9 +249,117 @@ button_icos_control (GtkWidget *widget,
 {
   f = 1; // change form for draw_function
   //rebuild default matrix:
-
+  //0
+  matrix[0][0] =  matrix_icos_phi;
+  matrix[0][1] =  25;
+  matrix[0][2] =  0;
+  //1
+  matrix[1][0] =  matrix_icos_phi;
+  matrix[1][1] = -25;
+  matrix[1][2] =  0;
+  //2
+  matrix[2][0] = -matrix_icos_phi;
+  matrix[2][1] = -25;
+  matrix[2][2] =  0;
+  //3
+  matrix[3][0] = -matrix_icos_phi;
+  matrix[3][1] =  25;
+  matrix[3][2] =  0;
+  //4
+  matrix[4][0] =  25;
+  matrix[4][1] =  0;
+  matrix[4][2] =  matrix_icos_phi;
+  //5
+  matrix[5][0] = -25;
+  matrix[5][1] =  0;
+  matrix[5][2] =  matrix_icos_phi;
+  //6
+  matrix[6][0] = -25;
+  matrix[6][1] =  0;
+  matrix[6][2] = -matrix_icos_phi;
+  //7
+  matrix[7][0] =  25;
+  matrix[7][1] =  0;
+  matrix[7][2] = -matrix_icos_phi;
+  //8
+  matrix[8][0] =  0;
+  matrix[8][1] =  matrix_icos_phi;
+  matrix[8][2] =  25;
+  //9
+  matrix[9][0] =  0;
+  matrix[9][1] =  matrix_icos_phi;
+  matrix[9][2] = -25;
+  //10
+  matrix[10][0] =  0;
+  matrix[10][1] = -matrix_icos_phi;
+  matrix[10][2] = -25;
+  //11
+  matrix[11][0] =  0;
+  matrix[11][1] = -matrix_icos_phi;
+  matrix[11][2] =  25;
+  //fill matrix_original
+  for(int i = 0; i < 12; i++)
+  {
+    for(int j = 0; j < 3; j++)
+    {
+      matrix_original[i][j] = matrix[i][j];
+    }
+  }
+  //fill matrix_angle_original
+  float x0 = 0.0;
+  float y0 = 0.0;
+  float z0 = 0.0;
+  for (int i = 0; i < 12; i++)
+  {
+    //find original angle
+    //horizontal
+    float angle_horizontal;
+    x0 = (float)matrix[i][0];
+    y0 = (float)matrix[i][1];
+    angle_horizontal = atanf(fabsf(y0)/fabsf(x0)); 
+    //to principal angle
+    if(x0 > 0 && y0 > 0)
+    {
+      angle_horizontal = angle_horizontal;
+    }
+    if(x0 < 0 && y0 > 0)
+    {
+      angle_horizontal = M_PI - angle_horizontal;
+    }
+    if(x0 < 0 && y0 < 0)
+    {
+      angle_horizontal = M_PI + angle_horizontal;
+    }
+    if(x0 > 0 && y0 < 0)
+    {
+      angle_horizontal = M_PI*2 - angle_horizontal;
+    }
+    matrix_angle_original[i][0] = angle_horizontal;
+    //vertical
+    float angle_vertical;
+    z0 = (float)matrix[i][2];
+    y0 = (float)matrix[i][1];
+    angle_vertical = atanf(fabsf(z0)/fabsf(y0)); 
+    //to principal angle
+    if(y0 > 0 && z0 > 0)
+    {
+      angle_vertical = angle_vertical;
+    }
+    if(y0 < 0 && z0 > 0)
+    {
+      angle_vertical = M_PI - angle_vertical;
+    }
+    if(y0 < 0 && z0 < 0)
+    {
+      angle_vertical = M_PI + angle_vertical;
+    }
+    if(y0 > 0 && z0 < 0)
+    {
+      angle_vertical = M_PI*2 - angle_vertical;
+    }
+    matrix_angle_original[i][1] = angle_vertical;
+  }
   gtk_widget_queue_draw(data);
-  g_print ("button_icos_control\n");
 }
 static void
 button_para_control (GtkWidget *widget,
@@ -210,32 +368,32 @@ button_para_control (GtkWidget *widget,
   f = 2; // change form for draw_function
   //rebuild matrix:
   //0
-  matrix[0][0] =  25;
-  matrix[0][1] = -25;
+  matrix[0][0] = -25;
+  matrix[0][1] =  25;
   matrix[0][2] =  25;
   //1
   matrix[1][0] = -25;
   matrix[1][1] = -25;
   matrix[1][2] =  25;
   //2
-  matrix[2][0] = -25;
-  matrix[2][1] =  25;
+  matrix[2][0] =  25;
+  matrix[2][1] = -25;
   matrix[2][2] =  25;
   //3
   matrix[3][0] =  25;
   matrix[3][1] =  25;
   matrix[3][2] =  25;
   //4
-  matrix[4][0] =  25;
-  matrix[4][1] = -25;
+  matrix[4][0] = -25;
+  matrix[4][1] =  25;
   matrix[4][2] = -25;
   //5
   matrix[5][0] = -25;
   matrix[5][1] = -25;
   matrix[5][2] = -25;
   //6
-  matrix[6][0] = -25;
-  matrix[6][1] =  25;
+  matrix[6][0] =  25;
+  matrix[6][1] = -25;
   matrix[6][2] = -25;
   //7
   matrix[7][0] =  25;
@@ -250,7 +408,6 @@ button_para_control (GtkWidget *widget,
     }
   }
   //fill matrix_angle_original
-  float r = sqrtf(25.0*25.0 + 25.0*25.0);
   float x0 = 0.0;
   float y0 = 0.0;
   float z0 = 0.0;
@@ -306,7 +463,6 @@ button_para_control (GtkWidget *widget,
   }  
   //redraw
   gtk_widget_queue_draw(data);
-  g_print ("button_para_control\n");
 }
 static void
 scale_size_control (GtkWidget *widget,
@@ -323,11 +479,8 @@ scale_size_control (GtkWidget *widget,
       matrix[i][j] = (int)((float)matrix_original[i][j]*t);
     }
   }
-  //recalculate matrix_radius
-  matrix_radius = sqrt(matrix[0][0]*matrix[0][0]+matrix[0][1]*matrix[0][1]);
   //redraw
   gtk_widget_queue_draw(data);
-  g_print ("scale_size_control\n");
 }
 static void
 scale_horizontal_control (GtkWidget *widget,
@@ -337,15 +490,16 @@ scale_horizontal_control (GtkWidget *widget,
   GtkWidget *adjustment = g_object_get_data(G_OBJECT(data), "adjustment_horizontal");
   gdouble t = gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
   //recalculate matrix
-  float r = (float)matrix_radius;
+  float r;
   float x = 0.0;
   float y = 0.0;
   for (int i = 0; i < 12; i++)
   {
-    //find angle
     float angle;
     angle = matrix_angle_original[i][0] + M_PI*t/180;
     
+    r = sqrtf(matrix_original[i][0]*matrix_original[i][0]+matrix_original[i][1]*matrix_original[i][1]);
+ 
     x = r*cos(angle);
     y = r*sin(angle);
     matrix[i][0] = (int)x;
@@ -353,7 +507,6 @@ scale_horizontal_control (GtkWidget *widget,
   }
   //redraw
   gtk_widget_queue_draw(data);
-  g_print ("scale_horizontal_control\n");
 }
 static void
 scale_vertical_control (GtkWidget *widget,
@@ -363,15 +516,16 @@ scale_vertical_control (GtkWidget *widget,
   GtkWidget *adjustment = g_object_get_data(G_OBJECT(data), "adjustment_vertical");
   gdouble t = gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
   //recalculate matrix
-  float r = (float)matrix_radius;
+  float r;
   float z = 0.0;
   float y = 0.0;
   for (int i = 0; i < 12; i++)
   {
-    //find angle
     float angle;
     angle = matrix_angle_original[i][1] + M_PI*t/180;
     
+    r = sqrtf(matrix_original[i][2]*matrix_original[i][2]+matrix_original[i][1]*matrix_original[i][1]);
+ 
     y = r*cos(angle);
     z = r*sin(angle);
     matrix[i][2] = (int)z;
@@ -379,5 +533,4 @@ scale_vertical_control (GtkWidget *widget,
   }
   //redraw
   gtk_widget_queue_draw(data);
-  g_print ("scale_vertical_control\n");
 }
