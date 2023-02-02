@@ -3,9 +3,12 @@
 #include <gio/gio.h>
 #include <math.h>
 
-int matrix [12][3];            // [x,y,z]
-int matrix_projection [12][2]; // [x,z]
-int f = 0;                     // form: 1 - icos; 2 - para; 
+int matrix [12][3];                   // [x,y,z]
+int matrix_radius = sqrt(25*25+25*25);
+int matrix_original[12][3];        
+float matrix_angle_original[12][2];   // 0 - horizontal, 1 - vertical 
+int matrix_projection [12][2];        // [x,z]
+int f = 0;                            // form: 1 - icos; 2 - para; 
 
 static void
 draw_function (GtkDrawingArea *area,
@@ -238,7 +241,69 @@ button_para_control (GtkWidget *widget,
   matrix[7][0] =  25;
   matrix[7][1] =  25;
   matrix[7][2] = -25;
-
+  //fill matrix_original
+  for(int i = 0; i < 12; i++)
+  {
+    for(int j = 0; j < 3; j++)
+    {
+      matrix_original[i][j] = matrix[i][j];
+    }
+  }
+  //fill matrix_angle_original
+  float r = sqrtf(25.0*25.0 + 25.0*25.0);
+  float x0 = 0.0;
+  float y0 = 0.0;
+  float z0 = 0.0;
+  for (int i = 0; i < 12; i++)
+  {
+    //find original angle
+    //horizontal
+    float angle_horizontal;
+    x0 = (float)matrix[i][0];
+    y0 = (float)matrix[i][1];
+    angle_horizontal = atanf(fabsf(y0)/fabsf(x0)); 
+    //to principal angle
+    if(x0 > 0 && y0 > 0)
+    {
+      angle_horizontal = angle_horizontal;
+    }
+    if(x0 < 0 && y0 > 0)
+    {
+      angle_horizontal = M_PI - angle_horizontal;
+    }
+    if(x0 < 0 && y0 < 0)
+    {
+      angle_horizontal = M_PI + angle_horizontal;
+    }
+    if(x0 > 0 && y0 < 0)
+    {
+      angle_horizontal = M_PI*2 - angle_horizontal;
+    }
+    matrix_angle_original[i][0] = angle_horizontal;
+    //vertical
+    float angle_vertical;
+    z0 = (float)matrix[i][2];
+    y0 = (float)matrix[i][1];
+    angle_vertical = atanf(fabsf(z0)/fabsf(y0)); 
+    //to principal angle
+    if(y0 > 0 && z0 > 0)
+    {
+      angle_vertical = angle_vertical;
+    }
+    if(y0 < 0 && z0 > 0)
+    {
+      angle_vertical = M_PI - angle_vertical;
+    }
+    if(y0 < 0 && z0 < 0)
+    {
+      angle_vertical = M_PI + angle_vertical;
+    }
+    if(y0 > 0 && z0 < 0)
+    {
+      angle_vertical = M_PI*2 - angle_vertical;
+    }
+    matrix_angle_original[i][1] = angle_vertical;
+  }  
   //redraw
   gtk_widget_queue_draw(data);
   g_print ("button_para_control\n");
@@ -247,6 +312,20 @@ static void
 scale_size_control (GtkWidget *widget,
              gpointer   data)
 {
+  //get scale changes
+  GtkWidget *adjustment = g_object_get_data(G_OBJECT(data), "adjustment_size");
+  gdouble t = gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
+  //recalculate matrix
+  for(int i = 0; i < 12; i++)
+  {
+    for(int j = 0; j < 3; j++)
+    {
+      matrix[i][j] = (int)((float)matrix_original[i][j]*t);
+    }
+  }
+  //recalculate matrix_radius
+  matrix_radius = sqrt(matrix[0][0]*matrix[0][0]+matrix[0][1]*matrix[0][1]);
+  //redraw
   gtk_widget_queue_draw(data);
   g_print ("scale_size_control\n");
 }
@@ -258,43 +337,19 @@ scale_horizontal_control (GtkWidget *widget,
   GtkWidget *adjustment = g_object_get_data(G_OBJECT(data), "adjustment_horizontal");
   gdouble t = gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
   //recalculate matrix
-  float r = sqrtf(25.0*25.0 + 25.0*25.0);
-  float x0 = 0.0;
-  float y0 = 0.0;
-  float x1 = 0.0;
-  float y1 = 0.0;
+  float r = (float)matrix_radius;
+  float x = 0.0;
+  float y = 0.0;
   for (int i = 0; i < 12; i++)
   {
-    //find original angle
+    //find angle
     float angle;
-    x0 = (float)matrix[i][0];
-    y0 = (float)matrix[i][1];
-    angle = atanf(fabsf(y0)/fabsf(x0)); 
-    //to principal angle
-    if(x0 > 0 && y0 > 0)
-    {
-      angle = angle;
-    }
-    if(x0 < 0 && y0 > 0)
-    {
-      angle = M_PI - angle;
-    }
-    if(x0 < 0 && y0 < 0)
-    {
-      angle = M_PI + angle;
-    }
-    if(x0 > 0 && y0 < 0)
-    {
-      angle = M_PI*2 - angle;
-    }
+    angle = matrix_angle_original[i][0] + M_PI*t/180;
     
-    angle = angle + M_PI*10/180;
-    
-    x1 = r*cos(angle);
-    y1 = r*sin(angle);
-    matrix[i][0] = (int)x1;
-    matrix[i][1] = (int)y1;
-    //must be 4 different angles but now only 2, i don't know why
+    x = r*cos(angle);
+    y = r*sin(angle);
+    matrix[i][0] = (int)x;
+    matrix[i][1] = (int)y;
   }
   //redraw
   gtk_widget_queue_draw(data);
@@ -304,6 +359,25 @@ static void
 scale_vertical_control (GtkWidget *widget,
              gpointer   data)
 {
+  //get scale changes
+  GtkWidget *adjustment = g_object_get_data(G_OBJECT(data), "adjustment_vertical");
+  gdouble t = gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
+  //recalculate matrix
+  float r = (float)matrix_radius;
+  float z = 0.0;
+  float y = 0.0;
+  for (int i = 0; i < 12; i++)
+  {
+    //find angle
+    float angle;
+    angle = matrix_angle_original[i][1] + M_PI*t/180;
+    
+    y = r*cos(angle);
+    z = r*sin(angle);
+    matrix[i][2] = (int)z;
+    matrix[i][1] = (int)y;
+  }
+  //redraw
   gtk_widget_queue_draw(data);
   g_print ("scale_vertical_control\n");
 }
