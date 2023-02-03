@@ -22,21 +22,21 @@
                         <property name="row">0</property>
                     </layout>
                     <child>
-                        <object id="button_icos" class="GtkButton">
-                            <property name="label">icos</property>
-                                <layout>
-                                    <property name="column">0</property>
-                                    <property name="row">0</property>
-                                </layout>
-                        </object>
-                    </child>
-                    <child>
                         <object id="button_para" class="GtkButton">
                             <property name="label">para</property>
                             <layout>
                                 <property name="column">1</property>
                                 <property name="row">0</property>
                             </layout>
+                        </object>
+                    </child>
+                    <child>
+                        <object id="button_icos" class="GtkButton">
+                            <property name="label">icos</property>
+                                <layout>
+                                    <property name="column">0</property>
+                                    <property name="row">0</property>
+                                </layout>
                         </object>
                     </child>
                     <child>
