@@ -23,9 +23,6 @@ static void
 button_para_control (GtkWidget *widget,
              gpointer   data);
 static void
-scale_size_control (GtkWidget *widget,
-             gpointer   data);
-static void
 scale_horizontal_control (GtkWidget *widget,
              gpointer   data);
 static void
@@ -85,10 +82,8 @@ activate (GtkApplication *app,
   g_signal_connect (button_icos, "clicked", G_CALLBACK (button_icos_control), drawing_area);
   g_signal_connect (button_para, "clicked", G_CALLBACK (button_para_control), drawing_area);
   // Set control functions to scale
-  g_object_set_data(G_OBJECT(drawing_area), "adjustment_size"      , adjustment_size);
   g_object_set_data(G_OBJECT(drawing_area), "adjustment_horizontal", adjustment_horizontal);
   g_object_set_data(G_OBJECT(drawing_area), "adjustment_vertical"  , adjustment_vertical);
-  g_signal_connect (scale_size      , "value-changed", G_CALLBACK (scale_size_control)      , drawing_area);
   g_signal_connect (scale_horizontal, "value-changed", G_CALLBACK (scale_horizontal_control), drawing_area);
   g_signal_connect (scale_vertical  , "value-changed", G_CALLBACK (scale_vertical_control)  , drawing_area);
  
@@ -135,20 +130,10 @@ draw_function (GtkDrawingArea *area,
     //fix coordinates for projection
     matrix_projection[i][0] += 50;
     matrix_projection[i][1] += 50;
-    //rotate to isometric level(front to down,back to up)
-    if (matrix[i][1] > 0)
-    {
-      matrix_projection[i][1] -= 10;
-    }
-    if (matrix[i][1] < 0)
-    {
-      matrix_projection[i][1] += 10;
-    }
   }
   //draw
   if (f == 1)  // icos form
   { 
-    /*
     //1
     //3->8->0->3
     cairo_move_to (cr, width-width/100*matrix_projection[3][0],  height/100*matrix_projection[3][1]);
@@ -159,7 +144,6 @@ draw_function (GtkDrawingArea *area,
     cairo_move_to (cr, width-width/100*matrix_projection[3][0],  height/100*matrix_projection[3][1]);
     cairo_line_to (cr, width-width/100*matrix_projection[9][0],  height/100*matrix_projection[9][1]);
     cairo_line_to (cr, width-width/100*matrix_projection[0][0],  height/100*matrix_projection[0][1]);
-    */
     //2
     //2->11->1->2
     cairo_move_to (cr, width-width/100*matrix_projection[2][0] ,  height/100*matrix_projection[2][1]);
@@ -170,7 +154,6 @@ draw_function (GtkDrawingArea *area,
     cairo_move_to (cr, width-width/100*matrix_projection[2][0] ,  height/100*matrix_projection[2][1]);
     cairo_line_to (cr, width-width/100*matrix_projection[10][0],  height/100*matrix_projection[10][1]);
     cairo_line_to (cr, width-width/100*matrix_projection[1][0] ,  height/100*matrix_projection[1][1]);
-    /*
     //3
     //0->4->7->0
     cairo_move_to (cr, width-width/100*matrix_projection[0][0],  height/100*matrix_projection[0][1]);
@@ -191,8 +174,6 @@ draw_function (GtkDrawingArea *area,
     cairo_move_to (cr, width-width/100*matrix_projection[5][0],  height/100*matrix_projection[5][1]);
     cairo_line_to (cr, width-width/100*matrix_projection[2][0],  height/100*matrix_projection[2][1]);
     cairo_line_to (cr, width-width/100*matrix_projection[6][0],  height/100*matrix_projection[6][1]);
-    */
-    /*
     //5
     //8->4->11->8
     cairo_move_to (cr, width-width/100*matrix_projection[8][0] ,  height/100*matrix_projection[8][1]);
@@ -213,7 +194,6 @@ draw_function (GtkDrawingArea *area,
     cairo_move_to (cr, width-width/100*matrix_projection[9][0] ,  height/100*matrix_projection[9][1]);
     cairo_line_to (cr, width-width/100*matrix_projection[6][0] ,  height/100*matrix_projection[6][1]);
     cairo_line_to (cr, width-width/100*matrix_projection[10][0],  height/100*matrix_projection[10][1]); 
-    */
   }
   if (f == 2)  // para form
   {
@@ -239,7 +219,7 @@ draw_function (GtkDrawingArea *area,
     cairo_move_to (cr, width-width/100*matrix_projection[7][0],  height/100*matrix_projection[7][1]);
     cairo_line_to (cr, width-width/100*matrix_projection[3][0],  height/100*matrix_projection[3][1]);
   }
-  cairo_set_line_width (cr, width/100);
+  cairo_set_line_width (cr, width/1000);
   cairo_stroke (cr);
 
   gtk_style_context_get_color (context,
@@ -369,13 +349,6 @@ button_icos_control (GtkWidget *widget,
     z0 = (float)matrix[i][2];
     y0 = (float)matrix[i][1];
     angle_vertical = atanf(fabsf(z0)/fabsf(y0)); 
-    //%
-    if(i == 2 || i == 1)
-    {
-      g_print("%s\n","find_original_angle");
-      g_print("z0:%f y0:%f ",z0,y0);
-      g_print("%f ",angle_vertical);
-    }
     //to principal angle
     if(y0 > 0 && z0 > 0)
     {
@@ -395,35 +368,28 @@ button_icos_control (GtkWidget *widget,
     }
     //$
     //fix angles between parts
-    if(z0 ==0)
+    if(z0 == 0)
     {
       if(y0 > 0)
       {
-        angle_horizontal = angle_horizontal;
+        angle_vertical = angle_vertical;
       }
       if(y0 < 0)
       {
-        angle_horizontal = (-1)*angle_horizontal;
+        angle_vertical = M_PI;
       }
     }
-    /*
     if(y0 ==0)
     {
-      if(x0 > 0)
+      if(z0 > 0)
       {
-        angle_horizontal = angle_horizontal;
+        angle_vertical = angle_vertical;
       }
-      if(x0 < 0)
+      if(z0 < 0)
       {
-        angle_horizontal = M_PI;
+        angle_vertical = (-1)*angle_vertical;
       }
     }
-    */
-    //%
-    if(i == 2 || i == 1)
-    {
-      g_print("%f\n",angle_vertical);
-    } 
     matrix_angle_original[i][1] = angle_vertical;
   }
   gtk_widget_queue_draw(data);
@@ -532,28 +498,9 @@ button_para_control (GtkWidget *widget,
   gtk_widget_queue_draw(data);
 }
 static void
-scale_size_control (GtkWidget *widget,
-             gpointer   data)
-{
-  //get scale changes
-  GtkWidget *adjustment = g_object_get_data(G_OBJECT(data), "adjustment_size");
-  gdouble t = gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
-  //recalculate matrix
-  for(int i = 0; i < 12; i++)
-  {
-    for(int j = 0; j < 3; j++)
-    {
-      matrix[i][j] = (int)((float)matrix_original[i][j]*t);
-    }
-  }
-  //redraw
-  gtk_widget_queue_draw(data);
-}
-static void
 scale_horizontal_control (GtkWidget *widget,
              gpointer   data)
 {
-  g_print("%s","scale_horizontal_control\n");
   //get scale changes
   GtkWidget *adjustment = g_object_get_data(G_OBJECT(data), "adjustment_horizontal");
   gdouble t = gtk_adjustment_get_value(GTK_ADJUSTMENT(adjustment));
@@ -590,27 +537,10 @@ scale_vertical_control (GtkWidget *widget,
   for (int i = 0; i < 12; i++)
   {
     float angle;
-    //%
-    if (i == 2 || i == 1)
-    {
-      g_print("mag:%f ",matrix_angle_original[i][1]);
-    }
     angle = matrix_angle_original[i][1] + M_PI*t/180;
-    if (i == 2 || i == 1)
-    {
-      g_print("angle:%f ",angle);
-    }
     r = sqrtf(matrix_original[i][2]*matrix_original[i][2]+matrix_original[i][1]*matrix_original[i][1]);
-    if (i == 2 || i == 1)
-    {
-      g_print("r:%f ", r);
-    }
     y = r*cos(angle);
     z = r*sin(angle);
-    if (i == 2 || i == 1)
-    {
-      g_print("z:%d,y:%d\n", (int)z, (int)y);
-    }
     matrix[i][2] = (int)z;
     matrix[i][1] = (int)y;
   }
