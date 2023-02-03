@@ -12,6 +12,6 @@ All vertices stores in matrix [x,y,z] - for drawing we making projection to draw
 Rotating of matrix realised with trigonometry formules.<br>
 
 <b>Compile/Install</b><br>
-First we need install GTK: <a href="https://www.gtk.org/docs/installations/index">https://www.gtk.org/docs/installations/index</a>
+First we need install GTK: <a href="https://www.gtk.org/docs/installations/index">https://www.gtk.org/docs/installations/index</a><br>
 Then we can compile app, for example with gcc:<br>
 <b>gcc $(pkg-config --cflags gtk4) -o ir ir.c $(pkg-config --libs gtk4) -lm</b>
