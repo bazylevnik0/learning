@@ -35,6 +35,6 @@ Video presentation of example running: <a href="https://youtu.be/6PBQ6ptjNOY">ht
 <b>Install/Compile:</b><br>
 This app need XCB lib(https://xcb.freedesktop.org/), if I am not mistaken you can compile in all platforms with X.<br>
 First we need get XCB: https://xcb.freedesktop.org/dist/<br>
-Second we need build XCB: ttps://xcb.freedesktop.org/DevelopersGuide/<br>
+Second we need build XCB: https://xcb.freedesktop.org/DevelopersGuide/<br>
 Then you can use your compilator but for gcc use this command string:<br>
 gcc dm.c -o dm \`pkg-config --cflags --libs xcb\` <br>
