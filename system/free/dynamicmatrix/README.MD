@@ -37,4 +37,4 @@ This app need XCB lib(https://xcb.freedesktop.org/), if I am not mistaken you ca
 First we need get XCB: https://xcb.freedesktop.org/dist/<br>
 Second we need build XCB: ttps://xcb.freedesktop.org/DevelopersGuide/<br>
 Then you can use your compilator but for gcc use this command string:<br>
-<i>gcc dm.c -o dm `pkg-config --cflags --libs xcb`</i> <br>
+gcc dm.c -o dm `pkg-config --cflags --libs xcb` <br>
