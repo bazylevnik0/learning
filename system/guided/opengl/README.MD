@@ -1,0 +1,1 @@
+gcc $( pkg-config --cflags gtk4 ) -o example example.c $( pkg-config --libs gtk4 epoxy)
