@@ -14,6 +14,7 @@ unsigned int indices[] = {
 unsigned int VBO, EBO, VAO;
 static GLuint programID;
 GtkWidget *gl_area;
+int t;
 
 static void
 button_press(GtkEventControllerKey *controller,
@@ -30,18 +31,12 @@ render (GtkGLArea *area, GdkGLContext *context)
 
   //temp
   int uniColor = glGetUniformLocation(programID, "uniColor");
-  GdkFrameClock* frame_clock = gtk_widget_get_frame_clock ( GTK_WIDGET(area));
-  int time = gdk_frame_clock_get_frame_time (frame_clock);
-  g_print("time: %d\n",time);
-  float red = fabs(sin(time));
-  g_print("sin: %f\n",red);
+  float red = fabs(sin(t));
   glUseProgram(programID);
   glUniform4f(uniColor, red, 0.0f, 1.0f, 1.0f);
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-  //!need to call rerender, or handle in activate
-
-  g_print("render\n");
+  g_print("render %d\n",t);
   return TRUE;
 }
 
@@ -132,6 +127,7 @@ rerender (
   GdkFrameClock* frame_clock,
   gpointer user_data)
 {
+  t = gdk_frame_clock_get_frame_time (frame_clock);
   gtk_gl_area_queue_render (GTK_GL_AREA(widget));
 }
 
