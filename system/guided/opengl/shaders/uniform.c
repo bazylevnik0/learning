@@ -22,6 +22,30 @@ button_press(GtkEventControllerKey *controller,
      GdkModifierType                 state,
      gpointer                        data);
 
+static gboolean 
+render (GtkGLArea *area, GdkGLContext *context)
+{
+  glClearColor (0.0f, 1.0f, 0.0f, 0.5f);
+  glClear (GL_COLOR_BUFFER_BIT );
+
+  //temp
+  int uniColor = glGetUniformLocation(programID, "uniColor");
+  GdkFrameClock* frame_clock = gtk_widget_get_frame_clock ( GTK_WIDGET(area));
+  int time = gdk_frame_clock_get_frame_time (frame_clock);
+  g_print("time: %d\n",time);
+  float red = fabs(sin(time));
+  g_print("sin: %f\n",red);
+  glUseProgram(programID);
+  glUniform4f(uniColor, red, 0.0f, 1.0f, 1.0f);
+  glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+  //!need to call rerender, or handle in activate
+
+  g_print("render\n");
+  return TRUE;
+}
+
+
 static void
 realize (GtkGLArea *area)
 {
@@ -86,6 +110,8 @@ realize (GtkGLArea *area)
    glUseProgram(programID);
    glBindVertexArray(VAO); 
 
+
+
    g_print("realize\n");
 }
 
@@ -100,23 +126,13 @@ unrealize (GtkWidget *widget)
   g_print("unrealize\n");
 }
 
-static gboolean
-render (GtkGLArea *area, GdkGLContext *context)
+gboolean
+rerender (
+  GtkWidget* widget,
+  GdkFrameClock* frame_clock,
+  gpointer user_data)
 {
-  glClearColor (0.0f, 1.0f, 0.0f, 0.5f);
-  glClear (GL_COLOR_BUFFER_BIT );
-
-  //temp
-  int uniColor = glGetUniformLocation(programID, "uniColor");
-  float red = sin((unsigned)time(NULL)); //GDK_CURRENT_TIME
-  glUseProgram(programID);
-  glUniform4f(uniColor, red, 0.0f, 1.0f, 1.0f);
-  glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-  //!need to call rerender, or handle in activate
-
-  g_print("render\n");
-  return TRUE;
+  gtk_gl_area_queue_render (GTK_GL_AREA(widget));
 }
 
 static void
@@ -137,8 +153,10 @@ activate (GtkApplication* app,
   g_signal_connect (gl_area, "realize", G_CALLBACK (realize), NULL); 
   g_signal_connect (gl_area, "unrealize", G_CALLBACK (unrealize), NULL);
   g_signal_connect (gl_area, "render" , G_CALLBACK (render) , NULL); 
- 
+
+   
   gtk_widget_set_visible (window,true);
+  gtk_widget_add_tick_callback (gl_area,rerender,gl_area,NULL);
 }
 
 int
@@ -155,3 +173,5 @@ main (int    argc,
 
   return status;
 }
+
+//https://github.com/ebassi/glarea-example/blob/master/glarea-app-window.c
