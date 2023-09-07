@@ -45,7 +45,9 @@ realize (GtkGLArea *area)
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
-  glBindVertexArray(0); 
+  glBindVertexArray(VAO); //not sure but in my case need to bind again, maybe need with EBO
+
+
 
   // Source of shaders
   const char *vertex_shader_string = "#version 330 core\n"
@@ -82,7 +84,6 @@ realize (GtkGLArea *area)
    glDeleteShader(FragmentShaderID);
 
    glUseProgram(programID);
-   glBindVertexArray(VAO); 
 
    g_print("realize\n");
 }
@@ -94,6 +95,8 @@ unrealize (GtkWidget *widget)
 
   if (gtk_gl_area_get_error (GTK_GL_AREA (widget)) != NULL)
     return;
+
+   glDeleteProgram(programID);
   
   g_print("unrealize\n");
 }
