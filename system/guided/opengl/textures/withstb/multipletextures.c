@@ -53,7 +53,7 @@ realize (GtkGLArea *area)
   // set the texture wrapping/filtering options (on the currently bound texture object)
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   // load and generate the texture
   int width0, height0, nrChannels0;
@@ -96,7 +96,7 @@ realize (GtkGLArea *area)
     "out vec4 FragColor;\n"
     "void main()\n"
     "{\n"
-    "   FragColor = mix(texture(texture0, TexCoord), texture(texture1, TexCoord), 0.2);\n"
+    "   FragColor = mix(texture(texture0, TexCoord), texture(texture1, TexCoord),0.5);\n"
     "}\n\0";
 
    // Create the shaders
@@ -121,8 +121,8 @@ realize (GtkGLArea *area)
 
    glUseProgram(programID);
 
-   glUniform1i(glGetUniformLocation(FragmentShaderID, "texture0"), 0);
-   glUniform1i(glGetUniformLocation(FragmentShaderID, "texture1"), 1);   
+   glUniform1i(glGetUniformLocation(programID, "texture0"), 0);
+   glUniform1i(glGetUniformLocation(programID, "texture1"), 1);   
 
    g_print("realize\n");
 }
@@ -146,16 +146,13 @@ render (GtkGLArea *area, GdkGLContext *context)
   glClearColor (0.0f, 1.0f, 0.0f, 0.5f);
   glClear (GL_COLOR_BUFFER_BIT );
 
-     glActiveTexture(GL_TEXTURE0);
-     glBindTexture(GL_TEXTURE_2D, texture0);
-     glActiveTexture(GL_TEXTURE1);
-     glBindTexture(GL_TEXTURE_2D, texture1);
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, texture0);
+  glActiveTexture(GL_TEXTURE0+1);
+  glBindTexture(GL_TEXTURE_2D, texture1);
   glUseProgram(programID);
+  glBindVertexArray(VAO);
 
-    glBindVertexArray(VAO);
-
-
- 
   glDrawArrays(GL_TRIANGLES, 0, 3);
 
   g_print("render\n");
