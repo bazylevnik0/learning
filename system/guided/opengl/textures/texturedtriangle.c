@@ -2,14 +2,15 @@
 #include <epoxy/gl.h>
 
 static GLfloat vertices[] = {
-   -1.0f, -1.0f, 0.0f,
-    1.0f, -1.0f, 0.0f,
-    0.0f,  1.0f, 0.0f,
+   -1.0f, -1.0f, 0.0f, -1.0f, -1.0f,
+    1.0f, -1.0f, 0.0f,  1.0f, -1.0f,
+    0.0f,  1.0f, 0.0f,  0.0f,  1.0f,
 };
 unsigned int VBO, VAO;
 static GLuint programID;
 GtkWidget *gl_area;
-
+unsigned int texture;
+ 
 static void
 button_press(GtkEventControllerKey *controller,
      guint                           keyval,
@@ -30,26 +31,66 @@ realize (GtkGLArea *area)
   if (gtk_gl_area_get_error (area) != NULL)
     return;
 
+  // Generate buffers
+
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &VBO);  
   glBindVertexArray(VAO);  
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+  glEnableVertexAttribArray(1); 
+
+  // Generate texture
+
+  glGenTextures(1, &texture);
+  glBindTexture(GL_TEXTURE_2D, texture);
+  // set the texture wrapping/filtering options (on the currently bound texture object)
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  // load and generate the texture
+  //unsigned char *data = stbi_load("texture.jpg", &width, &height, &nrChannels, 0);
+  FILE *file;
+  file = fopen("texture.bmp", "rb");
+  fseek(file, 0, SEEK_END);                       // search the end and
+  unsigned long fileLen=ftell(file);              // store the position of the end
+  rewind(file);                                   // return to the start of the file
+  char* file_data=malloc((fileLen)*sizeof(char)); // set the memory
+  int num_read=0;
+  char s;
+  while ((num_read = fread(&s, 1, 1, file))) {
+      strncat(file_data,&s,1);
+  } // thx @gigasai from https://stackoverflow.com/questions/28462587/read-jpeg-file-to-char-buffer-c
+  fclose(file); 
+  g_print("%s",file_data);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 600, 600, 0, GL_RGB, GL_UNSIGNED_BYTE, file_data);
+  //https://registry.khronos.org/OpenGL-Refpages/gl4/html/glTexImage2D.xhtml
+  glGenerateMipmap(GL_TEXTURE_2D);
+ 
+  //stbi_image_free(data);
+
  
   // Source of shaders
   const char *vertex_shader_string = "#version 330 core\n"
     "layout (location = 0) in vec3 aPos;\n"
+    "layout (location = 1) in vec2 aTexCoord;\n"
+    "out vec2 TexCoord;\n"
     "void main()\n"
     "{\n"
     "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+    "   TexCoord = aTexCoord;\n"
     "}\0";
   const char *fragment_shader_string = "#version 330 core\n"
+    "in vec2 TexCoord;\n"
     "out vec4 FragColor;\n"
+    "uniform sampler2D ourTexture;"
     "void main()\n"
     "{\n"
-    "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+    "   FragColor = texture(ourTexture, TexCoord);\n"
     "}\n\0";
 
    // Create the shaders
@@ -95,6 +136,10 @@ render (GtkGLArea *area, GdkGLContext *context)
 {
   glClearColor (0.0f, 1.0f, 0.0f, 0.5f);
   glClear (GL_COLOR_BUFFER_BIT );
+
+     glBindTexture(GL_TEXTURE_2D, texture);
+     glBindVertexArray(VAO);
+ 
   glDrawArrays(GL_TRIANGLES, 0, 3);
 
   g_print("render\n");
