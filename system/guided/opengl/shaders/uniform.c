@@ -105,8 +105,6 @@ realize (GtkGLArea *area)
    glUseProgram(programID);
    glBindVertexArray(VAO); 
 
-
-
    g_print("realize\n");
 }
 
